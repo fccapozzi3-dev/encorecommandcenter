@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Order Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #0b1220; color: #eef4ff; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 24px; }
+    .card { background: #111b2d; border: 1px solid #29405f; border-radius: 16px; padding: 20px; }
+    h1 { margin-top: 0; }
+    label { display: block; margin: 14px 0 8px; font-weight: bold; }
+    input, select, textarea, button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #29405f;
+      background: #0b1422;
+      color: #eef4ff;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 16px;
+      background: #2d7ff9;
+      border-color: #2d7ff9;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .note { color: #9cb0d5; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Customer Order Form</h1>
+      <p class="note">Starter public form page. Replace submit later with email, Google Forms, Formspree, or your own backend.</p>
+
+      <form onsubmit="event.preventDefault(); alert('Form captured locally only. Connect this to email or a backend next.');">
+        <label>Shop Name</label>
+        <input required placeholder="Shop name" />
+
+        <label>Contact Name</label>
+        <input required placeholder="Contact person" />
+
+        <label>Phone</label>
+        <input placeholder="Phone number" />
+
+        <label>Email</label>
+        <input type="email" placeholder="Email address" />
+
+        <label>Product</label>
+        <select>
+          <option>0W-20 Full Synthetic</option>
+          <option>5W-30 Full Synthetic</option>
+          <option>5W-30 Synthetic Blend</option>
+          <option>15W-40 CK-4</option>
+          <option>10W-30 Heavy Duty</option>
+          <option>AW 32 Hydraulic</option>
+          <option>AW 46 Hydraulic</option>
+        </select>
+
+        <label>Quantity</label>
+        <input placeholder="Example: 55 gallons" />
+
+        <label>Notes</label>
+        <textarea rows="5" placeholder="Delivery notes, special requests, etc."></textarea>
+
+        <button type="submit">Submit Order Request</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
