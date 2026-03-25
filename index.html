@@ -3,304 +3,1304 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>OilTrackPro</title>
+  <title>OilTrackPro — Settings First</title>
   <style>
-    :root {
-      --bg: #07101f;
-      --surface: #0f1a2f;
-      --surface-2: #14213d;
-      --border: #24365f;
-      --text: #eef4ff;
-      --muted: #9cb0d5;
-      --blue: #0e5ab7;
-      --blue-2: #1b75d0;
-      --green: #50d890;
-      --red: #f27d7d;
+    :root{
+      --bg:#06101e;
+      --bg2:#09172b;
+      --card:#101c31;
+      --card2:#13223c;
+      --border:#27406b;
+      --text:#eef4ff;
+      --muted:#9db2d8;
+      --blue:#1f6fd6;
+      --blue2:#2b82f6;
+      --green:#52d18a;
+      --red:#f07b7b;
+      --gold:#e7bd53;
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #050b16 0%, #081120 100%);
-      color: var(--text);
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;min-height:100%;background:linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .app{max-width:1200px;margin:0 auto;padding:16px}
+    h1,h2,h3{margin:0 0 12px}
+    h1{font-size:30px}
+    h2{font-size:22px}
+    h3{font-size:18px}
+    .sub{color:var(--muted);margin:0 0 18px}
+    .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:8px;margin-bottom:16px}
+    .tab,button,.btn{
+      border:1px solid var(--border);
+      background:var(--card2);
+      color:var(--text);
+      border-radius:12px;
+      padding:12px 14px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      min-height:44px;
+      white-space:nowrap;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
-    .app { padding: 16px; max-width: 100%; }
-    .card {
-      background: rgba(15,26,47,.98);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 12px;
+    .tab.active{background:var(--blue)}
+    .btn-blue{background:var(--blue2);color:#fff}
+    .btn-green{background:var(--green);color:#072013}
+    .btn-red{background:var(--red);color:#2a0909}
+    .btn-gold{background:var(--gold);color:#241a00}
+    .grid{display:grid;gap:12px}
+    .grid-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .grid-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .card{
+      background:rgba(16,28,49,.97);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:12px;
     }
-    h1, h2, h3 { margin: 0 0 12px; }
-    h1 { font-size: 24px; }
-    h2 { font-size: 18px; }
-    .tabs { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; }
-    .tab, button {
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--text);
-      border-radius: 10px;
-      padding: 12px 14px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 14px;
-      min-height: 44px;
-      white-space: nowrap;
-      -webkit-appearance: none;
+    input,select,textarea{
+      width:100%;
+      background:#0c1730;
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      margin:0 0 10px;
+      font-size:16px;
     }
-    .tab.active { background: var(--blue); color: white; }
-    .btn-blue { background: var(--blue-2); color: white; }
-    .btn-green { background: var(--green); color: #072013; }
-    .btn-red { background: var(--red); color: #260909; }
-    input, select, textarea {
-      width: 100%;
-      background: #0b1630;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 10px;
-      font-size: 16px;
-      -webkit-appearance: none;
+    textarea{min-height:96px;resize:vertical}
+    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .stack{display:grid;gap:10px}
+    .screen.hidden{display:none!important}
+    .metric{font-size:30px;font-weight:800}
+    .muted{color:var(--muted)}
+    .tiny{font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+    .pill{
+      display:inline-block;
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-size:12px;
+      margin-right:6px;
+      margin-bottom:6px;
     }
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 8px;
-      font-size: 16px;
+    .list-item{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px;
+      background:#0c1730;
     }
-    .hidden { display: none !important; }
-    .actions { display: flex; flex-direction: column; gap: 8px; }
-    .actions button { margin-bottom: 0; }
-    .row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
+    .spacer{height:8px}
+    .divider{height:1px;background:var(--border);margin:12px 0}
+    .right{margin-left:auto}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .danger-text{color:#ffaaaa}
+    .success-text{color:#8ff0b2}
+    .link{color:#8dbcff;word-break:break-all}
+    .nowrap{white-space:nowrap}
+    .line-item{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px;
+      margin-bottom:10px;
+      background:#0d1830;
     }
-    .small { color: var(--muted); font-size: 13px; }
-    a.link {
-      color: #8dbdff;
-      word-break: break-all;
+    .totals{
+      display:grid;
+      gap:8px;
+      max-width:420px;
+      margin-left:auto;
+    }
+    .total-row{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      border-bottom:1px solid var(--border);
+      padding:8px 0;
+    }
+    .big-total{font-size:24px;font-weight:800}
+    .preview{
+      white-space:pre-wrap;
+      background:#0b1426;
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      font-size:14px;
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <h1>OilTrackPro</h1>
-    <div class="tabs">
-      <button class="tab active" data-tab="dashboard">Dashboard</button>
-      <button class="tab" data-tab="contacts">Contacts</button>
-      <button class="tab" data-tab="quote">Quote</button>
-      <button class="tab" data-tab="history">History</button>
-      <button class="tab" data-tab="settings">Settings</button>
-    </div>
+<div class="app">
+  <h1>OilTrackPro</h1>
+  <p class="sub">Settings-first oil CRM, quote builder, invoice builder, and product manager.</p>
 
-    <section id="dashboard" class="screen"></section>
-    <section id="contacts" class="screen hidden"></section>
-    <section id="quote" class="screen hidden"></section>
-    <section id="history" class="screen hidden"></section>
-    <section id="settings" class="screen hidden"></section>
+  <div class="tabs">
+    <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="products">Products</button>
+    <button class="tab" data-tab="fields">Customer Fields</button>
+    <button class="tab" data-tab="customers">Customers</button>
+    <button class="tab" data-tab="invoices">Invoices</button>
+    <button class="tab" data-tab="settings">Settings</button>
+    <button class="tab" data-tab="data">Backup</button>
   </div>
 
+  <section id="dashboard" class="screen"></section>
+  <section id="products" class="screen hidden"></section>
+  <section id="fields" class="screen hidden"></section>
+  <section id="customers" class="screen hidden"></section>
+  <section id="invoices" class="screen hidden"></section>
+  <section id="settings" class="screen hidden"></section>
+  <section id="data" class="screen hidden"></section>
+</div>
+
 <script>
-const state = {
-  tab: 'dashboard',
-  contacts: JSON.parse(localStorage.getItem('contacts') || '[]'),
-  quotes: JSON.parse(localStorage.getItem('quotes') || '[]'),
-  settings: JSON.parse(localStorage.getItem('settings') || '{"customerOrderFormUrl":""}')
+const STORAGE_KEY = 'oiltrackpro_settings_first_v2';
+
+const defaults = {
+  products: [],
+  customerFields: [
+    {id: uid(), key:'shopName', label:'Shop Name', type:'text', required:true, enabled:true, options:''},
+    {id: uid(), key:'contactName', label:'Contact Name', type:'text', required:true, enabled:true, options:''},
+    {id: uid(), key:'phone', label:'Phone', type:'phone', required:false, enabled:true, options:''},
+    {id: uid(), key:'email', label:'Email', type:'email', required:false, enabled:true, options:''},
+    {id: uid(), key:'notes', label:'Notes', type:'textarea', required:false, enabled:true, options:''}
+  ],
+  customers: [],
+  invoices: [],
+  settings: {
+    companyName: 'Encore Petroleum',
+    companyPhone: '',
+    companyEmail: '',
+    companyAddress: '',
+    logoUrl: '',
+    invoicePrefix: 'INV-',
+    nextInvoiceNumber: 1001,
+    paymentTerms: 'Due on receipt',
+    defaultDeliveryCharge: 0,
+    defaultTaxRate: 0,
+    defaultDrumDeposit: 0,
+    defaultDisclaimer: 'Prices and availability are subject to change based on market conditions and supply volatility.',
+    quoteMessage: 'Thank you for the opportunity to quote your lubricants and related products.',
+    invoiceMessage: 'Thank you for your business.',
+    customerOrderFormUrl: 'https://fccapozzi3-dev.github.io/Sales/customer-order-form.html'
+  }
 };
 
-function save() {
-  localStorage.setItem('contacts', JSON.stringify(state.contacts));
-  localStorage.setItem('quotes', JSON.stringify(state.quotes));
-  localStorage.setItem('settings', JSON.stringify(state.settings));
+let state = loadState();
+let ui = {
+  tab: 'dashboard',
+  invoiceDraft: newInvoiceDraft()
+};
+
+function uid(){
+  return Math.random().toString(36).slice(2,9);
 }
 
-function uid() {
-  return Math.random().toString(36).slice(2, 9);
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return structuredClone(defaults);
+    const parsed = JSON.parse(raw);
+    return {
+      products: Array.isArray(parsed.products) ? parsed.products : structuredClone(defaults.products),
+      customerFields: Array.isArray(parsed.customerFields) ? parsed.customerFields : structuredClone(defaults.customerFields),
+      customers: Array.isArray(parsed.customers) ? parsed.customers : structuredClone(defaults.customers),
+      invoices: Array.isArray(parsed.invoices) ? parsed.invoices : structuredClone(defaults.invoices),
+      settings: {...structuredClone(defaults.settings), ...(parsed.settings || {})}
+    };
+  }catch(e){
+    return structuredClone(defaults);
+  }
 }
 
-function switchTab(tab) {
-  state.tab = tab;
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function structuredClone(obj){
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function currency(n){
+  return '$' + Number(n || 0).toFixed(2);
+}
+
+function numberOrZero(v){
+  return Number(v || 0);
+}
+
+function switchTab(tab){
+  ui.tab = tab;
   document.querySelectorAll('.screen').forEach(el => el.classList.add('hidden'));
   document.getElementById(tab).classList.remove('hidden');
   document.querySelectorAll('.tab').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
   render();
 }
 
-function render() {
+function render(){
   renderDashboard();
-  renderContacts();
-  renderQuote();
-  renderHistory();
+  renderProducts();
+  renderFields();
+  renderCustomers();
+  renderInvoices();
   renderSettings();
+  renderData();
 }
 
-function renderDashboard() {
-  const totalQuoted = state.quotes.reduce((sum, q) => sum + Number(q.total || 0), 0);
-  const formHtml = state.settings.customerOrderFormUrl
-    ? '<a class="link" href="' + state.settings.customerOrderFormUrl + '" target="_blank">Open customer order form</a>'
-    : '<div class="small">Add your form URL in Settings.</div>';
+function metricCard(title, value, note=''){
+  return `
+    <div class="card">
+      <div class="muted">${title}</div>
+      <div class="metric">${value}</div>
+      ${note ? `<div class="tiny">${note}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderDashboard(){
+  const revenue = state.invoices.reduce((sum, inv) => sum + numberOrZero(inv.total), 0);
+  const activeProducts = state.products.filter(p => p.active !== false).length;
+  const enabledFields = state.customerFields.filter(f => f.enabled !== false).length;
+  const lastInvoice = state.invoices[0];
 
   document.getElementById('dashboard').innerHTML = `
-    <div class="card">
-      <h2>Overview</h2>
-      <div class="row"><strong>Contacts</strong><span>${state.contacts.length}</span></div>
-      <div class="row"><strong>Quotes</strong><span>${state.quotes.length}</span></div>
-      <div class="row"><strong>Total Quoted</strong><span>$${totalQuoted.toFixed(2)}</span></div>
+    <div class="grid grid-3">
+      ${metricCard('Products', state.products.length, activeProducts + ' active')}
+      ${metricCard('Customers', state.customers.length)}
+      ${metricCard('Invoices', state.invoices.length)}
+      ${metricCard('Quoted / Invoiced Total', currency(revenue))}
+      ${metricCard('Customer Intake Fields', state.customerFields.length, enabledFields + ' enabled')}
+      ${metricCard('Next Invoice #', (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber)}
     </div>
 
     <div class="card">
-      <h2>Customer Order Form</h2>
-      ${formHtml}
-    </div>
-
-    <div class="card actions">
-      <button class="btn-blue" onclick="OilTrack.switchTab('contacts')">Add Contact</button>
-      <button class="btn-blue" onclick="OilTrack.switchTab('quote')">Create Quote</button>
-      <button class="btn-blue" onclick="OilTrack.switchTab('settings')">Open Settings</button>
-    </div>
-  `;
-}
-
-function renderContacts() {
-  let html = `
-    <div class="card">
-      <h2>Add Contact</h2>
-      <input id="name" placeholder="Name" />
-      <input id="phone" placeholder="Phone" />
-      <input id="email" placeholder="Email" />
-      <button class="btn-blue" onclick="OilTrack.addContact()">Save Contact</button>
-    </div>
-  `;
-
-  if (!state.contacts.length) {
-    html += `<div class="card"><div class="small">No contacts yet.</div></div>`;
-  }
-
-  state.contacts.forEach(c => {
-    html += `
-      <div class="card">
-        <div><strong>${c.name}</strong></div>
-        <div class="small">${c.phone || ''}</div>
-        <div class="small">${c.email || ''}</div>
-        <button class="btn-red" onclick="OilTrack.deleteContact('${c.id}')">Delete</button>
-      </div>
-    `;
-  });
-
-  document.getElementById('contacts').innerHTML = html;
-}
-
-function renderQuote() {
-  let contactOptions = `<option value="">Select Contact</option>`;
-  state.contacts.forEach(c => {
-    contactOptions += `<option value="${c.id}">${c.name}</option>`;
-  });
-
-  document.getElementById('quote').innerHTML = `
-    <div class="card">
-      <h2>Build Quote</h2>
-      <select id="contact">${contactOptions}</select>
-      <input id="product" placeholder="Product" />
-      <input id="quantity" type="number" placeholder="Quantity" />
-      <input id="price" type="number" placeholder="Price per Gallon" />
-      <button class="btn-blue" onclick="OilTrack.saveQuote()">Save Quote</button>
-    </div>
-  `;
-}
-
-function renderHistory() {
-  let html = `<div class="card"><h2>Quote History</h2>`;
-
-  if (!state.quotes.length) {
-    html += `<div class="small">No quotes saved yet.</div>`;
-  }
-
-  state.quotes.forEach(q => {
-    html += `
+      <h2>What you can edit now</h2>
       <div class="row">
-        <div>
-          <div><strong>${q.product}</strong></div>
-          <div class="small">${q.contactName || 'Unknown contact'}</div>
-          <div class="small">${q.quantity} × $${Number(q.price).toFixed(2)}</div>
-        </div>
-        <div>
-          <strong>$${Number(q.total).toFixed(2)}</strong>
-        </div>
+        <span class="pill">Products</span>
+        <span class="pill">Pricing</span>
+        <span class="pill">Units</span>
+        <span class="pill">Customer fields</span>
+        <span class="pill">Invoice terms</span>
+        <span class="pill">Delivery charge</span>
+        <span class="pill">Tax</span>
+        <span class="pill">Drum deposit</span>
+        <span class="pill">Company info</span>
       </div>
-    `;
-  });
+      <div class="spacer"></div>
+      <div class="row">
+        <button class="btn-blue" onclick="switchTab('products')">Manage Products</button>
+        <button class="btn-blue" onclick="switchTab('fields')">Edit Customer Fields</button>
+        <button class="btn-blue" onclick="switchTab('invoices')">Build Invoice</button>
+      </div>
+    </div>
 
-  html += `</div>`;
-  document.getElementById('history').innerHTML = html;
-}
-
-function renderSettings() {
-  document.getElementById('settings').innerHTML = `
     <div class="card">
-      <h2>Settings</h2>
-      <div class="small">Customer Order Form URL</div>
-      <input id="formUrl" placeholder="https://fccapozzi3-dev.github.io/Sales/customer-order-form.html" value="${state.settings.customerOrderFormUrl || ''}" />
-      <button class="btn-green" onclick="OilTrack.saveSettings()">Save Settings</button>
+      <h2>Customer order form URL</h2>
+      <a class="link" href="${escapeHtml(state.settings.customerOrderFormUrl || '')}" target="_blank">${escapeHtml(state.settings.customerOrderFormUrl || 'Not set')}</a>
+      <div class="spacer"></div>
+      <div class="tiny">Note: this app is settings-driven on this browser. Public customer forms on other devices will not automatically inherit local browser settings without a backend.</div>
+    </div>
+
+    <div class="card">
+      <h2>Most recent invoice</h2>
+      ${lastInvoice ? `
+        <div><strong>${escapeHtml(lastInvoice.invoiceNumber)}</strong></div>
+        <div class="muted">${escapeHtml(lastInvoice.customerName || 'No customer')}</div>
+        <div class="muted">${escapeHtml(lastInvoice.date || '')}</div>
+        <div class="big-total">${currency(lastInvoice.total)}</div>
+      ` : `<div class="muted">No invoices yet.</div>`}
     </div>
   `;
 }
 
-window.OilTrack = {
-  switchTab,
-  addContact: function() {
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const email = document.getElementById('email').value.trim();
-    if (!name) return alert('Enter name');
-    state.contacts.push({ id: uid(), name, phone, email });
-    save();
-    render();
-  },
-  deleteContact: function(id) {
-    state.contacts = state.contacts.filter(c => c.id !== id);
-    save();
-    render();
-  },
-  saveQuote: function() {
-    const contactId = document.getElementById('contact').value;
-    const product = document.getElementById('product').value.trim();
-    const quantity = document.getElementById('quantity').value;
-    const price = document.getElementById('price').value;
-    if (!contactId || !product || !quantity || !price) return alert('Fill all fields');
-    const contact = state.contacts.find(c => c.id === contactId);
-    const total = Number(quantity) * Number(price);
-    state.quotes.push({
-      id: uid(),
-      contactId,
-      contactName: contact ? contact.name : '',
-      product,
-      quantity,
-      price,
-      total
-    });
-    save();
-    render();
-    switchTab('history');
-  },
-  saveSettings: function() {
-    const formUrl = document.getElementById('formUrl').value.trim();
-    state.settings.customerOrderFormUrl = formUrl;
-    save();
-    render();
-    alert('Settings saved');
-  }
-};
-
-document.querySelectorAll('.tab').forEach(btn => {
-  btn.addEventListener('click', function() {
-    switchTab(btn.dataset.tab);
+function renderProducts(){
+  let rows = '';
+  state.products.forEach((p, i) => {
+    rows += `
+      <tr>
+        <td>${escapeHtml(p.name || '')}</td>
+        <td>${escapeHtml(p.category || '')}</td>
+        <td>${escapeHtml(p.unit || '')}</td>
+        <td>${currency(p.price)}</td>
+        <td>${escapeHtml(p.sku || '')}</td>
+        <td>${p.active === false ? 'Inactive' : 'Active'}</td>
+        <td class="nowrap">
+          <button onclick="editProduct('${p.id}')">Edit</button>
+          <button class="btn-red" onclick="deleteProduct('${p.id}')">Delete</button>
+        </td>
+      </tr>
+    `;
   });
+
+  document.getElementById('products').innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Add / Edit Product</h2>
+        <input id="prod_name" placeholder="Product name" />
+        <input id="prod_category" placeholder="Category (ex: Full Synthetic, Heavy Duty, Hydraulic, Grease)" />
+        <div class="grid grid-2">
+          <input id="prod_unit" placeholder="Unit (gal, drum, pail, case, keg)" />
+          <input id="prod_price" type="number" step="0.01" placeholder="Price" />
+        </div>
+        <div class="grid grid-2">
+          <input id="prod_sku" placeholder="SKU / short code" />
+          <select id="prod_active">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </div>
+        <textarea id="prod_notes" placeholder="Notes"></textarea>
+        <input type="hidden" id="prod_id" />
+        <div class="row">
+          <button class="btn-green" onclick="saveProduct()">Save Product</button>
+          <button onclick="clearProductForm()">Clear</button>
+          <button class="btn-gold" onclick="seedEncoreStarterProducts()">Load Starter Products</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>How to use products</h2>
+        <div class="muted">Add every product once here. The invoice builder will pull from this list and auto-fill price and unit.</div>
+        <div class="spacer"></div>
+        <div class="tiny">Examples: 0W-20 Full Synthetic, 5W-30 Synthetic Blend, 15W-40 CK-4, AW 32 Hydraulic, Gear Oil 80W90, Red Grease 120 lb keg.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Product Catalog</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Unit</th>
+              <th>Price</th>
+              <th>SKU</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows || `<tr><td colspan="7" class="muted">No products yet.</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderFields(){
+  let rows = '';
+  state.customerFields.forEach(f => {
+    rows += `
+      <tr>
+        <td>${escapeHtml(f.label)}</td>
+        <td>${escapeHtml(f.key)}</td>
+        <td>${escapeHtml(f.type)}</td>
+        <td>${f.required ? 'Yes' : 'No'}</td>
+        <td>${f.enabled === false ? 'No' : 'Yes'}</td>
+        <td>${escapeHtml(f.options || '')}</td>
+        <td>
+          <button onclick="editField('${f.id}')">Edit</button>
+          <button class="btn-red" onclick="deleteField('${f.id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  const preview = state.customerFields
+    .filter(f => f.enabled !== false)
+    .map(f => `<div class="pill">${escapeHtml(f.label)}${f.required ? ' *' : ''} — ${escapeHtml(f.type)}</div>`)
+    .join('');
+
+  document.getElementById('fields').innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Add / Edit Customer Field</h2>
+        <input id="field_label" placeholder="Field label (ex: Shop Name)" />
+        <input id="field_key" placeholder="Field key (ex: shopName)" />
+        <div class="grid grid-2">
+          <select id="field_type">
+            <option value="text">text</option>
+            <option value="phone">phone</option>
+            <option value="email">email</option>
+            <option value="number">number</option>
+            <option value="textarea">textarea</option>
+            <option value="dropdown">dropdown</option>
+            <option value="checkbox">checkbox</option>
+          </select>
+          <select id="field_required">
+            <option value="true">Required</option>
+            <option value="false">Optional</option>
+          </select>
+        </div>
+        <select id="field_enabled">
+          <option value="true">Enabled</option>
+          <option value="false">Disabled</option>
+        </select>
+        <textarea id="field_options" placeholder="Dropdown options, comma separated. Example: Drum,Bulk,Case"></textarea>
+        <input type="hidden" id="field_id" />
+        <div class="row">
+          <button class="btn-green" onclick="saveField()">Save Field</button>
+          <button onclick="clearFieldForm()">Clear</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Customer form preview</h2>
+        <div>${preview || `<div class="muted">No enabled fields.</div>`}</div>
+        <div class="spacer"></div>
+        <div class="tiny">This controls what info you want to collect in your workflow. A true public dynamic customer form for everyone will eventually need a backend or form service.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Customer Fields</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Label</th>
+              <th>Key</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Enabled</th>
+              <th>Options</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows || `<tr><td colspan="7" class="muted">No fields yet.</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderCustomers(){
+  let rows = '';
+  state.customers.forEach(c => {
+    rows += `
+      <tr>
+        <td>${escapeHtml(c.shopName || c.name || '')}</td>
+        <td>${escapeHtml(c.contactName || '')}</td>
+        <td>${escapeHtml(c.phone || '')}</td>
+        <td>${escapeHtml(c.email || '')}</td>
+        <td>
+          <button onclick="loadCustomerToInvoice('${c.id}')">Use</button>
+          <button onclick="editCustomer('${c.id}')">Edit</button>
+          <button class="btn-red" onclick="deleteCustomer('${c.id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('customers').innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Add / Edit Customer</h2>
+        <input id="cust_shopName" placeholder="Shop Name" />
+        <input id="cust_contactName" placeholder="Contact Name" />
+        <div class="grid grid-2">
+          <input id="cust_phone" placeholder="Phone" />
+          <input id="cust_email" placeholder="Email" />
+        </div>
+        <input id="cust_address" placeholder="Address" />
+        <textarea id="cust_notes" placeholder="Notes"></textarea>
+        <input type="hidden" id="cust_id" />
+        <div class="row">
+          <button class="btn-green" onclick="saveCustomer()">Save Customer</button>
+          <button onclick="clearCustomerForm()">Clear</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Customer records</h2>
+        <div class="muted">Use this list to quickly build quotes and invoices without retyping customer information.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Customer List</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Shop</th>
+              <th>Contact</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows || `<tr><td colspan="5" class="muted">No customers yet.</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function newInvoiceDraft(){
+  return {
+    customerId: '',
+    customerName: '',
+    contactName: '',
+    email: '',
+    phone: '',
+    address: '',
+    date: today(),
+    dueDate: '',
+    deliveryCharge: numberOrZero(state.settings.defaultDeliveryCharge),
+    taxRate: numberOrZero(state.settings.defaultTaxRate),
+    drumDeposit: numberOrZero(state.settings.defaultDrumDeposit),
+    notes: state.settings.invoiceMessage || '',
+    disclaimer: state.settings.defaultDisclaimer || '',
+    items: [newLineItem()]
+  };
+}
+
+function newLineItem(){
+  return {
+    id: uid(),
+    productId: '',
+    description: '',
+    quantity: 1,
+    unit: '',
+    unitPrice: 0
+  };
+}
+
+function invoiceTotals(inv){
+  const subtotal = inv.items.reduce((sum, item) => sum + (numberOrZero(item.quantity) * numberOrZero(item.unitPrice)), 0);
+  const delivery = numberOrZero(inv.deliveryCharge);
+  const deposit = numberOrZero(inv.drumDeposit);
+  const preTax = subtotal + delivery + deposit;
+  const tax = preTax * (numberOrZero(inv.taxRate) / 100);
+  const total = preTax + tax;
+  return {subtotal, delivery, deposit, preTax, tax, total};
+}
+
+function renderInvoices(){
+  const inv = ui.invoiceDraft;
+  const totals = invoiceTotals(inv);
+
+  let customerOptions = `<option value="">Select customer</option>`;
+  state.customers.forEach(c => {
+    customerOptions += `<option value="${c.id}" ${inv.customerId === c.id ? 'selected' : ''}>${escapeHtml(c.shopName || '')}</option>`;
+  });
+
+  const productOptions = () => {
+    let html = `<option value="">Select product</option>`;
+    state.products.filter(p => p.active !== false).forEach(p => {
+      html += `<option value="${p.id}">${escapeHtml(p.name)} — ${currency(p.price)} / ${escapeHtml(p.unit || '')}</option>`;
+    });
+    return html;
+  };
+
+  const lineItemsHtml = inv.items.map((item, idx) => `
+    <div class="line-item">
+      <div class="grid grid-2">
+        <select onchange="setLineProduct('${item.id}', this.value)">
+          ${productOptions()}
+        </select>
+        <input value="${escapeAttr(item.description || '')}" placeholder="Description" oninput="setLineField('${item.id}', 'description', this.value)" />
+      </div>
+      <div class="grid grid-3">
+        <input type="number" step="0.01" value="${item.quantity}" placeholder="Qty" oninput="setLineField('${item.id}', 'quantity', this.value)" />
+        <input value="${escapeAttr(item.unit || '')}" placeholder="Unit" oninput="setLineField('${item.id}', 'unit', this.value)" />
+        <input type="number" step="0.01" value="${item.unitPrice}" placeholder="Unit Price" oninput="setLineField('${item.id}', 'unitPrice', this.value)" />
+      </div>
+      <div class="row">
+        <div class="right"><strong>Line Total: ${currency(numberOrZero(item.quantity) * numberOrZero(item.unitPrice))}</strong></div>
+        <button class="btn-red" onclick="removeLineItem('${item.id}')">Remove</button>
+      </div>
+    </div>
+  `).join('');
+
+  const previewText = buildInvoiceTextPreview(inv, totals);
+
+  let invoiceRows = '';
+  state.invoices.forEach(saved => {
+    invoiceRows += `
+      <tr>
+        <td>${escapeHtml(saved.invoiceNumber)}</td>
+        <td>${escapeHtml(saved.customerName || '')}</td>
+        <td>${escapeHtml(saved.date || '')}</td>
+        <td>${currency(saved.total)}</td>
+        <td>
+          <button onclick="loadSavedInvoice('${saved.id}')">Load</button>
+          <button onclick="copySavedInvoice('${saved.id}')">Copy Text</button>
+          <button onclick="emailSavedInvoice('${saved.id}')">Email</button>
+          <button class="btn-red" onclick="deleteInvoice('${saved.id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('invoices').innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Invoice Builder</h2>
+        <select onchange="loadCustomerToDraft(this.value)">
+          ${customerOptions}
+        </select>
+        <div class="grid grid-2">
+          <input value="${escapeAttr(inv.customerName || '')}" placeholder="Customer / Shop Name" oninput="setInvoiceField('customerName', this.value)" />
+          <input value="${escapeAttr(inv.contactName || '')}" placeholder="Contact Name" oninput="setInvoiceField('contactName', this.value)" />
+        </div>
+        <div class="grid grid-2">
+          <input value="${escapeAttr(inv.phone || '')}" placeholder="Phone" oninput="setInvoiceField('phone', this.value)" />
+          <input value="${escapeAttr(inv.email || '')}" placeholder="Email" oninput="setInvoiceField('email', this.value)" />
+        </div>
+        <input value="${escapeAttr(inv.address || '')}" placeholder="Address" oninput="setInvoiceField('address', this.value)" />
+        <div class="grid grid-3">
+          <input type="date" value="${escapeAttr(inv.date || '')}" oninput="setInvoiceField('date', this.value)" />
+          <input type="date" value="${escapeAttr(inv.dueDate || '')}" oninput="setInvoiceField('dueDate', this.value)" />
+          <input value="${escapeAttr((state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber)}" disabled />
+        </div>
+
+        <div class="divider"></div>
+        <h3>Line Items</h3>
+        ${lineItemsHtml}
+        <button class="btn-blue" onclick="addLineItem()">Add Line Item</button>
+
+        <div class="divider"></div>
+        <h3>Charges / Terms</h3>
+        <div class="grid grid-3">
+          <input type="number" step="0.01" value="${inv.deliveryCharge}" placeholder="Delivery Charge" oninput="setInvoiceField('deliveryCharge', this.value)" />
+          <input type="number" step="0.01" value="${inv.drumDeposit}" placeholder="Drum Deposit" oninput="setInvoiceField('drumDeposit', this.value)" />
+          <input type="number" step="0.01" value="${inv.taxRate}" placeholder="Tax %" oninput="setInvoiceField('taxRate', this.value)" />
+        </div>
+        <textarea placeholder="Invoice / quote message" oninput="setInvoiceField('notes', this.value)">${escapeHtml(inv.notes || '')}</textarea>
+        <textarea placeholder="Disclaimer" oninput="setInvoiceField('disclaimer', this.value)">${escapeHtml(inv.disclaimer || '')}</textarea>
+
+        <div class="totals">
+          <div class="total-row"><span>Subtotal</span><strong>${currency(totals.subtotal)}</strong></div>
+          <div class="total-row"><span>Delivery</span><strong>${currency(totals.delivery)}</strong></div>
+          <div class="total-row"><span>Drum Deposit</span><strong>${currency(totals.deposit)}</strong></div>
+          <div class="total-row"><span>Tax</span><strong>${currency(totals.tax)}</strong></div>
+          <div class="total-row big-total"><span>Total</span><strong>${currency(totals.total)}</strong></div>
+        </div>
+
+        <div class="spacer"></div>
+        <div class="row">
+          <button class="btn-green" onclick="saveInvoice()">Save Invoice</button>
+          <button class="btn-blue" onclick="copyDraftInvoice()">Copy Invoice Text</button>
+          <button class="btn-gold" onclick="emailDraftInvoice()">Email Invoice</button>
+          <button onclick="resetInvoiceDraft()">New Invoice</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Invoice Preview</h2>
+        <div class="preview">${escapeHtml(previewText)}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Saved Invoices</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Customer</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${invoiceRows || `<tr><td colspan="5" class="muted">No saved invoices yet.</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderSettings(){
+  const s = state.settings;
+  document.getElementById('settings').innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Company Info</h2>
+        <input id="set_companyName" value="${escapeAttr(s.companyName || '')}" placeholder="Company Name" />
+        <input id="set_companyPhone" value="${escapeAttr(s.companyPhone || '')}" placeholder="Phone" />
+        <input id="set_companyEmail" value="${escapeAttr(s.companyEmail || '')}" placeholder="Email" />
+        <input id="set_companyAddress" value="${escapeAttr(s.companyAddress || '')}" placeholder="Address" />
+        <input id="set_logoUrl" value="${escapeAttr(s.logoUrl || '')}" placeholder="Logo URL" />
+      </div>
+
+      <div class="card">
+        <h2>Invoice Defaults</h2>
+        <div class="grid grid-2">
+          <input id="set_invoicePrefix" value="${escapeAttr(s.invoicePrefix || '')}" placeholder="Invoice Prefix" />
+          <input id="set_nextInvoiceNumber" type="number" value="${escapeAttr(s.nextInvoiceNumber || 1001)}" placeholder="Next Invoice Number" />
+        </div>
+        <input id="set_paymentTerms" value="${escapeAttr(s.paymentTerms || '')}" placeholder="Payment Terms" />
+        <div class="grid grid-3">
+          <input id="set_defaultDeliveryCharge" type="number" step="0.01" value="${escapeAttr(s.defaultDeliveryCharge || 0)}" placeholder="Default Delivery Charge" />
+          <input id="set_defaultTaxRate" type="number" step="0.01" value="${escapeAttr(s.defaultTaxRate || 0)}" placeholder="Default Tax Rate %" />
+          <input id="set_defaultDrumDeposit" type="number" step="0.01" value="${escapeAttr(s.defaultDrumDeposit || 0)}" placeholder="Default Drum Deposit" />
+        </div>
+        <textarea id="set_defaultDisclaimer" placeholder="Default Disclaimer">${escapeHtml(s.defaultDisclaimer || '')}</textarea>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Message Templates</h2>
+        <textarea id="set_quoteMessage" placeholder="Quote message">${escapeHtml(s.quoteMessage || '')}</textarea>
+        <textarea id="set_invoiceMessage" placeholder="Invoice message">${escapeHtml(s.invoiceMessage || '')}</textarea>
+      </div>
+
+      <div class="card">
+        <h2>Links</h2>
+        <input id="set_customerOrderFormUrl" value="${escapeAttr(s.customerOrderFormUrl || '')}" placeholder="Customer Order Form URL" />
+        <div class="tiny">This is the link your dashboard opens.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <button class="btn-green" onclick="saveSettings()">Save Settings</button>
+        <button onclick="resetSettingsOnly()">Reset Settings Only</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderData(){
+  document.getElementById('data').innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Export Backup</h2>
+        <div class="muted">Copy your full app data as JSON and keep it somewhere safe.</div>
+        <div class="spacer"></div>
+        <button class="btn-blue" onclick="exportData()">Generate Backup JSON</button>
+        <textarea id="backup_output" placeholder="Your backup JSON will appear here"></textarea>
+      </div>
+
+      <div class="card">
+        <h2>Import Backup</h2>
+        <div class="muted">Paste a previous backup JSON here to restore your products, customers, fields, invoices, and settings.</div>
+        <div class="spacer"></div>
+        <textarea id="backup_input" placeholder="Paste backup JSON here"></textarea>
+        <div class="row">
+          <button class="btn-green" onclick="importData()">Import Backup</button>
+          <button class="btn-red" onclick="wipeEverything()">Wipe Everything</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function escapeHtml(v){
+  return String(v ?? '')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;');
+}
+
+function escapeAttr(v){
+  return String(v ?? '')
+    .replaceAll('&','&amp;')
+    .replaceAll('"','&quot;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;');
+}
+
+function today(){
+  return new Date().toISOString().slice(0,10);
+}
+
+/* PRODUCTS */
+function clearProductForm(){
+  document.getElementById('prod_id').value = '';
+  document.getElementById('prod_name').value = '';
+  document.getElementById('prod_category').value = '';
+  document.getElementById('prod_unit').value = '';
+  document.getElementById('prod_price').value = '';
+  document.getElementById('prod_sku').value = '';
+  document.getElementById('prod_active').value = 'true';
+  document.getElementById('prod_notes').value = '';
+}
+
+function saveProduct(){
+  const id = document.getElementById('prod_id').value || uid();
+  const product = {
+    id,
+    name: document.getElementById('prod_name').value.trim(),
+    category: document.getElementById('prod_category').value.trim(),
+    unit: document.getElementById('prod_unit').value.trim(),
+    price: numberOrZero(document.getElementById('prod_price').value),
+    sku: document.getElementById('prod_sku').value.trim(),
+    active: document.getElementById('prod_active').value === 'true',
+    notes: document.getElementById('prod_notes').value.trim()
+  };
+  if(!product.name) return alert('Enter a product name.');
+  const idx = state.products.findIndex(p => p.id === id);
+  if(idx >= 0) state.products[idx] = product;
+  else state.products.unshift(product);
+  saveState();
+  clearProductForm();
+  render();
+}
+
+function editProduct(id){
+  const p = state.products.find(x => x.id === id);
+  if(!p) return;
+  document.getElementById('prod_id').value = p.id;
+  document.getElementById('prod_name').value = p.name || '';
+  document.getElementById('prod_category').value = p.category || '';
+  document.getElementById('prod_unit').value = p.unit || '';
+  document.getElementById('prod_price').value = p.price || 0;
+  document.getElementById('prod_sku').value = p.sku || '';
+  document.getElementById('prod_active').value = String(p.active !== false);
+  document.getElementById('prod_notes').value = p.notes || '';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deleteProduct(id){
+  if(!confirm('Delete this product?')) return;
+  state.products = state.products.filter(p => p.id !== id);
+  saveState();
+  render();
+}
+
+function seedEncoreStarterProducts(){
+  if(!confirm('Load a starter product list? Existing products will stay.')) return;
+  const starter = [
+    ['0W-20 Full Synthetic','Full Synthetic','gal',8.99,'0W20FS'],
+    ['5W-30 Full Synthetic','Full Synthetic','gal',8.99,'5W30FS'],
+    ['5W-30 Synthetic Blend','Synthetic Blend','gal',6.99,'5W30SB'],
+    ['15W-40 CK-4','Heavy Duty','gal',12.99,'15W40CK4'],
+    ['10W-30 Heavy Duty','Heavy Duty','gal',12.99,'10W30HD'],
+    ['Green Coolant 50/50','Coolant','drum',298.00,'GRN5050'],
+    ['Red Coolant 50/50','Coolant','drum',319.00,'RED5050'],
+    ['Coolant 100%','Coolant','drum',514.00,'COOL100'],
+    ['AW 32 Hydraulic','Hydraulic','drum',450.00,'AW32'],
+    ['AW 46 Hydraulic','Hydraulic','drum',450.00,'AW46'],
+    ['80W90 Gear Oil','Gear Oil','drum',256.00,'80W90'],
+    ['WWF','Other','drum',200.00,'WWF'],
+    ['Mineral Spirits','Other','drum',575.00,'MINSP'],
+    ['Red Grease 120lb Keg','Grease','keg',350.00,'REDGR120'],
+    ['Red Grease 5gal Pail','Grease','pail',89.00,'REDGR5'],
+    ['All Purpose Grease Keg','Grease','keg',249.00,'APGRKG']
+  ];
+  starter.forEach(([name,category,unit,price,sku]) => {
+    if(!state.products.some(p => p.name === name)){
+      state.products.push({id:uid(),name,category,unit,price,sku,active:true,notes:''});
+    }
+  });
+  saveState();
+  render();
+}
+
+/* FIELDS */
+function clearFieldForm(){
+  document.getElementById('field_id').value = '';
+  document.getElementById('field_label').value = '';
+  document.getElementById('field_key').value = '';
+  document.getElementById('field_type').value = 'text';
+  document.getElementById('field_required').value = 'true';
+  document.getElementById('field_enabled').value = 'true';
+  document.getElementById('field_options').value = '';
+}
+
+function saveField(){
+  const id = document.getElementById('field_id').value || uid();
+  const field = {
+    id,
+    label: document.getElementById('field_label').value.trim(),
+    key: document.getElementById('field_key').value.trim(),
+    type: document.getElementById('field_type').value,
+    required: document.getElementById('field_required').value === 'true',
+    enabled: document.getElementById('field_enabled').value === 'true',
+    options: document.getElementById('field_options').value.trim()
+  };
+  if(!field.label || !field.key) return alert('Field label and key are required.');
+  const idx = state.customerFields.findIndex(f => f.id === id);
+  if(idx >= 0) state.customerFields[idx] = field;
+  else state.customerFields.push(field);
+  saveState();
+  clearFieldForm();
+  render();
+}
+
+function editField(id){
+  const f = state.customerFields.find(x => x.id === id);
+  if(!f) return;
+  document.getElementById('field_id').value = f.id;
+  document.getElementById('field_label').value = f.label || '';
+  document.getElementById('field_key').value = f.key || '';
+  document.getElementById('field_type').value = f.type || 'text';
+  document.getElementById('field_required').value = String(!!f.required);
+  document.getElementById('field_enabled').value = String(f.enabled !== false);
+  document.getElementById('field_options').value = f.options || '';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deleteField(id){
+  if(!confirm('Delete this field?')) return;
+  state.customerFields = state.customerFields.filter(f => f.id !== id);
+  saveState();
+  render();
+}
+
+/* CUSTOMERS */
+function clearCustomerForm(){
+  document.getElementById('cust_id').value = '';
+  document.getElementById('cust_shopName').value = '';
+  document.getElementById('cust_contactName').value = '';
+  document.getElementById('cust_phone').value = '';
+  document.getElementById('cust_email').value = '';
+  document.getElementById('cust_address').value = '';
+  document.getElementById('cust_notes').value = '';
+}
+
+function saveCustomer(){
+  const id = document.getElementById('cust_id').value || uid();
+  const customer = {
+    id,
+    shopName: document.getElementById('cust_shopName').value.trim(),
+    contactName: document.getElementById('cust_contactName').value.trim(),
+    phone: document.getElementById('cust_phone').value.trim(),
+    email: document.getElementById('cust_email').value.trim(),
+    address: document.getElementById('cust_address').value.trim(),
+    notes: document.getElementById('cust_notes').value.trim()
+  };
+  if(!customer.shopName) return alert('Enter a shop name.');
+  const idx = state.customers.findIndex(c => c.id === id);
+  if(idx >= 0) state.customers[idx] = customer;
+  else state.customers.unshift(customer);
+  saveState();
+  clearCustomerForm();
+  render();
+}
+
+function editCustomer(id){
+  const c = state.customers.find(x => x.id === id);
+  if(!c) return;
+  document.getElementById('cust_id').value = c.id;
+  document.getElementById('cust_shopName').value = c.shopName || '';
+  document.getElementById('cust_contactName').value = c.contactName || '';
+  document.getElementById('cust_phone').value = c.phone || '';
+  document.getElementById('cust_email').value = c.email || '';
+  document.getElementById('cust_address').value = c.address || '';
+  document.getElementById('cust_notes').value = c.notes || '';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deleteCustomer(id){
+  if(!confirm('Delete this customer?')) return;
+  state.customers = state.customers.filter(c => c.id !== id);
+  saveState();
+  render();
+}
+
+function loadCustomerToInvoice(id){
+  switchTab('invoices');
+  loadCustomerToDraft(id);
+}
+
+function loadCustomerToDraft(id){
+  const c = state.customers.find(x => x.id === id);
+  if(!c) return;
+  ui.invoiceDraft.customerId = c.id;
+  ui.invoiceDraft.customerName = c.shopName || '';
+  ui.invoiceDraft.contactName = c.contactName || '';
+  ui.invoiceDraft.phone = c.phone || '';
+  ui.invoiceDraft.email = c.email || '';
+  ui.invoiceDraft.address = c.address || '';
+  render();
+}
+
+/* INVOICES */
+function setInvoiceField(key, value){
+  ui.invoiceDraft[key] = value;
+  render();
+}
+
+function addLineItem(){
+  ui.invoiceDraft.items.push(newLineItem());
+  render();
+}
+
+function removeLineItem(id){
+  if(ui.invoiceDraft.items.length === 1) return alert('At least one line item is required.');
+  ui.invoiceDraft.items = ui.invoiceDraft.items.filter(x => x.id !== id);
+  render();
+}
+
+function setLineField(id, key, value){
+  const item = ui.invoiceDraft.items.find(x => x.id === id);
+  if(!item) return;
+  item[key] = (key === 'quantity' || key === 'unitPrice') ? numberOrZero(value) : value;
+  render();
+}
+
+function setLineProduct(id, productId){
+  const item = ui.invoiceDraft.items.find(x => x.id === id);
+  const product = state.products.find(p => p.id === productId);
+  if(!item || !product) return;
+  item.productId = product.id;
+  item.description = product.name || '';
+  item.unit = product.unit || '';
+  item.unitPrice = numberOrZero(product.price);
+  render();
+}
+
+function buildInvoiceTextPreview(inv, totals){
+  const invoiceNumber = (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber;
+  const lines = [];
+  lines.push(state.settings.companyName || '');
+  if(state.settings.companyPhone) lines.push(state.settings.companyPhone);
+  if(state.settings.companyEmail) lines.push(state.settings.companyEmail);
+  if(state.settings.companyAddress) lines.push(state.settings.companyAddress);
+  lines.push('');
+  lines.push('Invoice #: ' + invoiceNumber);
+  lines.push('Date: ' + (inv.date || ''));
+  if(inv.dueDate) lines.push('Due Date: ' + inv.dueDate);
+  lines.push('');
+  lines.push('Bill To:');
+  lines.push(inv.customerName || '');
+  if(inv.contactName) lines.push(inv.contactName);
+  if(inv.phone) lines.push(inv.phone);
+  if(inv.email) lines.push(inv.email);
+  if(inv.address) lines.push(inv.address);
+  lines.push('');
+  lines.push('Items:');
+  inv.items.forEach(item => {
+    const lineTotal = numberOrZero(item.quantity) * numberOrZero(item.unitPrice);
+    lines.push('- ' + (item.description || 'Item') + ' | ' + item.quantity + ' ' + (item.unit || '') + ' @ ' + currency(item.unitPrice) + ' = ' + currency(lineTotal));
+  });
+  lines.push('');
+  lines.push('Subtotal: ' + currency(totals.subtotal));
+  if(numberOrZero(inv.deliveryCharge)) lines.push('Delivery: ' + currency(inv.deliveryCharge));
+  if(numberOrZero(inv.drumDeposit)) lines.push('Drum Deposit: ' + currency(inv.drumDeposit));
+  if(numberOrZero(inv.taxRate)) lines.push('Tax (' + inv.taxRate + '%): ' + currency(totals.tax));
+  lines.push('Total: ' + currency(totals.total));
+  lines.push('');
+  if(state.settings.paymentTerms) lines.push('Payment Terms: ' + state.settings.paymentTerms);
+  if(inv.notes) { lines.push(''); lines.push(inv.notes); }
+  if(inv.disclaimer) { lines.push(''); lines.push(inv.disclaimer); }
+  return lines.join('\n');
+}
+
+function saveInvoice(){
+  const inv = ui.invoiceDraft;
+  if(!inv.customerName) return alert('Enter a customer name.');
+  if(!inv.items.length) return alert('Add at least one line item.');
+  const totals = invoiceTotals(inv);
+  const saved = {
+    id: uid(),
+    invoiceNumber: (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber,
+    date: inv.date || '',
+    dueDate: inv.dueDate || '',
+    customerId: inv.customerId || '',
+    customerName: inv.customerName || '',
+    contactName: inv.contactName || '',
+    email: inv.email || '',
+    phone: inv.phone || '',
+    address: inv.address || '',
+    items: structuredClone(inv.items),
+    deliveryCharge: numberOrZero(inv.deliveryCharge),
+    taxRate: numberOrZero(inv.taxRate),
+    drumDeposit: numberOrZero(inv.drumDeposit),
+    notes: inv.notes || '',
+    disclaimer: inv.disclaimer || '',
+    subtotal: totals.subtotal,
+    tax: totals.tax,
+    total: totals.total,
+    createdAt: new Date().toISOString()
+  };
+  state.invoices.unshift(saved);
+  state.settings.nextInvoiceNumber = numberOrZero(state.settings.nextInvoiceNumber) + 1;
+  saveState();
+  alert('Invoice saved.');
+  ui.invoiceDraft = newInvoiceDraft();
+  render();
+}
+
+function loadSavedInvoice(id){
+  const inv = state.invoices.find(x => x.id === id);
+  if(!inv) return;
+  ui.invoiceDraft = {
+    customerId: inv.customerId || '',
+    customerName: inv.customerName || '',
+    contactName: inv.contactName || '',
+    email: inv.email || '',
+    phone: inv.phone || '',
+    address: inv.address || '',
+    date: inv.date || today(),
+    dueDate: inv.dueDate || '',
+    deliveryCharge: numberOrZero(inv.deliveryCharge),
+    taxRate: numberOrZero(inv.taxRate),
+    drumDeposit: numberOrZero(inv.drumDeposit),
+    notes: inv.notes || '',
+    disclaimer: inv.disclaimer || '',
+    items: structuredClone(inv.items || [newLineItem()])
+  };
+  switchTab('invoices');
+}
+
+function deleteInvoice(id){
+  if(!confirm('Delete this invoice?')) return;
+  state.invoices = state.invoices.filter(x => x.id !== id);
+  saveState();
+  render();
+}
+
+function copyDraftInvoice(){
+  const totals = invoiceTotals(ui.invoiceDraft);
+  const text = buildInvoiceTextPreview(ui.invoiceDraft, totals);
+  navigator.clipboard.writeText(text).then(() => alert('Invoice text copied.'));
+}
+
+function copySavedInvoice(id){
+  const inv = state.invoices.find(x => x.id === id);
+  if(!inv) return;
+  const text = buildSavedInvoiceText(inv);
+  navigator.clipboard.writeText(text).then(() => alert('Invoice text copied.'));
+}
+
+function buildSavedInvoiceText(inv){
+  const lines = [];
+  lines.push(state.settings.companyName || '');
+  if(state.settings.companyPhone) lines.push(state.settings.companyPhone);
+  if(state.settings.companyEmail) lines.push(state.settings.companyEmail);
+  if(state.settings.companyAddress) lines.push(state.settings.companyAddress);
+  lines.push('');
+  lines.push('Invoice #: ' + inv.invoiceNumber);
+  lines.push('Date: ' + (inv.date || ''));
+  if(inv.dueDate) lines.push('Due Date: ' + inv.dueDate);
+  lines.push('');
+  lines.push('Bill To:');
+  lines.push(inv.customerName || '');
+  if(inv.contactName) lines.push(inv.contactName);
+  if(inv.phone) lines.push(inv.phone);
+  if(inv.email) lines.push(inv.email);
+  if(inv.address) lines.push(inv.address);
+  lines.push('');
+  lines.push('Items:');
+  (inv.items || []).forEach(item => {
+    const lineTotal = numberOrZero(item.quantity) * numberOrZero(item.unitPrice);
+    lines.push('- ' + (item.description || 'Item') + ' | ' + item.quantity + ' ' + (item.unit || '') + ' @ ' + currency(item.unitPrice) + ' = ' + currency(lineTotal));
+  });
+  lines.push('');
+  lines.push('Subtotal: ' + currency(inv.subtotal));
+  if(numberOrZero(inv.deliveryCharge)) lines.push('Delivery: ' + currency(inv.deliveryCharge));
+  if(numberOrZero(inv.drumDeposit)) lines.push('Drum Deposit: ' + currency(inv.drumDeposit));
+  if(numberOrZero(inv.taxRate)) lines.push('Tax (' + inv.taxRate + '%): ' + currency(inv.tax));
+  lines.push('Total: ' + currency(inv.total));
+  lines.push('');
+  if(state.settings.paymentTerms) lines.push('Payment Terms: ' + state.settings.paymentTerms);
+  if(inv.notes) { lines.push(''); lines.push(inv.notes); }
+  if(inv.disclaimer) { lines.push(''); lines.push(inv.disclaimer); }
+  return lines.join('\n');
+}
+
+function emailDraftInvoice(){
+  const totals = invoiceTotals(ui.invoiceDraft);
+  const invoiceNumber = (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber;
+  const subject = encodeURIComponent('Invoice ' + invoiceNumber + ' - ' + (ui.invoiceDraft.customerName || state.settings.companyName || ''));
+  const body = encodeURIComponent(buildInvoiceTextPreview(ui.invoiceDraft, totals));
+  const email = encodeURIComponent(ui.invoiceDraft.email || '');
+  window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+}
+
+function emailSavedInvoice(id){
+  const inv = state.invoices.find(x => x.id === id);
+  if(!inv) return;
+  const subject = encodeURIComponent('Invoice ' + inv.invoiceNumber + ' - ' + (inv.customerName || state.settings.companyName || ''));
+  const body = encodeURIComponent(buildSavedInvoiceText(inv));
+  const email = encodeURIComponent(inv.email || '');
+  window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+}
+
+function resetInvoiceDraft(){
+  if(!confirm('Start a fresh invoice draft?')) return;
+  ui.invoiceDraft = newInvoiceDraft();
+  render();
+}
+
+/* SETTINGS */
+function saveSettings(){
+  state.settings.companyName = document.getElementById('set_companyName').value.trim();
+  state.settings.companyPhone = document.getElementById('set_companyPhone').value.trim();
+  state.settings.companyEmail = document.getElementById('set_companyEmail').value.trim();
+  state.settings.companyAddress = document.getElementById('set_companyAddress').value.trim();
+  state.settings.logoUrl = document.getElementById('set_logoUrl').value.trim();
+  state.settings.invoicePrefix = document.getElementById('set_invoicePrefix').value.trim();
+  state.settings.nextInvoiceNumber = numberOrZero(document.getElementById('set_nextInvoiceNumber').value);
+  state.settings.paymentTerms = document.getElementById('set_paymentTerms').value.trim();
+  state.settings.defaultDeliveryCharge = numberOrZero(document.getElementById('set_defaultDeliveryCharge').value);
+  state.settings.defaultTaxRate = numberOrZero(document.getElementById('set_defaultTaxRate').value);
+  state.settings.defaultDrumDeposit = numberOrZero(document.getElementById('set_defaultDrumDeposit').value);
+  state.settings.defaultDisclaimer = document.getElementById('set_defaultDisclaimer').value.trim();
+  state.settings.quoteMessage = document.getElementById('set_quoteMessage').value.trim();
+  state.settings.invoiceMessage = document.getElementById('set_invoiceMessage').value.trim();
+  state.settings.customerOrderFormUrl = document.getElementById('set_customerOrderFormUrl').value.trim();
+  saveState();
+  alert('Settings saved.');
+  render();
+}
+
+function resetSettingsOnly(){
+  if(!confirm('Reset settings only? Products, customers, and invoices will stay.')) return;
+  state.settings = structuredClone(defaults.settings);
+  saveState();
+  render();
+}
+
+/* BACKUP */
+function exportData(){
+  document.getElementById('backup_output').value = JSON.stringify(state, null, 2);
+}
+
+function importData(){
+  try{
+    const raw = document.getElementById('backup_input').value.trim();
+    if(!raw) return alert('Paste backup JSON first.');
+    const parsed = JSON.parse(raw);
+    state = {
+      products: Array.isArray(parsed.products) ? parsed.products : [],
+      customerFields: Array.isArray(parsed.customerFields) ? parsed.customerFields : structuredClone(defaults.customerFields),
+      customers: Array.isArray(parsed.customers) ? parsed.customers : [],
+      invoices: Array.isArray(parsed.invoices) ? parsed.invoices : [],
+      settings: {...structuredClone(defaults.settings), ...(parsed.settings || {})}
+    };
+    saveState();
+    ui.invoiceDraft = newInvoiceDraft();
+    alert('Backup imported.');
+    render();
+  }catch(e){
+    alert('Invalid JSON.');
+  }
+}
+
+function wipeEverything(){
+  if(!confirm('This will erase all products, customers, invoices, fields, and settings on this browser. Continue?')) return;
+  state = structuredClone(defaults);
+  ui.invoiceDraft = newInvoiceDraft();
+  saveState();
+  render();
+}
+
+/* INIT */
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 });
 
 render();
