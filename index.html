@@ -3,39 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>OilTrackPro — Settings First</title>
+  <title>OilTrackPro CRM + Invoice Final</title>
   <style>
     :root{
-      --bg:#06101e;
-      --bg2:#09172b;
-      --card:#101c31;
-      --card2:#13223c;
-      --border:#27406b;
+      --bg:#07101d;
+      --bg2:#0c1a31;
+      --card:#13213a;
+      --card2:#162742;
+      --border:#2a4470;
       --text:#eef4ff;
-      --muted:#9db2d8;
-      --blue:#1f6fd6;
-      --blue2:#2b82f6;
+      --muted:#a4b7d8;
+      --blue:#2b82f6;
       --green:#52d18a;
-      --red:#f07b7b;
       --gold:#e7bd53;
+      --red:#f07b7b;
+      --ink:#111827;
+      --soft:#f6f8fb;
     }
     *{box-sizing:border-box}
     html,body{
-      margin:0;
-      padding:0;
-      min-height:100%;
-      background:linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
-      color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+      margin:0;padding:0;min-height:100%;
+      background:linear-gradient(180deg,var(--bg),var(--bg2));
+      color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     }
-    .app{max-width:1200px;margin:0 auto;padding:16px}
-    h1,h2,h3{margin:0 0 12px}
+    .app{max-width:1280px;margin:0 auto;padding:16px}
+    h1,h2,h3,h4{margin:0 0 12px}
     h1{font-size:30px}
     h2{font-size:22px}
-    h3{font-size:18px}
+    h3{font-size:17px}
     .sub{color:var(--muted);margin:0 0 18px}
     .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:8px;margin-bottom:16px}
-    .tab,button,.btn{
+    .tab,button,.btn,a.btn{
       border:1px solid var(--border);
       background:var(--card2);
       color:var(--text);
@@ -52,15 +50,19 @@
       justify-content:center;
     }
     .tab.active{background:var(--blue)}
-    .btn-blue{background:var(--blue2);color:#fff}
-    .btn-green{background:var(--green);color:#072013}
-    .btn-red{background:var(--red);color:#2a0909}
+    .btn-blue{background:var(--blue);color:#fff}
+    .btn-green{background:var(--green);color:#062012}
     .btn-gold{background:var(--gold);color:#241a00}
+    .btn-red{background:var(--red);color:#2a0909}
+    .btn-soft{background:#213657}
+    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
     .grid{display:grid;gap:12px}
-    .grid-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
     .grid-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .grid-4{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+    .screen.hidden{display:none !important}
     .card{
-      background:rgba(16,28,49,.97);
+      background:rgba(19,33,58,.98);
       border:1px solid var(--border);
       border-radius:16px;
       padding:16px;
@@ -68,41 +70,30 @@
     }
     input,select,textarea{
       width:100%;
-      background:#0c1730;
+      background:#0d1730;
       color:var(--text);
       border:1px solid var(--border);
       border-radius:12px;
       padding:12px;
       margin:0 0 10px;
-      font-size:16px;
+      font-size:15px;
     }
     textarea{min-height:96px;resize:vertical}
-    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .stack{display:grid;gap:10px}
-    .screen.hidden{display:none!important}
-    .metric{font-size:30px;font-weight:800}
+    .metric{font-size:28px;font-weight:800}
     .muted{color:var(--muted)}
     .tiny{font-size:12px;color:var(--muted)}
+    .pill{
+      display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid var(--border);
+      color:var(--muted);font-size:12px;margin-right:6px;margin-bottom:6px
+    }
+    .pill.hot{color:#ffd9d9;border-color:#7f4343;background:rgba(240,123,123,.08)}
+    .pill.good{color:#c8f2d8;border-color:#3c6d52;background:rgba(82,209,138,.08)}
+    .pill.warn{color:#ffecb9;border-color:#80682d;background:rgba(231,189,83,.08)}
     .table-wrap{overflow:auto}
     table{width:100%;border-collapse:collapse;font-size:14px}
     th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
-    .pill{
-      display:inline-block;
-      padding:4px 9px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      color:var(--muted);
-      font-size:12px;
-      margin-right:6px;
-      margin-bottom:6px;
-    }
-    .spacer{height:8px}
     .divider{height:1px;background:var(--border);margin:12px 0}
-    .right{margin-left:auto}
-    .danger-text{color:#ffaaaa}
-    .success-text{color:#8ff0b2}
-    .link{color:#8dbcff;word-break:break-all}
-    .nowrap{white-space:nowrap}
+    .spacer{height:8px}
     .line-item{
       border:1px solid var(--border);
       border-radius:14px;
@@ -110,174 +101,197 @@
       margin-bottom:10px;
       background:#0d1830;
     }
-    .totals{
-      display:grid;
-      gap:8px;
-      max-width:420px;
-      margin-left:auto;
-    }
-    .total-row{
-      display:flex;
-      justify-content:space-between;
-      gap:16px;
-      border-bottom:1px solid var(--border);
-      padding:8px 0;
-    }
+    .totals{display:grid;gap:8px;max-width:440px;margin-left:auto}
+    .total-row{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--border);padding:8px 0}
     .big-total{font-size:24px;font-weight:800}
     .preview{
-      white-space:pre-wrap;
-      background:#0b1426;
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:14px;
-      font-size:14px;
+      white-space:pre-wrap;background:#0b1426;border:1px solid var(--border);border-radius:14px;padding:14px;font-size:14px
     }
+    .kpi{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+    .search{max-width:360px}
+    .tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:700}
+    .tag.lead{background:#3c2d11;color:#ffd57a}
+    .tag.followup{background:#2d3245;color:#b9d2ff}
+    .tag.ordered{background:#18361f;color:#9ff0b8}
+    .tag.delivered{background:#1b3241;color:#8ad7ff}
+    .tag.lost{background:#431d25;color:#ffb0c1}
+    .tag.customer{background:#243447;color:#d9e5f7}
   </style>
 </head>
 <body>
 <div class="app">
   <h1>OilTrackPro</h1>
-  <p class="sub">Settings-first oil CRM, quote builder, invoice builder, and product manager.</p>
+  <p class="sub">Lead tracking, order follow-up, commission tracking, customer invoices, and fulfillment invoices for Phoebe.</p>
 
   <div class="tabs">
     <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="accounts">Accounts</button>
     <button class="tab" data-tab="products">Products</button>
-    <button class="tab" data-tab="fields">Customer Fields</button>
-    <button class="tab" data-tab="customers">Customers</button>
-    <button class="tab" data-tab="invoices">Invoices</button>
+    <button class="tab" data-tab="orders">Orders / Invoices</button>
     <button class="tab" data-tab="settings">Settings</button>
-    <button class="tab" data-tab="data">Backup</button>
+    <button class="tab" data-tab="backup">Backup</button>
   </div>
 
   <section id="dashboard" class="screen"></section>
+  <section id="accounts" class="screen hidden"></section>
   <section id="products" class="screen hidden"></section>
-  <section id="fields" class="screen hidden"></section>
-  <section id="customers" class="screen hidden"></section>
-  <section id="invoices" class="screen hidden"></section>
+  <section id="orders" class="screen hidden"></section>
   <section id="settings" class="screen hidden"></section>
-  <section id="data" class="screen hidden"></section>
+  <section id="backup" class="screen hidden"></section>
 </div>
 
 <script>
-const STORAGE_KEY = 'oiltrackpro_settings_first_v3';
+const STORAGE_KEY = 'oiltrackpro_final_v1';
 
-function uid(){
-  return Math.random().toString(36).slice(2,9);
+function uid(){ return Math.random().toString(36).slice(2,10); }
+function today(){ return new Date().toISOString().slice(0,10); }
+function nowIso(){ return new Date().toISOString(); }
+function n(v){ return Number(v || 0); }
+function currency(v){ return '$' + n(v).toFixed(2); }
+function clone(v){ return JSON.parse(JSON.stringify(v)); }
+function esc(v){
+  return String(v ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 }
-function today(){
-  return new Date().toISOString().slice(0,10);
+function attr(v){
+  return String(v ?? '').replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 }
-function numberOrZero(v){
-  return Number(v || 0);
+function statusTag(status){
+  const label = status === 'follow_up' ? 'FOLLOW UP' : String(status || '').replaceAll('_',' ').toUpperCase();
+  const cls = status === 'lead' ? 'lead' :
+              status === 'follow_up' ? 'followup' :
+              status === 'ordered' ? 'ordered' :
+              status === 'delivered' ? 'delivered' :
+              status === 'lost' ? 'lost' : 'customer';
+  return '<span class="tag '+cls+'">'+esc(label)+'</span>';
 }
-function currency(n){
-  return '$' + Number(n || 0).toFixed(2);
+function fmtDate(v){ return v || ''; }
+function plusDays(startDate, days){
+  const d = startDate ? new Date(startDate + 'T12:00:00') : new Date();
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0,10);
 }
-function structuredCloneSafe(obj){
-  return JSON.parse(JSON.stringify(obj));
+function parseDate(v){
+  if(!v) return null;
+  const d = new Date(v + 'T12:00:00');
+  return isNaN(d.getTime()) ? null : d;
 }
-function escapeHtml(v){
-  return String(v ?? '')
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;');
-}
-function escapeAttr(v){
-  return String(v ?? '')
-    .replaceAll('&','&amp;')
-    .replaceAll('"','&quot;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;');
+function isTodayOrPast(v){
+  const d = parseDate(v);
+  if(!d) return false;
+  const t = parseDate(today());
+  return d.getTime() <= t.getTime();
 }
 
 const defaults = {
+  accounts: [],
   products: [],
-  customerFields: [
-    {id: uid(), key:'shopName', label:'Shop Name', type:'text', required:true, enabled:true, options:''},
-    {id: uid(), key:'contactName', label:'Contact Name', type:'text', required:true, enabled:true, options:''},
-    {id: uid(), key:'phone', label:'Phone', type:'phone', required:false, enabled:true, options:''},
-    {id: uid(), key:'email', label:'Email', type:'email', required:false, enabled:true, options:''},
-    {id: uid(), key:'notes', label:'Notes', type:'textarea', required:false, enabled:true, options:''}
-  ],
-  customers: [],
-  invoices: [],
+  orders: [],
   settings: {
-    companyName: 'Encore Petroleum',
-    companyPhone: '',
-    companyEmail: '',
-    companyAddress: '',
+    companyName: 'Encore Petroleum, LLC',
+    companyPhone: '(201) 339-6100',
+    companyEmail: 'contact@encorepetroleum.com',
+    salesContact: 'Frank Capozzi',
+    salesEmail: 'frankhasoil@gmail.com',
+    companyAddress: '180 W 5th Street, Bayonne, NJ 07002',
     logoUrl: '',
+    paymentTerms: 'Due at delivery / prepaid card',
     invoicePrefix: 'INV-',
     nextInvoiceNumber: 1001,
-    paymentTerms: 'Due on receipt',
-    defaultDeliveryCharge: 0,
-    defaultTaxRate: 0,
+    phoebeName: 'Phoebe',
+    phoebeEmail: '',
+    defaultDeliveryCharge: 6.95,
     defaultDrumDeposit: 0,
-    defaultDisclaimer: 'Prices and availability are subject to change based on market conditions and supply volatility.',
-    quoteMessage: 'Thank you for the opportunity to quote your lubricants and related products.',
-    invoiceMessage: 'Thank you for your business.',
-    customerOrderFormUrl: 'https://fccapozzi3-dev.github.io/Sales/customer-order-form.html'
+    defaultTaxRate: 0,
+    commissionRate: 10,
+    reorderDaysDefault: 21,
+    defaultDisclaimer: 'All prices subject to change due to volatile petroleum market conditions.',
+    customerEmailMessage: 'Attached is your invoice from Encore Petroleum. Please review and keep this for your records.',
+    fulfillmentEmailMessage: 'Attached is the fulfillment copy for processing and delivery scheduling.'
   }
 };
 
 function loadState(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return structuredCloneSafe(defaults);
+    if(!raw) return clone(defaults);
     const parsed = JSON.parse(raw);
     return {
-      products: Array.isArray(parsed.products) ? parsed.products : structuredCloneSafe(defaults.products),
-      customerFields: Array.isArray(parsed.customerFields) ? parsed.customerFields : structuredCloneSafe(defaults.customerFields),
-      customers: Array.isArray(parsed.customers) ? parsed.customers : structuredCloneSafe(defaults.customers),
-      invoices: Array.isArray(parsed.invoices) ? parsed.invoices : structuredCloneSafe(defaults.invoices),
-      settings: {...structuredCloneSafe(defaults.settings), ...(parsed.settings || {})}
+      accounts: Array.isArray(parsed.accounts) ? parsed.accounts : [],
+      products: Array.isArray(parsed.products) ? parsed.products : [],
+      orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+      settings: {...clone(defaults.settings), ...(parsed.settings || {})}
     };
   }catch(e){
-    return structuredCloneSafe(defaults);
+    return clone(defaults);
   }
 }
-
 let state = loadState();
+
 let ui = {
   tab: 'dashboard',
-  invoiceDraft: null
+  accountSearch: '',
+  orderSearch: '',
+  productSearch: '',
+  accountDraft: null,
+  productDraft: null,
+  orderDraft: null
 };
 
-function saveState(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-function newLineItem(){
+function newAccountDraft(){
   return {
-    id: uid(),
-    productId: '',
-    description: '',
-    quantity: 1,
-    unit: '',
-    unitPrice: 0
-  };
-}
-
-function newInvoiceDraft(){
-  return {
-    customerId: '',
-    customerName: '',
+    id: '',
+    shopName: '',
     contactName: '',
-    email: '',
     phone: '',
+    email: '',
     address: '',
-    date: today(),
-    dueDate: '',
-    deliveryCharge: numberOrZero(state.settings.defaultDeliveryCharge),
-    taxRate: numberOrZero(state.settings.defaultTaxRate),
-    drumDeposit: numberOrZero(state.settings.defaultDrumDeposit),
-    notes: state.settings.invoiceMessage || '',
-    disclaimer: state.settings.defaultDisclaimer || '',
-    items: [newLineItem()]
+    status: 'lead',
+    firstTouchDate: today(),
+    nextFollowUpDate: plusDays(today(), 3),
+    lastOrderDate: '',
+    lastDeliveryDate: '',
+    nextReorderFollowUpDate: '',
+    notes: '',
+    tags: ''
   };
 }
+function newProductDraft(){
+  return { id:'', name:'', unit:'gallon', price:0, category:'', sku:'', active:true, notes:'' };
+}
+function newLineItem(){
+  return { id:uid(), productId:'', description:'', quantity:1, unit:'gallon', unitPrice:0 };
+}
+function newOrderDraft(){
+  return {
+    id:'',
+    invoiceNumber: (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber,
+    accountId:'',
+    customerName:'',
+    contactName:'',
+    phone:'',
+    email:'',
+    address:'',
+    orderDate: today(),
+    expectedDeliveryDate:'',
+    deliveryDate:'',
+    reorderFollowUpDate:'',
+    paymentTerms: state.settings.paymentTerms || '',
+    deliveryCharge: n(state.settings.defaultDeliveryCharge),
+    drumDeposit: n(state.settings.defaultDrumDeposit),
+    taxRate: n(state.settings.defaultTaxRate),
+    notes:'Thank you for your business.',
+    internalNotes:'',
+    fulfillmentNotes:'',
+    totalForCommission: 0,
+    status:'ordered',
+    items:[newLineItem()]
+  };
+}
+ui.accountDraft = newAccountDraft();
+ui.productDraft = newProductDraft();
+ui.orderDraft = newOrderDraft();
 
-ui.invoiceDraft = newInvoiceDraft();
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 
 function switchTab(tab){
   ui.tab = tab;
@@ -287,408 +301,423 @@ function switchTab(tab){
   render();
 }
 
-function invoiceTotals(inv){
-  const subtotal = inv.items.reduce((sum, item) => sum + (numberOrZero(item.quantity) * numberOrZero(item.unitPrice)), 0);
-  const delivery = numberOrZero(inv.deliveryCharge);
-  const deposit = numberOrZero(inv.drumDeposit);
-  const preTax = subtotal + delivery + deposit;
-  const tax = preTax * (numberOrZero(inv.taxRate) / 100);
-  const total = preTax + tax;
-  return {subtotal, delivery, deposit, preTax, tax, total};
-}
+document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
 
 function metricCard(title, value, note=''){
   return `
     <div class="card">
-      <div class="muted">${title}</div>
+      <div class="muted">${esc(title)}</div>
       <div class="metric">${value}</div>
-      ${note ? `<div class="tiny">${note}</div>` : ''}
+      ${note ? `<div class="tiny">${esc(note)}</div>` : ''}
     </div>
   `;
 }
 
+function orderTotals(order){
+  const subtotal = (order.items || []).reduce((sum, item) => sum + (n(item.quantity) * n(item.unitPrice)), 0);
+  const delivery = n(order.deliveryCharge);
+  const deposit = n(order.drumDeposit);
+  const preTax = subtotal + delivery + deposit;
+  const tax = preTax * (n(order.taxRate) / 100);
+  const total = preTax + tax;
+  const commissionBase = n(order.totalForCommission) || total;
+  const commission = commissionBase * (n(state.settings.commissionRate) / 100);
+  return { subtotal, delivery, deposit, preTax, tax, total, commissionBase, commission };
+}
+
+function getAccount(id){ return state.accounts.find(x => x.id === id); }
+function getOrder(id){ return state.orders.find(x => x.id === id); }
+function getProduct(id){ return state.products.find(x => x.id === id); }
+
 function renderDashboard(){
-  const revenue = state.invoices.reduce((sum, inv) => sum + numberOrZero(inv.total), 0);
-  const activeProducts = state.products.filter(p => p.active !== false).length;
-  const enabledFields = state.customerFields.filter(f => f.enabled !== false).length;
-  const lastInvoice = state.invoices[0];
+  const leadCount = state.accounts.filter(a => a.status === 'lead' || a.status === 'follow_up').length;
+  const customerCount = state.accounts.filter(a => ['customer','ordered','delivered'].includes(a.status)).length;
+  const followUpsDue = state.accounts.filter(a => a.nextFollowUpDate && isTodayOrPast(a.nextFollowUpDate)).length;
+  const reorderDue = state.orders.filter(o => o.reorderFollowUpDate && !o.deliveryDate ? false : (o.reorderFollowUpDate && isTodayOrPast(o.reorderFollowUpDate))).length;
+  const totalSales = state.orders.reduce((sum,o)=>sum + n(o.total),0);
+  const totalCommission = state.orders.reduce((sum,o)=>sum + n(o.commission),0);
+
+  const followUpRows = state.accounts
+    .filter(a => a.nextFollowUpDate && isTodayOrPast(a.nextFollowUpDate))
+    .slice(0,8)
+    .map(a => `<tr><td>${esc(a.shopName)}</td><td>${statusTag(a.status)}</td><td>${fmtDate(a.nextFollowUpDate)}</td><td>${esc(a.contactName || '')}</td></tr>`)
+    .join('');
+
+  const reorderRows = state.orders
+    .filter(o => o.reorderFollowUpDate && isTodayOrPast(o.reorderFollowUpDate))
+    .slice(0,8)
+    .map(o => `<tr><td>${esc(o.customerName)}</td><td>${esc(o.invoiceNumber)}</td><td>${fmtDate(o.reorderFollowUpDate)}</td><td>${currency(o.total)}</td></tr>`)
+    .join('');
 
   document.getElementById('dashboard').innerHTML = `
-    <div class="grid grid-3">
-      ${metricCard('Products', state.products.length, activeProducts + ' active')}
-      ${metricCard('Customers', state.customers.length)}
-      ${metricCard('Invoices', state.invoices.length)}
-      ${metricCard('Quoted / Invoiced Total', currency(revenue))}
-      ${metricCard('Customer Intake Fields', state.customerFields.length, enabledFields + ' enabled')}
-      ${metricCard('Next Invoice #', (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber)}
+    <div class="kpi">
+      ${metricCard('Open Leads / Follow Ups', leadCount)}
+      ${metricCard('Active Customers', customerCount)}
+      ${metricCard('Follow Ups Due', followUpsDue)}
+      ${metricCard('Reorder Follow Ups Due', reorderDue)}
+      ${metricCard('Recorded Sales', currency(totalSales))}
+      ${metricCard('Estimated Commission', currency(totalCommission), (state.settings.commissionRate || 0) + '% rate')}
     </div>
 
-    <div class="card">
-      <h2>What you can edit now</h2>
-      <div class="row">
-        <span class="pill">Products</span>
-        <span class="pill">Pricing</span>
-        <span class="pill">Units</span>
-        <span class="pill">Customer fields</span>
-        <span class="pill">Invoice terms</span>
-        <span class="pill">Delivery charge</span>
-        <span class="pill">Tax</span>
-        <span class="pill">Drum deposit</span>
-        <span class="pill">Company info</span>
-        <span class="pill">PDF invoices</span>
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Workflow</h2>
+        <div class="row">
+          <span class="pill">New account intake</span>
+          <span class="pill">Lead follow-up</span>
+          <span class="pill">Order capture</span>
+          <span class="pill">Delivery follow-up</span>
+          <span class="pill">Reorder reminder</span>
+          <span class="pill">Customer PDF</span>
+          <span class="pill">Phoebe fulfillment PDF</span>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+          <button class="btn-blue" onclick="switchTab('accounts')">Add Account</button>
+          <button class="btn-blue" onclick="switchTab('orders')">Write Invoice</button>
+          <button class="btn-blue" onclick="switchTab('settings')">Set Phoebe Email</button>
+        </div>
       </div>
-      <div class="spacer"></div>
-      <div class="row">
-        <button class="btn-blue" onclick="switchTab('products')">Manage Products</button>
-        <button class="btn-blue" onclick="switchTab('fields')">Edit Customer Fields</button>
-        <button class="btn-blue" onclick="switchTab('invoices')">Build Invoice</button>
+
+      <div class="card">
+        <h2>Most recent order</h2>
+        ${state.orders[0] ? `
+          <div><strong>${esc(state.orders[0].invoiceNumber)}</strong></div>
+          <div class="muted">${esc(state.orders[0].customerName)}</div>
+          <div class="muted">Order: ${fmtDate(state.orders[0].orderDate)}${state.orders[0].deliveryDate ? ' • Delivered: ' + fmtDate(state.orders[0].deliveryDate) : ''}</div>
+          <div class="big-total">${currency(state.orders[0].total)}</div>
+        ` : `<div class="muted">No saved orders yet.</div>`}
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Follow ups due now</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Account</th><th>Status</th><th>Follow Up Date</th><th>Contact</th></tr></thead>
+            <tbody>${followUpRows || `<tr><td colspan="4" class="muted">Nothing due today.</td></tr>`}</tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Reorder reminders due now</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Invoice #</th><th>Reorder Date</th><th>Total</th></tr></thead>
+            <tbody>${reorderRows || `<tr><td colspan="4" class="muted">No reorder reminders due.</td></tr>`}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderAccounts(){
+  const search = ui.accountSearch.trim().toLowerCase();
+  const filtered = state.accounts.filter(a => {
+    const blob = [a.shopName,a.contactName,a.phone,a.email,a.address,a.notes,a.tags].join(' ').toLowerCase();
+    return !search || blob.includes(search);
+  });
+
+  const rows = filtered.map(a => `
+    <tr>
+      <td>${esc(a.shopName)}</td>
+      <td>${statusTag(a.status)}</td>
+      <td>${esc(a.contactName || '')}</td>
+      <td>${esc(a.phone || '')}</td>
+      <td>${fmtDate(a.nextFollowUpDate)}</td>
+      <td>${fmtDate(a.nextReorderFollowUpDate)}</td>
+      <td>
+        <button onclick="editAccount('${a.id}')">Edit</button>
+        <button onclick="startOrderFromAccount('${a.id}')">Order</button>
+        <button class="btn-red" onclick="deleteAccount('${a.id}')">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+
+  const a = ui.accountDraft;
+  document.getElementById('accounts').innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Account Intake / Follow-Up</h2>
+        <input value="${attr(a.shopName)}" placeholder="Shop / Company Name" oninput="setAccountField('shopName', this.value)" />
+        <div class="grid grid-2">
+          <input value="${attr(a.contactName)}" placeholder="Contact Name" oninput="setAccountField('contactName', this.value)" />
+          <select onchange="setAccountField('status', this.value)">
+            ${['lead','follow_up','customer','ordered','delivered','lost'].map(s => `<option value="${s}" ${a.status===s?'selected':''}>${s.replaceAll('_',' ')}</option>`).join('')}
+          </select>
+        </div>
+        <div class="grid grid-2">
+          <input value="${attr(a.phone)}" placeholder="Phone" oninput="setAccountField('phone', this.value)" />
+          <input value="${attr(a.email)}" placeholder="Email" oninput="setAccountField('email', this.value)" />
+        </div>
+        <input value="${attr(a.address)}" placeholder="Address" oninput="setAccountField('address', this.value)" />
+        <div class="grid grid-3">
+          <div>
+            <div class="tiny">First touch</div>
+            <input type="date" value="${attr(a.firstTouchDate)}" oninput="setAccountField('firstTouchDate', this.value)" />
+          </div>
+          <div>
+            <div class="tiny">Next follow-up</div>
+            <input type="date" value="${attr(a.nextFollowUpDate)}" oninput="setAccountField('nextFollowUpDate', this.value)" />
+          </div>
+          <div>
+            <div class="tiny">Reorder reminder</div>
+            <input type="date" value="${attr(a.nextReorderFollowUpDate)}" oninput="setAccountField('nextReorderFollowUpDate', this.value)" />
+          </div>
+        </div>
+        <div class="grid grid-2">
+          <div>
+            <div class="tiny">Last order date</div>
+            <input type="date" value="${attr(a.lastOrderDate)}" oninput="setAccountField('lastOrderDate', this.value)" />
+          </div>
+          <div>
+            <div class="tiny">Last delivery date</div>
+            <input type="date" value="${attr(a.lastDeliveryDate)}" oninput="setAccountField('lastDeliveryDate', this.value)" />
+          </div>
+        </div>
+        <input value="${attr(a.tags)}" placeholder="Tags (comma separated)" oninput="setAccountField('tags', this.value)" />
+        <textarea placeholder="Account notes / touchpoint notes / objections / anything important" oninput="setAccountField('notes', this.value)">${esc(a.notes)}</textarea>
+
+        <div class="row">
+          <button class="btn-green" onclick="saveAccount()">Save Account</button>
+          <button onclick="resetAccountDraft()">Clear</button>
+          <button class="btn-blue" onclick="startOrderFromDraftAccount()">Write Order</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>What this is for</h2>
+        <div class="muted">Use this tab when you touch a shop for the first time, do not close on the spot, or need to come back in a few days. When the account buys, click <strong>Write Order</strong> and the order form pulls their info in.</div>
+        <div class="spacer"></div>
+        <div class="row">
+          <span class="pill">First touch logged</span>
+          <span class="pill">Next follow-up date</span>
+          <span class="pill">Order / delivery history</span>
+          <span class="pill">Reorder reminder</span>
+          <span class="pill">Account notes</span>
+        </div>
       </div>
     </div>
 
     <div class="card">
-      <h2>Customer order form URL</h2>
-      <a class="link" href="${escapeHtml(state.settings.customerOrderFormUrl || '')}" target="_blank">${escapeHtml(state.settings.customerOrderFormUrl || 'Not set')}</a>
-      <div class="spacer"></div>
-      <div class="tiny">This app is editable from Settings on this browser. For true shared sync across devices, you’ll eventually want a backend/database.</div>
-    </div>
-
-    <div class="card">
-      <h2>Most recent invoice</h2>
-      ${lastInvoice ? `
-        <div><strong>${escapeHtml(lastInvoice.invoiceNumber)}</strong></div>
-        <div class="muted">${escapeHtml(lastInvoice.customerName || 'No customer')}</div>
-        <div class="muted">${escapeHtml(lastInvoice.date || '')}</div>
-        <div class="big-total">${currency(lastInvoice.total)}</div>
-      ` : `<div class="muted">No invoices yet.</div>`}
+      <div class="row">
+        <input class="search" value="${attr(ui.accountSearch)}" placeholder="Search accounts" oninput="ui.accountSearch=this.value; renderAccounts();" />
+        <div class="right tiny">${filtered.length} account(s)</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Account</th><th>Status</th><th>Contact</th><th>Phone</th><th>Next Follow-Up</th><th>Reorder</th><th>Actions</th></tr>
+          </thead>
+          <tbody>${rows || `<tr><td colspan="7" class="muted">No accounts yet.</td></tr>`}</tbody>
+        </table>
+      </div>
     </div>
   `;
 }
 
 function renderProducts(){
-  let rows = '';
-  state.products.forEach((p) => {
-    rows += `
-      <tr>
-        <td>${escapeHtml(p.name || '')}</td>
-        <td>${escapeHtml(p.category || '')}</td>
-        <td>${escapeHtml(p.unit || '')}</td>
-        <td>${currency(p.price)}</td>
-        <td>${escapeHtml(p.sku || '')}</td>
-        <td>${p.active === false ? 'Inactive' : 'Active'}</td>
-        <td class="nowrap">
-          <button onclick="editProduct('${p.id}')">Edit</button>
-          <button class="btn-red" onclick="deleteProduct('${p.id}')">Delete</button>
-        </td>
-      </tr>
-    `;
+  const search = ui.productSearch.trim().toLowerCase();
+  const filtered = state.products.filter(p => {
+    const blob = [p.name,p.category,p.sku,p.notes,p.unit].join(' ').toLowerCase();
+    return !search || blob.includes(search);
   });
 
+  const rows = filtered.map(p => `
+    <tr>
+      <td>${esc(p.name)}</td>
+      <td>${esc(p.category || '')}</td>
+      <td>${esc(p.unit || '')}</td>
+      <td>${currency(p.price)}</td>
+      <td>${esc(p.sku || '')}</td>
+      <td>${p.active === false ? 'Inactive' : 'Active'}</td>
+      <td>
+        <button onclick="editProduct('${p.id}')">Edit</button>
+        <button class="btn-red" onclick="deleteProduct('${p.id}')">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+
+  const p = ui.productDraft;
   document.getElementById('products').innerHTML = `
     <div class="grid grid-2">
       <div class="card">
-        <h2>Add / Edit Product</h2>
-        <input id="prod_name" placeholder="Product name" />
-        <input id="prod_category" placeholder="Category (ex: Full Synthetic, Heavy Duty, Hydraulic, Grease)" />
+        <h2>Products</h2>
+        <input value="${attr(p.name)}" placeholder="Product name" oninput="setProductField('name', this.value)" />
         <div class="grid grid-2">
-          <input id="prod_unit" placeholder="Unit (gal, drum, pail, case, keg)" />
-          <input id="prod_price" type="number" step="0.01" placeholder="Price" />
+          <input value="${attr(p.category)}" placeholder="Category" oninput="setProductField('category', this.value)" />
+          <input value="${attr(p.sku)}" placeholder="SKU" oninput="setProductField('sku', this.value)" />
         </div>
-        <div class="grid grid-2">
-          <input id="prod_sku" placeholder="SKU / short code" />
-          <select id="prod_active">
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
+        <div class="grid grid-3">
+          <input value="${attr(p.unit)}" placeholder="Unit" oninput="setProductField('unit', this.value)" />
+          <input type="number" step="0.01" value="${attr(p.price)}" placeholder="Price" oninput="setProductField('price', this.value)" />
+          <select onchange="setProductField('active', this.value === 'true')">
+            <option value="true" ${p.active !== false ? 'selected' : ''}>Active</option>
+            <option value="false" ${p.active === false ? 'selected' : ''}>Inactive</option>
           </select>
         </div>
-        <textarea id="prod_notes" placeholder="Notes"></textarea>
-        <input type="hidden" id="prod_id" />
+        <textarea placeholder="Notes" oninput="setProductField('notes', this.value)">${esc(p.notes || '')}</textarea>
         <div class="row">
           <button class="btn-green" onclick="saveProduct()">Save Product</button>
-          <button onclick="clearProductForm()">Clear</button>
-          <button class="btn-gold" onclick="seedEncoreStarterProducts()">Load Starter Products</button>
+          <button onclick="resetProductDraft()">Clear</button>
+          <button class="btn-gold" onclick="seedProducts()">Load Starter Products</button>
         </div>
       </div>
-
       <div class="card">
-        <h2>How to use products</h2>
-        <div class="muted">Add every product once here. The invoice builder will pull from this list and auto-fill price and unit.</div>
-        <div class="spacer"></div>
-        <div class="tiny">Examples: 0W-20 Full Synthetic, 5W-30 Synthetic Blend, 15W-40 CK-4, AW 32 Hydraulic, Gear Oil 80W90, Red Grease 120 lb keg.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Product Catalog</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Unit</th>
-              <th>Price</th>
-              <th>SKU</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows || `<tr><td colspan="7" class="muted">No products yet.</td></tr>`}
-          </tbody>
-        </table>
+        <h2>Search & Catalog</h2>
+        <input class="search" value="${attr(ui.productSearch)}" placeholder="Search products" oninput="ui.productSearch=this.value; renderProducts();" />
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Category</th><th>Unit</th><th>Price</th><th>SKU</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>${rows || `<tr><td colspan="7" class="muted">No products yet.</td></tr>`}</tbody>
+          </table>
+        </div>
       </div>
     </div>
   `;
 }
 
-function renderFields(){
-  let rows = '';
-  state.customerFields.forEach(f => {
-    rows += `
-      <tr>
-        <td>${escapeHtml(f.label)}</td>
-        <td>${escapeHtml(f.key)}</td>
-        <td>${escapeHtml(f.type)}</td>
-        <td>${f.required ? 'Yes' : 'No'}</td>
-        <td>${f.enabled === false ? 'No' : 'Yes'}</td>
-        <td>${escapeHtml(f.options || '')}</td>
-        <td>
-          <button onclick="editField('${f.id}')">Edit</button>
-          <button class="btn-red" onclick="deleteField('${f.id}')">Delete</button>
-        </td>
-      </tr>
-    `;
+function buildOrderPreview(order){
+  const totals = orderTotals(order);
+  const lines = [];
+  lines.push(state.settings.companyName || '');
+  lines.push('Invoice #: ' + (order.invoiceNumber || ''));
+  lines.push('Order Date: ' + (order.orderDate || ''));
+  if(order.expectedDeliveryDate) lines.push('Expected Delivery: ' + order.expectedDeliveryDate);
+  if(order.deliveryDate) lines.push('Delivered: ' + order.deliveryDate);
+  if(order.reorderFollowUpDate) lines.push('Reorder Follow-Up: ' + order.reorderFollowUpDate);
+  lines.push('');
+  lines.push('Bill To:');
+  lines.push(order.customerName || '');
+  if(order.contactName) lines.push(order.contactName);
+  if(order.phone) lines.push(order.phone);
+  if(order.email) lines.push(order.email);
+  if(order.address) lines.push(order.address);
+  lines.push('');
+  lines.push('Items:');
+  (order.items || []).forEach(item => {
+    const lineTotal = n(item.quantity) * n(item.unitPrice);
+    lines.push('- ' + (item.description || 'Item') + ' | ' + item.quantity + ' ' + (item.unit || '') + ' @ ' + currency(item.unitPrice) + ' = ' + currency(lineTotal));
   });
+  lines.push('');
+  lines.push('Subtotal: ' + currency(totals.subtotal));
+  if(n(order.deliveryCharge)) lines.push('Delivery: ' + currency(order.deliveryCharge));
+  if(n(order.drumDeposit)) lines.push('Drum Deposit: ' + currency(order.drumDeposit));
+  if(n(order.taxRate)) lines.push('Tax (' + order.taxRate + '%): ' + currency(totals.tax));
+  lines.push('Total: ' + currency(totals.total));
+  lines.push('Commission Base: ' + currency(totals.commissionBase));
+  lines.push('Estimated Commission: ' + currency(totals.commission));
+  if(order.notes){ lines.push(''); lines.push(order.notes); }
+  if(order.internalNotes){ lines.push(''); lines.push('Internal Notes: ' + order.internalNotes); }
+  return lines.join('\n');
+}
 
-  const preview = state.customerFields
-    .filter(f => f.enabled !== false)
-    .map(f => `<div class="pill">${escapeHtml(f.label)}${f.required ? ' *' : ''} — ${escapeHtml(f.type)}</div>`)
+function renderOrders(){
+  const order = ui.orderDraft;
+  const totals = orderTotals(order);
+
+  const accountOptions = ['<option value="">Select account</option>']
+    .concat(state.accounts.map(a => `<option value="${a.id}" ${order.accountId===a.id?'selected':''}>${esc(a.shopName)}${a.contactName ? ' — ' + esc(a.contactName) : ''}</option>`))
     .join('');
 
-  document.getElementById('fields').innerHTML = `
-    <div class="grid grid-2">
-      <div class="card">
-        <h2>Add / Edit Customer Field</h2>
-        <input id="field_label" placeholder="Field label (ex: Shop Name)" />
-        <input id="field_key" placeholder="Field key (ex: shopName)" />
-        <div class="grid grid-2">
-          <select id="field_type">
-            <option value="text">text</option>
-            <option value="phone">phone</option>
-            <option value="email">email</option>
-            <option value="number">number</option>
-            <option value="textarea">textarea</option>
-            <option value="dropdown">dropdown</option>
-            <option value="checkbox">checkbox</option>
-          </select>
-          <select id="field_required">
-            <option value="true">Required</option>
-            <option value="false">Optional</option>
-          </select>
-        </div>
-        <select id="field_enabled">
-          <option value="true">Enabled</option>
-          <option value="false">Disabled</option>
-        </select>
-        <textarea id="field_options" placeholder="Dropdown options, comma separated. Example: Drum,Bulk,Case"></textarea>
-        <input type="hidden" id="field_id" />
-        <div class="row">
-          <button class="btn-green" onclick="saveField()">Save Field</button>
-          <button onclick="clearFieldForm()">Clear</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Customer form preview</h2>
-        <div>${preview || `<div class="muted">No enabled fields.</div>`}</div>
-        <div class="spacer"></div>
-        <div class="tiny">This controls what info you want to collect in your workflow. A truly public dynamic customer form for everyone will need a backend or form service.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Customer Fields</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Label</th>
-              <th>Key</th>
-              <th>Type</th>
-              <th>Required</th>
-              <th>Enabled</th>
-              <th>Options</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows || `<tr><td colspan="7" class="muted">No fields yet.</td></tr>`}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
-
-function renderCustomers(){
-  let rows = '';
-  state.customers.forEach(c => {
-    rows += `
-      <tr>
-        <td>${escapeHtml(c.shopName || c.name || '')}</td>
-        <td>${escapeHtml(c.contactName || '')}</td>
-        <td>${escapeHtml(c.phone || '')}</td>
-        <td>${escapeHtml(c.email || '')}</td>
-        <td>
-          <button onclick="loadCustomerToInvoice('${c.id}')">Use</button>
-          <button onclick="editCustomer('${c.id}')">Edit</button>
-          <button class="btn-red" onclick="deleteCustomer('${c.id}')">Delete</button>
-        </td>
-      </tr>
-    `;
-  });
-
-  document.getElementById('customers').innerHTML = `
-    <div class="grid grid-2">
-      <div class="card">
-        <h2>Add / Edit Customer</h2>
-        <input id="cust_shopName" placeholder="Shop Name" />
-        <input id="cust_contactName" placeholder="Contact Name" />
-        <div class="grid grid-2">
-          <input id="cust_phone" placeholder="Phone" />
-          <input id="cust_email" placeholder="Email" />
-        </div>
-        <input id="cust_address" placeholder="Address" />
-        <textarea id="cust_notes" placeholder="Notes"></textarea>
-        <input type="hidden" id="cust_id" />
-        <div class="row">
-          <button class="btn-green" onclick="saveCustomer()">Save Customer</button>
-          <button onclick="clearCustomerForm()">Clear</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Customer records</h2>
-        <div class="muted">Use this list to quickly build quotes and invoices without retyping customer information.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Customer List</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Shop</th>
-              <th>Contact</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows || `<tr><td colspan="5" class="muted">No customers yet.</td></tr>`}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
-
-function renderInvoices(){
-  const inv = ui.invoiceDraft;
-  const totals = invoiceTotals(inv);
-
-  let customerOptions = `<option value="">Select customer</option>`;
-  state.customers.forEach(c => {
-    customerOptions += `<option value="${c.id}" ${inv.customerId === c.id ? 'selected' : ''}>${escapeHtml(c.shopName || '')}</option>`;
-  });
-
   function productOptions(selectedId=''){
-    let html = `<option value="">Select product</option>`;
-    state.products.filter(p => p.active !== false).forEach(p => {
-      html += `<option value="${p.id}" ${selectedId === p.id ? 'selected' : ''}>${escapeHtml(p.name)} — ${currency(p.price)} / ${escapeHtml(p.unit || '')}</option>`;
-    });
-    return html;
+    return ['<option value="">Select product</option>']
+      .concat(state.products.filter(p => p.active !== false).map(p => `<option value="${p.id}" ${selectedId===p.id?'selected':''}>${esc(p.name)} — ${currency(p.price)} / ${esc(p.unit || '')}</option>`))
+      .join('');
   }
 
-  const lineItemsHtml = inv.items.map((item) => `
+  const lineItemsHtml = (order.items || []).map(item => `
     <div class="line-item">
       <div class="grid grid-2">
-        <select onchange="setLineProduct('${item.id}', this.value)">
-          ${productOptions(item.productId)}
-        </select>
-        <input value="${escapeAttr(item.description || '')}" placeholder="Description" oninput="setLineField('${item.id}', 'description', this.value)" />
+        <select onchange="setOrderLineProduct('${item.id}', this.value)">${productOptions(item.productId)}</select>
+        <input value="${attr(item.description)}" placeholder="Description" oninput="setOrderLineField('${item.id}','description',this.value)" />
       </div>
-      <div class="grid grid-3">
-        <input type="number" step="0.01" value="${item.quantity}" placeholder="Qty" oninput="setLineField('${item.id}', 'quantity', this.value)" />
-        <input value="${escapeAttr(item.unit || '')}" placeholder="Unit" oninput="setLineField('${item.id}', 'unit', this.value)" />
-        <input type="number" step="0.01" value="${item.unitPrice}" placeholder="Unit Price" oninput="setLineField('${item.id}', 'unitPrice', this.value)" />
+      <div class="grid grid-4">
+        <input type="number" step="0.01" value="${attr(item.quantity)}" placeholder="Qty" oninput="setOrderLineField('${item.id}','quantity',this.value)" />
+        <input value="${attr(item.unit)}" placeholder="Unit" oninput="setOrderLineField('${item.id}','unit',this.value)" />
+        <input type="number" step="0.01" value="${attr(item.unitPrice)}" placeholder="Unit Price" oninput="setOrderLineField('${item.id}','unitPrice',this.value)" />
+        <input disabled value="${currency(n(item.quantity)*n(item.unitPrice))}" />
       </div>
       <div class="row">
-        <div class="right"><strong>Line Total: ${currency(numberOrZero(item.quantity) * numberOrZero(item.unitPrice))}</strong></div>
-        <button class="btn-red" onclick="removeLineItem('${item.id}')">Remove</button>
+        <button class="btn-red" onclick="removeOrderLine('${item.id}')">Remove</button>
       </div>
     </div>
   `).join('');
 
-  const previewText = buildInvoiceTextPreview(inv, totals);
-
-  let invoiceRows = '';
-  state.invoices.forEach(saved => {
-    invoiceRows += `
+  const rows = state.orders
+    .filter(o => {
+      const search = ui.orderSearch.trim().toLowerCase();
+      const blob = [o.invoiceNumber,o.customerName,o.contactName,o.email,o.orderDate].join(' ').toLowerCase();
+      return !search || blob.includes(search);
+    })
+    .map(o => `
       <tr>
-        <td>${escapeHtml(saved.invoiceNumber)}</td>
-        <td>${escapeHtml(saved.customerName || '')}</td>
-        <td>${escapeHtml(saved.date || '')}</td>
-        <td>${currency(saved.total)}</td>
+        <td>${esc(o.invoiceNumber)}</td>
+        <td>${esc(o.customerName)}</td>
+        <td>${fmtDate(o.orderDate)}</td>
+        <td>${fmtDate(o.deliveryDate)}</td>
+        <td>${fmtDate(o.reorderFollowUpDate)}</td>
+        <td>${currency(o.total)}</td>
+        <td>${currency(o.commission)}</td>
         <td>
-          <button onclick="loadSavedInvoice('${saved.id}')">Load</button>
-          <button onclick="downloadSavedInvoicePdf('${saved.id}')">PDF</button>
-          <button onclick="copySavedInvoice('${saved.id}')">Copy Text</button>
-          <button onclick="emailSavedInvoice('${saved.id}')">Email</button>
-          <button class="btn-red" onclick="deleteInvoice('${saved.id}')">Delete</button>
+          <button onclick="loadOrder('${o.id}')">Load</button>
+          <button onclick="printCustomerPdfById('${o.id}')">Customer PDF</button>
+          <button onclick="printFulfillmentPdfById('${o.id}')">Phoebe PDF</button>
+          <button onclick="emailCustomerById('${o.id}')">Email Customer</button>
+          <button onclick="emailPhoebeById('${o.id}')">Email Phoebe</button>
+          <button class="btn-red" onclick="deleteOrder('${o.id}')">Delete</button>
         </td>
       </tr>
-    `;
-  });
+    `).join('');
 
-  document.getElementById('invoices').innerHTML = `
+  document.getElementById('orders').innerHTML = `
     <div class="grid grid-2">
       <div class="card">
-        <h2>Invoice Builder</h2>
-        <select onchange="loadCustomerToDraft(this.value)">
-          ${customerOptions}
-        </select>
+        <h2>Order / Invoice Builder</h2>
+        <select onchange="loadAccountIntoOrder(this.value)">${accountOptions}</select>
         <div class="grid grid-2">
-          <input value="${escapeAttr(inv.customerName || '')}" placeholder="Customer / Shop Name" oninput="setInvoiceField('customerName', this.value)" />
-          <input value="${escapeAttr(inv.contactName || '')}" placeholder="Contact Name" oninput="setInvoiceField('contactName', this.value)" />
+          <input value="${attr(order.customerName)}" placeholder="Customer / Shop Name" oninput="setOrderField('customerName',this.value)" />
+          <input value="${attr(order.contactName)}" placeholder="Contact Name" oninput="setOrderField('contactName',this.value)" />
         </div>
         <div class="grid grid-2">
-          <input value="${escapeAttr(inv.phone || '')}" placeholder="Phone" oninput="setInvoiceField('phone', this.value)" />
-          <input value="${escapeAttr(inv.email || '')}" placeholder="Email" oninput="setInvoiceField('email', this.value)" />
+          <input value="${attr(order.phone)}" placeholder="Phone" oninput="setOrderField('phone',this.value)" />
+          <input value="${attr(order.email)}" placeholder="Email" oninput="setOrderField('email',this.value)" />
         </div>
-        <input value="${escapeAttr(inv.address || '')}" placeholder="Address" oninput="setInvoiceField('address', this.value)" />
+        <input value="${attr(order.address)}" placeholder="Address" oninput="setOrderField('address',this.value)" />
+        <div class="grid grid-4">
+          <div><div class="tiny">Invoice #</div><input disabled value="${attr(order.invoiceNumber)}" /></div>
+          <div><div class="tiny">Order date</div><input type="date" value="${attr(order.orderDate)}" oninput="setOrderField('orderDate',this.value)" /></div>
+          <div><div class="tiny">Expected delivery</div><input type="date" value="${attr(order.expectedDeliveryDate)}" oninput="setOrderField('expectedDeliveryDate',this.value)" /></div>
+          <div><div class="tiny">Delivered date</div><input type="date" value="${attr(order.deliveryDate)}" oninput="setOrderField('deliveryDate',this.value)" /></div>
+        </div>
         <div class="grid grid-3">
-          <input type="date" value="${escapeAttr(inv.date || '')}" oninput="setInvoiceField('date', this.value)" />
-          <input type="date" value="${escapeAttr(inv.dueDate || '')}" oninput="setInvoiceField('dueDate', this.value)" />
-          <input value="${escapeAttr((state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber)}" disabled />
+          <div><div class="tiny">Reorder follow-up</div><input type="date" value="${attr(order.reorderFollowUpDate)}" oninput="setOrderField('reorderFollowUpDate',this.value)" /></div>
+          <div><div class="tiny">Status</div>
+            <select onchange="setOrderField('status',this.value)">
+              ${['ordered','delivered','follow_up','customer'].map(s => `<option value="${s}" ${order.status===s?'selected':''}>${s.replaceAll('_',' ')}</option>`).join('')}
+            </select>
+          </div>
+          <div><div class="tiny">Payment terms</div><input value="${attr(order.paymentTerms)}" oninput="setOrderField('paymentTerms',this.value)" /></div>
         </div>
 
         <div class="divider"></div>
         <h3>Line Items</h3>
         ${lineItemsHtml}
-        <button class="btn-blue" onclick="addLineItem()">Add Line Item</button>
+        <button class="btn-blue" onclick="addOrderLine()">Add Line Item</button>
 
         <div class="divider"></div>
-        <h3>Charges / Terms</h3>
-        <div class="grid grid-3">
-          <input type="number" step="0.01" value="${inv.deliveryCharge}" placeholder="Delivery Charge" oninput="setInvoiceField('deliveryCharge', this.value)" />
-          <input type="number" step="0.01" value="${inv.drumDeposit}" placeholder="Drum Deposit" oninput="setInvoiceField('drumDeposit', this.value)" />
-          <input type="number" step="0.01" value="${inv.taxRate}" placeholder="Tax %" oninput="setInvoiceField('taxRate', this.value)" />
+        <h3>Charges, Commission, and Notes</h3>
+        <div class="grid grid-4">
+          <input type="number" step="0.01" value="${attr(order.deliveryCharge)}" placeholder="Delivery Charge" oninput="setOrderField('deliveryCharge',this.value)" />
+          <input type="number" step="0.01" value="${attr(order.drumDeposit)}" placeholder="Drum Deposit" oninput="setOrderField('drumDeposit',this.value)" />
+          <input type="number" step="0.01" value="${attr(order.taxRate)}" placeholder="Tax %" oninput="setOrderField('taxRate',this.value)" />
+          <input type="number" step="0.01" value="${attr(order.totalForCommission)}" placeholder="Commission Base Override" oninput="setOrderField('totalForCommission',this.value)" />
         </div>
-        <textarea placeholder="Invoice / quote message" oninput="setInvoiceField('notes', this.value)">${escapeHtml(inv.notes || '')}</textarea>
-        <textarea placeholder="Disclaimer" oninput="setInvoiceField('disclaimer', this.value)">${escapeHtml(inv.disclaimer || '')}</textarea>
+        <textarea placeholder="Customer-facing note for invoice" oninput="setOrderField('notes',this.value)">${esc(order.notes)}</textarea>
+        <textarea placeholder="Account / transaction notes for you" oninput="setOrderField('internalNotes',this.value)">${esc(order.internalNotes)}</textarea>
+        <textarea placeholder="Fulfillment notes for Phoebe" oninput="setOrderField('fulfillmentNotes',this.value)">${esc(order.fulfillmentNotes)}</textarea>
 
         <div class="totals">
           <div class="total-row"><span>Subtotal</span><strong>${currency(totals.subtotal)}</strong></div>
@@ -696,40 +725,38 @@ function renderInvoices(){
           <div class="total-row"><span>Drum Deposit</span><strong>${currency(totals.deposit)}</strong></div>
           <div class="total-row"><span>Tax</span><strong>${currency(totals.tax)}</strong></div>
           <div class="total-row big-total"><span>Total</span><strong>${currency(totals.total)}</strong></div>
+          <div class="total-row"><span>Commission Base</span><strong>${currency(totals.commissionBase)}</strong></div>
+          <div class="total-row"><span>Est. Commission</span><strong>${currency(totals.commission)}</strong></div>
         </div>
 
         <div class="spacer"></div>
         <div class="row">
-          <button class="btn-green" onclick="saveInvoice()">Save Invoice</button>
-          <button class="btn-blue" onclick="downloadDraftInvoicePdf()">Download PDF</button>
-          <button class="btn-blue" onclick="copyDraftInvoice()">Copy Invoice Text</button>
-          <button class="btn-gold" onclick="emailDraftInvoice()">Email Invoice</button>
-          <button onclick="resetInvoiceDraft()">New Invoice</button>
+          <button class="btn-green" onclick="saveOrder()">Save Order</button>
+          <button class="btn-blue" onclick="printCustomerPdf()">Customer PDF</button>
+          <button class="btn-blue" onclick="printFulfillmentPdf()">Phoebe PDF</button>
+          <button class="btn-gold" onclick="emailCustomer()">Email Customer</button>
+          <button class="btn-gold" onclick="emailPhoebe()">Email Phoebe</button>
+          <button onclick="resetOrderDraft()">New Order</button>
         </div>
       </div>
 
       <div class="card">
-        <h2>Invoice Preview</h2>
-        <div class="preview">${escapeHtml(previewText)}</div>
+        <h2>Order Preview</h2>
+        <div class="preview">${esc(buildOrderPreview(order))}</div>
       </div>
     </div>
 
     <div class="card">
-      <h2>Saved Invoices</h2>
+      <div class="row">
+        <input class="search" value="${attr(ui.orderSearch)}" placeholder="Search saved orders" oninput="ui.orderSearch=this.value; renderOrders();" />
+        <div class="right tiny">${state.orders.length} saved order(s)</div>
+      </div>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr>
-              <th>Invoice #</th>
-              <th>Customer</th>
-              <th>Date</th>
-              <th>Total</th>
-              <th>Actions</th>
-            </tr>
+            <tr><th>Invoice #</th><th>Customer</th><th>Order Date</th><th>Delivered</th><th>Reorder</th><th>Total</th><th>Commission</th><th>Actions</th></tr>
           </thead>
-          <tbody>
-            ${invoiceRows || `<tr><td colspan="5" class="muted">No saved invoices yet.</td></tr>`}
-          </tbody>
+          <tbody>${rows || `<tr><td colspan="8" class="muted">No saved orders yet.</td></tr>`}</tbody>
         </table>
       </div>
     </div>
@@ -741,773 +768,539 @@ function renderSettings(){
   document.getElementById('settings').innerHTML = `
     <div class="grid grid-2">
       <div class="card">
-        <h2>Company Info</h2>
-        <input id="set_companyName" value="${escapeAttr(s.companyName || '')}" placeholder="Company Name" />
-        <input id="set_companyPhone" value="${escapeAttr(s.companyPhone || '')}" placeholder="Phone" />
-        <input id="set_companyEmail" value="${escapeAttr(s.companyEmail || '')}" placeholder="Email" />
-        <input id="set_companyAddress" value="${escapeAttr(s.companyAddress || '')}" placeholder="Address" />
-        <input id="set_logoUrl" value="${escapeAttr(s.logoUrl || '')}" placeholder="Logo URL" />
+        <h2>Company</h2>
+        <input id="set_companyName" value="${attr(s.companyName)}" placeholder="Company Name" />
+        <div class="grid grid-2">
+          <input id="set_companyPhone" value="${attr(s.companyPhone)}" placeholder="Company Phone" />
+          <input id="set_companyEmail" value="${attr(s.companyEmail)}" placeholder="Company Email" />
+        </div>
+        <input id="set_companyAddress" value="${attr(s.companyAddress)}" placeholder="Company Address" />
+        <div class="grid grid-2">
+          <input id="set_salesContact" value="${attr(s.salesContact)}" placeholder="Sales Contact" />
+          <input id="set_salesEmail" value="${attr(s.salesEmail)}" placeholder="Sales Email" />
+        </div>
+        <input id="set_logoUrl" value="${attr(s.logoUrl)}" placeholder="Logo URL (optional)" />
       </div>
 
       <div class="card">
         <h2>Invoice Defaults</h2>
         <div class="grid grid-2">
-          <input id="set_invoicePrefix" value="${escapeAttr(s.invoicePrefix || '')}" placeholder="Invoice Prefix" />
-          <input id="set_nextInvoiceNumber" type="number" value="${escapeAttr(s.nextInvoiceNumber || 1001)}" placeholder="Next Invoice Number" />
+          <input id="set_invoicePrefix" value="${attr(s.invoicePrefix)}" placeholder="Invoice Prefix" />
+          <input id="set_nextInvoiceNumber" type="number" value="${attr(s.nextInvoiceNumber)}" placeholder="Next Invoice Number" />
         </div>
-        <input id="set_paymentTerms" value="${escapeAttr(s.paymentTerms || '')}" placeholder="Payment Terms" />
-        <div class="grid grid-3">
-          <input id="set_defaultDeliveryCharge" type="number" step="0.01" value="${escapeAttr(s.defaultDeliveryCharge || 0)}" placeholder="Default Delivery Charge" />
-          <input id="set_defaultTaxRate" type="number" step="0.01" value="${escapeAttr(s.defaultTaxRate || 0)}" placeholder="Default Tax Rate %" />
-          <input id="set_defaultDrumDeposit" type="number" step="0.01" value="${escapeAttr(s.defaultDrumDeposit || 0)}" placeholder="Default Drum Deposit" />
+        <input id="set_paymentTerms" value="${attr(s.paymentTerms)}" placeholder="Payment Terms" />
+        <div class="grid grid-4">
+          <input id="set_defaultDeliveryCharge" type="number" step="0.01" value="${attr(s.defaultDeliveryCharge)}" placeholder="Default Delivery Charge" />
+          <input id="set_defaultDrumDeposit" type="number" step="0.01" value="${attr(s.defaultDrumDeposit)}" placeholder="Default Drum Deposit" />
+          <input id="set_defaultTaxRate" type="number" step="0.01" value="${attr(s.defaultTaxRate)}" placeholder="Default Tax Rate" />
+          <input id="set_reorderDaysDefault" type="number" step="1" value="${attr(s.reorderDaysDefault)}" placeholder="Default Reorder Days" />
         </div>
-        <textarea id="set_defaultDisclaimer" placeholder="Default Disclaimer">${escapeHtml(s.defaultDisclaimer || '')}</textarea>
+        <div class="grid grid-2">
+          <input id="set_commissionRate" type="number" step="0.01" value="${attr(s.commissionRate)}" placeholder="Commission Rate %" />
+          <input id="set_phoebeEmail" value="${attr(s.phoebeEmail)}" placeholder="Phoebe Email" />
+        </div>
+        <input id="set_phoebeName" value="${attr(s.phoebeName)}" placeholder="Phoebe Name" />
+        <textarea id="set_defaultDisclaimer" placeholder="Default Disclaimer">${esc(s.defaultDisclaimer)}</textarea>
       </div>
     </div>
 
     <div class="grid grid-2">
       <div class="card">
-        <h2>Message Templates</h2>
-        <textarea id="set_quoteMessage" placeholder="Quote message">${escapeHtml(s.quoteMessage || '')}</textarea>
-        <textarea id="set_invoiceMessage" placeholder="Invoice message">${escapeHtml(s.invoiceMessage || '')}</textarea>
+        <h2>Email Templates</h2>
+        <textarea id="set_customerEmailMessage" placeholder="Customer email body">${esc(s.customerEmailMessage)}</textarea>
+        <textarea id="set_fulfillmentEmailMessage" placeholder="Fulfillment email body">${esc(s.fulfillmentEmailMessage)}</textarea>
       </div>
-
       <div class="card">
-        <h2>Links</h2>
-        <input id="set_customerOrderFormUrl" value="${escapeAttr(s.customerOrderFormUrl || '')}" placeholder="Customer Order Form URL" />
-        <div class="tiny">This is the link your dashboard opens.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="row">
-        <button class="btn-green" onclick="saveSettings()">Save Settings</button>
-        <button onclick="resetSettingsOnly()">Reset Settings Only</button>
-      </div>
-    </div>
-  `;
-}
-
-function renderData(){
-  document.getElementById('data').innerHTML = `
-    <div class="grid grid-2">
-      <div class="card">
-        <h2>Export Backup</h2>
-        <div class="muted">Copy your full app data as JSON and keep it somewhere safe.</div>
+        <h2>Save</h2>
+        <div class="muted">These settings control the PDFs, the email buttons, the commission estimate, and the default reorder follow-up timing.</div>
         <div class="spacer"></div>
-        <button class="btn-blue" onclick="exportData()">Generate Backup JSON</button>
-        <textarea id="backup_output" placeholder="Your backup JSON will appear here"></textarea>
-      </div>
-
-      <div class="card">
-        <h2>Import Backup</h2>
-        <div class="muted">Paste a previous backup JSON here to restore your products, customers, fields, invoices, and settings.</div>
-        <div class="spacer"></div>
-        <textarea id="backup_input" placeholder="Paste backup JSON here"></textarea>
         <div class="row">
-          <button class="btn-green" onclick="importData()">Import Backup</button>
-          <button class="btn-red" onclick="wipeEverything()">Wipe Everything</button>
+          <button class="btn-green" onclick="saveSettings()">Save Settings</button>
+          <button onclick="seedProducts()">Load Starter Products</button>
         </div>
       </div>
     </div>
   `;
 }
 
-/* PRODUCTS */
-function clearProductForm(){
-  document.getElementById('prod_id').value = '';
-  document.getElementById('prod_name').value = '';
-  document.getElementById('prod_category').value = '';
-  document.getElementById('prod_unit').value = '';
-  document.getElementById('prod_price').value = '';
-  document.getElementById('prod_sku').value = '';
-  document.getElementById('prod_active').value = 'true';
-  document.getElementById('prod_notes').value = '';
+function renderBackup(){
+  document.getElementById('backup').innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Export</h2>
+        <button class="btn-blue" onclick="exportBackup()">Generate Backup JSON</button>
+        <textarea id="backup_out" placeholder="Backup JSON will appear here"></textarea>
+      </div>
+      <div class="card">
+        <h2>Import</h2>
+        <textarea id="backup_in" placeholder="Paste previous backup JSON here"></textarea>
+        <div class="row">
+          <button class="btn-green" onclick="importBackup()">Import Backup</button>
+          <button class="btn-red" onclick="wipeAll()">Wipe Everything</button>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
-function saveProduct(){
-  const id = document.getElementById('prod_id').value || uid();
-  const product = {
-    id,
-    name: document.getElementById('prod_name').value.trim(),
-    category: document.getElementById('prod_category').value.trim(),
-    unit: document.getElementById('prod_unit').value.trim(),
-    price: numberOrZero(document.getElementById('prod_price').value),
-    sku: document.getElementById('prod_sku').value.trim(),
-    active: document.getElementById('prod_active').value === 'true',
-    notes: document.getElementById('prod_notes').value.trim()
-  };
-  if(!product.name) return alert('Enter a product name.');
-  const idx = state.products.findIndex(p => p.id === id);
-  if(idx >= 0) state.products[idx] = product;
-  else state.products.unshift(product);
+function render(){
+  renderDashboard();
+  renderAccounts();
+  renderProducts();
+  renderOrders();
+  renderSettings();
+  renderBackup();
+}
+
+/* Accounts */
+function setAccountField(key, value){ ui.accountDraft[key] = value; renderAccounts(); }
+function resetAccountDraft(){ ui.accountDraft = newAccountDraft(); renderAccounts(); }
+function saveAccount(){
+  const draft = clone(ui.accountDraft);
+  if(!draft.shopName) return alert('Enter a shop name.');
+  draft.id = draft.id || uid();
+  const idx = state.accounts.findIndex(x => x.id === draft.id);
+  if(idx >= 0) state.accounts[idx] = draft; else state.accounts.unshift(draft);
   saveState();
-  clearProductForm();
+  ui.accountDraft = newAccountDraft();
   render();
 }
-
-function editProduct(id){
-  const p = state.products.find(x => x.id === id);
-  if(!p) return;
-  document.getElementById('prod_id').value = p.id;
-  document.getElementById('prod_name').value = p.name || '';
-  document.getElementById('prod_category').value = p.category || '';
-  document.getElementById('prod_unit').value = p.unit || '';
-  document.getElementById('prod_price').value = p.price || 0;
-  document.getElementById('prod_sku').value = p.sku || '';
-  document.getElementById('prod_active').value = String(p.active !== false);
-  document.getElementById('prod_notes').value = p.notes || '';
-  window.scrollTo({top:0,behavior:'smooth'});
+function editAccount(id){
+  const a = getAccount(id); if(!a) return;
+  ui.accountDraft = clone(a);
+  switchTab('accounts');
+}
+function deleteAccount(id){
+  if(!confirm('Delete this account?')) return;
+  state.accounts = state.accounts.filter(x => x.id !== id);
+  saveState(); render();
+}
+function startOrderFromDraftAccount(){
+  if(!ui.accountDraft.shopName){
+    return alert('Enter at least the account/shop name first.');
+  }
+  if(!ui.accountDraft.id){
+    const temp = clone(ui.accountDraft);
+    temp.id = uid();
+    state.accounts.unshift(temp);
+    saveState();
+    ui.accountDraft = clone(temp);
+  }
+  startOrderFromAccount(ui.accountDraft.id);
+}
+function startOrderFromAccount(id){
+  const a = getAccount(id);
+  if(!a) return;
+  ui.orderDraft = newOrderDraft();
+  ui.orderDraft.accountId = a.id;
+  ui.orderDraft.customerName = a.shopName || '';
+  ui.orderDraft.contactName = a.contactName || '';
+  ui.orderDraft.phone = a.phone || '';
+  ui.orderDraft.email = a.email || '';
+  ui.orderDraft.address = a.address || '';
+  ui.orderDraft.reorderFollowUpDate = a.nextReorderFollowUpDate || plusDays(today(), n(state.settings.reorderDaysDefault) || 21);
+  switchTab('orders');
 }
 
+/* Products */
+function setProductField(key, value){ ui.productDraft[key] = (key === 'price') ? n(value) : value; renderProducts(); }
+function resetProductDraft(){ ui.productDraft = newProductDraft(); renderProducts(); }
+function saveProduct(){
+  const p = clone(ui.productDraft);
+  if(!p.name) return alert('Enter a product name.');
+  p.id = p.id || uid();
+  const idx = state.products.findIndex(x => x.id === p.id);
+  if(idx >= 0) state.products[idx] = p; else state.products.unshift(p);
+  saveState(); ui.productDraft = newProductDraft(); render();
+}
+function editProduct(id){ const p = getProduct(id); if(!p) return; ui.productDraft = clone(p); switchTab('products'); }
 function deleteProduct(id){
   if(!confirm('Delete this product?')) return;
-  state.products = state.products.filter(p => p.id !== id);
-  saveState();
-  render();
+  state.products = state.products.filter(x => x.id !== id);
+  saveState(); render();
 }
-
-function seedEncoreStarterProducts(){
-  if(!confirm('Load a starter product list? Existing products will stay.')) return;
+function seedProducts(){
   const starter = [
-    ['0W-20 Full Synthetic','Full Synthetic','gal',8.99,'0W20FS'],
-    ['5W-30 Full Synthetic','Full Synthetic','gal',8.99,'5W30FS'],
-    ['5W-30 Synthetic Blend','Synthetic Blend','gal',6.99,'5W30SB'],
-    ['15W-40 CK-4','Heavy Duty','gal',12.99,'15W40CK4'],
-    ['10W-30 Heavy Duty','Heavy Duty','gal',12.99,'10W30HD'],
-    ['Green Coolant 50/50','Coolant','drum',298.00,'GRN5050'],
-    ['Red Coolant 50/50','Coolant','drum',319.00,'RED5050'],
-    ['Coolant 100%','Coolant','drum',514.00,'COOL100'],
-    ['AW 32 Hydraulic','Hydraulic','drum',450.00,'AW32'],
-    ['AW 46 Hydraulic','Hydraulic','drum',450.00,'AW46'],
-    ['80W90 Gear Oil','Gear Oil','drum',256.00,'80W90'],
-    ['WWF','Other','drum',200.00,'WWF'],
-    ['Mineral Spirits','Other','drum',575.00,'MINSP'],
-    ['Red Grease 120lb Keg','Grease','keg',350.00,'REDGR120'],
-    ['Red Grease 5gal Pail','Grease','pail',89.00,'REDGR5'],
-    ['All Purpose Grease Keg','Grease','keg',249.00,'APGRKG']
+    ['0W-20 Full Synthetic','Full Synthetic','gallon',8.99,'0W20FS'],
+    ['5W-30 Full Synthetic','Full Synthetic','gallon',8.99,'5W30FS'],
+    ['5W-30 Synthetic Blend','Synthetic Blend','gallon',6.99,'5W30SB'],
+    ['15W-40 HD CK-4','Heavy Duty','gallon',12.99,'15W40'],
+    ['10W-30 Heavy Duty','Heavy Duty','gallon',12.99,'10W30HD'],
+    ['AW 32 Hydraulic Oil','Hydraulic','drum',450,'AW32'],
+    ['AW 46 Hydraulic Oil','Hydraulic','drum',450,'AW46'],
+    ['80W90 Gear Oil','Gear Oil','drum',256,'80W90'],
+    ['Green Coolant 50/50','Coolant','drum',298,'GRN5050'],
+    ['Red Coolant 50/50','Coolant','drum',319,'RED5050'],
+    ['Red Grease 120 lb Keg','Grease','keg',350,'REDGR120'],
+    ['Red Grease 5 gal Pail','Grease','pail',89,'REDGR5']
   ];
   starter.forEach(([name,category,unit,price,sku]) => {
     if(!state.products.some(p => p.name === name)){
-      state.products.push({id:uid(),name,category,unit,price,sku,active:true,notes:''});
+      state.products.push({id:uid(), name, category, unit, price, sku, active:true, notes:''});
     }
   });
+  saveState(); render(); alert('Starter products loaded.');
+}
+
+/* Orders */
+function setOrderField(key, value){
+  ui.orderDraft[key] = ['deliveryCharge','drumDeposit','taxRate','totalForCommission'].includes(key) ? n(value) : value;
+  renderOrders();
+}
+function loadAccountIntoOrder(id){
+  const a = getAccount(id);
+  ui.orderDraft.accountId = id;
+  if(a){
+    ui.orderDraft.customerName = a.shopName || '';
+    ui.orderDraft.contactName = a.contactName || '';
+    ui.orderDraft.phone = a.phone || '';
+    ui.orderDraft.email = a.email || '';
+    ui.orderDraft.address = a.address || '';
+    if(!ui.orderDraft.reorderFollowUpDate){
+      ui.orderDraft.reorderFollowUpDate = a.nextReorderFollowUpDate || plusDays(ui.orderDraft.orderDate || today(), n(state.settings.reorderDaysDefault) || 21);
+    }
+  }
+  renderOrders();
+}
+function addOrderLine(){ ui.orderDraft.items.push(newLineItem()); renderOrders(); }
+function removeOrderLine(id){
+  if(ui.orderDraft.items.length === 1) return alert('At least one line item is required.');
+  ui.orderDraft.items = ui.orderDraft.items.filter(x => x.id !== id);
+  renderOrders();
+}
+function setOrderLineField(id, key, value){
+  const line = ui.orderDraft.items.find(x => x.id === id);
+  if(!line) return;
+  line[key] = ['quantity','unitPrice'].includes(key) ? n(value) : value;
+  renderOrders();
+}
+function setOrderLineProduct(id, productId){
+  const line = ui.orderDraft.items.find(x => x.id === id);
+  const p = getProduct(productId);
+  if(!line || !p) return;
+  line.productId = p.id;
+  line.description = p.name || '';
+  line.unit = p.unit || '';
+  line.unitPrice = n(p.price);
+  renderOrders();
+}
+function resetOrderDraft(){ ui.orderDraft = newOrderDraft(); renderOrders(); }
+
+function saveOrder(){
+  const o = clone(ui.orderDraft);
+  if(!o.customerName) return alert('Enter a customer name.');
+  if(!(o.items || []).length) return alert('Add at least one line item.');
+  const totals = orderTotals(o);
+  o.id = o.id || uid();
+  o.invoiceNumber = o.invoiceNumber || ((state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber);
+  o.subtotal = totals.subtotal;
+  o.tax = totals.tax;
+  o.total = totals.total;
+  o.commissionBase = totals.commissionBase;
+  o.commission = totals.commission;
+  o.updatedAt = nowIso();
+  if(!o.createdAt) o.createdAt = nowIso();
+
+  const idx = state.orders.findIndex(x => x.id === o.id);
+  const isNew = idx < 0;
+  if(idx >= 0) state.orders[idx] = o; else state.orders.unshift(o);
+
+  if(isNew){
+    state.settings.nextInvoiceNumber = n(state.settings.nextInvoiceNumber) + 1;
+  }
+
+  if(o.accountId){
+    const a = getAccount(o.accountId);
+    if(a){
+      a.status = o.deliveryDate ? 'delivered' : 'ordered';
+      a.lastOrderDate = o.orderDate || a.lastOrderDate;
+      a.lastDeliveryDate = o.deliveryDate || a.lastDeliveryDate;
+      a.nextReorderFollowUpDate = o.reorderFollowUpDate || a.nextReorderFollowUpDate;
+    }
+  }
+
   saveState();
+  ui.orderDraft = newOrderDraft();
   render();
+  alert('Order saved.');
 }
 
-/* FIELDS */
-function clearFieldForm(){
-  document.getElementById('field_id').value = '';
-  document.getElementById('field_label').value = '';
-  document.getElementById('field_key').value = '';
-  document.getElementById('field_type').value = 'text';
-  document.getElementById('field_required').value = 'true';
-  document.getElementById('field_enabled').value = 'true';
-  document.getElementById('field_options').value = '';
+function loadOrder(id){
+  const o = getOrder(id);
+  if(!o) return;
+  ui.orderDraft = clone(o);
+  switchTab('orders');
+}
+function deleteOrder(id){
+  if(!confirm('Delete this saved order?')) return;
+  state.orders = state.orders.filter(x => x.id !== id);
+  saveState(); render();
 }
 
-function saveField(){
-  const id = document.getElementById('field_id').value || uid();
-  const field = {
-    id,
-    label: document.getElementById('field_label').value.trim(),
-    key: document.getElementById('field_key').value.trim(),
-    type: document.getElementById('field_type').value,
-    required: document.getElementById('field_required').value === 'true',
-    enabled: document.getElementById('field_enabled').value === 'true',
-    options: document.getElementById('field_options').value.trim()
-  };
-  if(!field.label || !field.key) return alert('Field label and key are required.');
-  const idx = state.customerFields.findIndex(f => f.id === id);
-  if(idx >= 0) state.customerFields[idx] = field;
-  else state.customerFields.push(field);
-  saveState();
-  clearFieldForm();
-  render();
-}
-
-function editField(id){
-  const f = state.customerFields.find(x => x.id === id);
-  if(!f) return;
-  document.getElementById('field_id').value = f.id;
-  document.getElementById('field_label').value = f.label || '';
-  document.getElementById('field_key').value = f.key || '';
-  document.getElementById('field_type').value = f.type || 'text';
-  document.getElementById('field_required').value = String(!!f.required);
-  document.getElementById('field_enabled').value = String(f.enabled !== false);
-  document.getElementById('field_options').value = f.options || '';
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function deleteField(id){
-  if(!confirm('Delete this field?')) return;
-  state.customerFields = state.customerFields.filter(f => f.id !== id);
-  saveState();
-  render();
-}
-
-/* CUSTOMERS */
-function clearCustomerForm(){
-  document.getElementById('cust_id').value = '';
-  document.getElementById('cust_shopName').value = '';
-  document.getElementById('cust_contactName').value = '';
-  document.getElementById('cust_phone').value = '';
-  document.getElementById('cust_email').value = '';
-  document.getElementById('cust_address').value = '';
-  document.getElementById('cust_notes').value = '';
-}
-
-function saveCustomer(){
-  const id = document.getElementById('cust_id').value || uid();
-  const customer = {
-    id,
-    shopName: document.getElementById('cust_shopName').value.trim(),
-    contactName: document.getElementById('cust_contactName').value.trim(),
-    phone: document.getElementById('cust_phone').value.trim(),
-    email: document.getElementById('cust_email').value.trim(),
-    address: document.getElementById('cust_address').value.trim(),
-    notes: document.getElementById('cust_notes').value.trim()
-  };
-  if(!customer.shopName) return alert('Enter a shop name.');
-  const idx = state.customers.findIndex(c => c.id === id);
-  if(idx >= 0) state.customers[idx] = customer;
-  else state.customers.unshift(customer);
-  saveState();
-  clearCustomerForm();
-  render();
-}
-
-function editCustomer(id){
-  const c = state.customers.find(x => x.id === id);
-  if(!c) return;
-  document.getElementById('cust_id').value = c.id;
-  document.getElementById('cust_shopName').value = c.shopName || '';
-  document.getElementById('cust_contactName').value = c.contactName || '';
-  document.getElementById('cust_phone').value = c.phone || '';
-  document.getElementById('cust_email').value = c.email || '';
-  document.getElementById('cust_address').value = c.address || '';
-  document.getElementById('cust_notes').value = c.notes || '';
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function deleteCustomer(id){
-  if(!confirm('Delete this customer?')) return;
-  state.customers = state.customers.filter(c => c.id !== id);
-  saveState();
-  render();
-}
-
-function loadCustomerToInvoice(id){
-  switchTab('invoices');
-  loadCustomerToDraft(id);
-}
-
-function loadCustomerToDraft(id){
-  const c = state.customers.find(x => x.id === id);
-  if(!c) return;
-  ui.invoiceDraft.customerId = c.id;
-  ui.invoiceDraft.customerName = c.shopName || '';
-  ui.invoiceDraft.contactName = c.contactName || '';
-  ui.invoiceDraft.phone = c.phone || '';
-  ui.invoiceDraft.email = c.email || '';
-  ui.invoiceDraft.address = c.address || '';
-  render();
-}
-
-/* INVOICES */
-function setInvoiceField(key, value){
-  ui.invoiceDraft[key] = value;
-  render();
-}
-
-function addLineItem(){
-  ui.invoiceDraft.items.push(newLineItem());
-  render();
-}
-
-function removeLineItem(id){
-  if(ui.invoiceDraft.items.length === 1) return alert('At least one line item is required.');
-  ui.invoiceDraft.items = ui.invoiceDraft.items.filter(x => x.id !== id);
-  render();
-}
-
-function setLineField(id, key, value){
-  const item = ui.invoiceDraft.items.find(x => x.id === id);
-  if(!item) return;
-  item[key] = (key === 'quantity' || key === 'unitPrice') ? numberOrZero(value) : value;
-  render();
-}
-
-function setLineProduct(id, productId){
-  const item = ui.invoiceDraft.items.find(x => x.id === id);
-  const product = state.products.find(p => p.id === productId);
-  if(!item || !product) return;
-  item.productId = product.id;
-  item.description = product.name || '';
-  item.unit = product.unit || '';
-  item.unitPrice = numberOrZero(product.price);
-  render();
-}
-
-function buildInvoiceTextPreview(inv, totals){
-  const invoiceNumber = (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber;
-  const lines = [];
-  lines.push(state.settings.companyName || '');
-  if(state.settings.companyPhone) lines.push(state.settings.companyPhone);
-  if(state.settings.companyEmail) lines.push(state.settings.companyEmail);
-  if(state.settings.companyAddress) lines.push(state.settings.companyAddress);
-  lines.push('');
-  lines.push('Invoice #: ' + invoiceNumber);
-  lines.push('Date: ' + (inv.date || ''));
-  if(inv.dueDate) lines.push('Due Date: ' + inv.dueDate);
-  lines.push('');
-  lines.push('Bill To:');
-  lines.push(inv.customerName || '');
-  if(inv.contactName) lines.push(inv.contactName);
-  if(inv.phone) lines.push(inv.phone);
-  if(inv.email) lines.push(inv.email);
-  if(inv.address) lines.push(inv.address);
-  lines.push('');
-  lines.push('Items:');
-  inv.items.forEach(item => {
-    const lineTotal = numberOrZero(item.quantity) * numberOrZero(item.unitPrice);
-    lines.push('- ' + (item.description || 'Item') + ' | ' + item.quantity + ' ' + (item.unit || '') + ' @ ' + currency(item.unitPrice) + ' = ' + currency(lineTotal));
-  });
-  lines.push('');
-  lines.push('Subtotal: ' + currency(totals.subtotal));
-  if(numberOrZero(inv.deliveryCharge)) lines.push('Delivery: ' + currency(inv.deliveryCharge));
-  if(numberOrZero(inv.drumDeposit)) lines.push('Drum Deposit: ' + currency(inv.drumDeposit));
-  if(numberOrZero(inv.taxRate)) lines.push('Tax (' + inv.taxRate + '%): ' + currency(totals.tax));
-  lines.push('Total: ' + currency(totals.total));
-  lines.push('');
-  if(state.settings.paymentTerms) lines.push('Payment Terms: ' + state.settings.paymentTerms);
-  if(inv.notes) { lines.push(''); lines.push(inv.notes); }
-  if(inv.disclaimer) { lines.push(''); lines.push(inv.disclaimer); }
-  return lines.join('\n');
-}
-
-function saveInvoice(){
-  const inv = ui.invoiceDraft;
-  if(!inv.customerName) return alert('Enter a customer name.');
-  if(!inv.items.length) return alert('Add at least one line item.');
-  const totals = invoiceTotals(inv);
-  const saved = {
-    id: uid(),
-    invoiceNumber: (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber,
-    date: inv.date || '',
-    dueDate: inv.dueDate || '',
-    customerId: inv.customerId || '',
-    customerName: inv.customerName || '',
-    contactName: inv.contactName || '',
-    email: inv.email || '',
-    phone: inv.phone || '',
-    address: inv.address || '',
-    items: structuredCloneSafe(inv.items),
-    deliveryCharge: numberOrZero(inv.deliveryCharge),
-    taxRate: numberOrZero(inv.taxRate),
-    drumDeposit: numberOrZero(inv.drumDeposit),
-    notes: inv.notes || '',
-    disclaimer: inv.disclaimer || '',
-    subtotal: totals.subtotal,
-    tax: totals.tax,
-    total: totals.total,
-    createdAt: new Date().toISOString()
-  };
-  state.invoices.unshift(saved);
-  state.settings.nextInvoiceNumber = numberOrZero(state.settings.nextInvoiceNumber) + 1;
-  saveState();
-  alert('Invoice saved.');
-  ui.invoiceDraft = newInvoiceDraft();
-  render();
-}
-
-function loadSavedInvoice(id){
-  const inv = state.invoices.find(x => x.id === id);
-  if(!inv) return;
-  ui.invoiceDraft = {
-    customerId: inv.customerId || '',
-    customerName: inv.customerName || '',
-    contactName: inv.contactName || '',
-    email: inv.email || '',
-    phone: inv.phone || '',
-    address: inv.address || '',
-    date: inv.date || today(),
-    dueDate: inv.dueDate || '',
-    deliveryCharge: numberOrZero(inv.deliveryCharge),
-    taxRate: numberOrZero(inv.taxRate),
-    drumDeposit: numberOrZero(inv.drumDeposit),
-    notes: inv.notes || '',
-    disclaimer: inv.disclaimer || '',
-    items: structuredCloneSafe(inv.items || [newLineItem()])
-  };
-  switchTab('invoices');
-}
-
-function deleteInvoice(id){
-  if(!confirm('Delete this invoice?')) return;
-  state.invoices = state.invoices.filter(x => x.id !== id);
-  saveState();
-  render();
-}
-
-function copyDraftInvoice(){
-  const totals = invoiceTotals(ui.invoiceDraft);
-  const text = buildInvoiceTextPreview(ui.invoiceDraft, totals);
-  navigator.clipboard.writeText(text).then(() => alert('Invoice text copied.'));
-}
-
-function buildSavedInvoiceText(inv){
-  const lines = [];
-  lines.push(state.settings.companyName || '');
-  if(state.settings.companyPhone) lines.push(state.settings.companyPhone);
-  if(state.settings.companyEmail) lines.push(state.settings.companyEmail);
-  if(state.settings.companyAddress) lines.push(state.settings.companyAddress);
-  lines.push('');
-  lines.push('Invoice #: ' + inv.invoiceNumber);
-  lines.push('Date: ' + (inv.date || ''));
-  if(inv.dueDate) lines.push('Due Date: ' + inv.dueDate);
-  lines.push('');
-  lines.push('Bill To:');
-  lines.push(inv.customerName || '');
-  if(inv.contactName) lines.push(inv.contactName);
-  if(inv.phone) lines.push(inv.phone);
-  if(inv.email) lines.push(inv.email);
-  if(inv.address) lines.push(inv.address);
-  lines.push('');
-  lines.push('Items:');
-  (inv.items || []).forEach(item => {
-    const lineTotal = numberOrZero(item.quantity) * numberOrZero(item.unitPrice);
-    lines.push('- ' + (item.description || 'Item') + ' | ' + item.quantity + ' ' + (item.unit || '') + ' @ ' + currency(item.unitPrice) + ' = ' + currency(lineTotal));
-  });
-  lines.push('');
-  lines.push('Subtotal: ' + currency(inv.subtotal));
-  if(numberOrZero(inv.deliveryCharge)) lines.push('Delivery: ' + currency(inv.deliveryCharge));
-  if(numberOrZero(inv.drumDeposit)) lines.push('Drum Deposit: ' + currency(inv.drumDeposit));
-  if(numberOrZero(inv.taxRate)) lines.push('Tax (' + inv.taxRate + '%): ' + currency(inv.tax));
-  lines.push('Total: ' + currency(inv.total));
-  lines.push('');
-  if(state.settings.paymentTerms) lines.push('Payment Terms: ' + state.settings.paymentTerms);
-  if(inv.notes) { lines.push(''); lines.push(inv.notes); }
-  if(inv.disclaimer) { lines.push(''); lines.push(inv.disclaimer); }
-  return lines.join('\n');
-}
-
-function copySavedInvoice(id){
-  const inv = state.invoices.find(x => x.id === id);
-  if(!inv) return;
-  const text = buildSavedInvoiceText(inv);
-  navigator.clipboard.writeText(text).then(() => alert('Invoice text copied.'));
-}
-
-function emailDraftInvoice(){
-  const totals = invoiceTotals(ui.invoiceDraft);
-  const invoiceNumber = (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber;
-  const subject = encodeURIComponent('Invoice ' + invoiceNumber + ' - ' + (ui.invoiceDraft.customerName || state.settings.companyName || ''));
-  const body = encodeURIComponent(buildInvoiceTextPreview(ui.invoiceDraft, totals));
-  const email = encodeURIComponent(ui.invoiceDraft.email || '');
-  window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
-}
-
-function emailSavedInvoice(id){
-  const inv = state.invoices.find(x => x.id === id);
-  if(!inv) return;
-  const subject = encodeURIComponent('Invoice ' + inv.invoiceNumber + ' - ' + (inv.customerName || state.settings.companyName || ''));
-  const body = encodeURIComponent(buildSavedInvoiceText(inv));
-  const email = encodeURIComponent(inv.email || '');
-  window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
-}
-
-function resetInvoiceDraft(){
-  if(!confirm('Start a fresh invoice draft?')) return;
-  ui.invoiceDraft = newInvoiceDraft();
-  render();
-}
-
-/* PDF */
-function buildInvoiceHtmlForPdf(inv, totals, invoiceNumber){
-  const companyName = state.settings.companyName || '';
-  const companyPhone = state.settings.companyPhone || '';
-  const companyEmail = state.settings.companyEmail || '';
-  const companyAddress = state.settings.companyAddress || '';
-  const paymentTerms = state.settings.paymentTerms || '';
-  const logoUrl = state.settings.logoUrl || '';
-
-  const itemRows = (inv.items || []).map(item => {
-    const qty = numberOrZero(item.quantity);
-    const unitPrice = numberOrZero(item.unitPrice);
-    const lineTotal = qty * unitPrice;
+/* PDFs and Email */
+function buildInvoiceHtml(order, mode){
+  const totals = orderTotals(order);
+  const customerCopy = mode === 'customer';
+  const title = customerCopy ? 'INVOICE' : 'FULFILLMENT COPY';
+  const s = state.settings;
+  const itemRows = (order.items || []).map((item, i) => {
+    const lineTotal = n(item.quantity) * n(item.unitPrice);
     return `
       <tr>
-        <td>${escapeHtml(item.description || '')}</td>
-        <td>${escapeHtml(item.unit || '')}</td>
-        <td style="text-align:right;">${qty}</td>
-        <td style="text-align:right;">${currency(unitPrice)}</td>
+        <td>${i+1}</td>
+        <td>${esc(item.description || '')}</td>
+        <td style="text-align:right;">${esc(item.quantity)}</td>
+        <td>${esc(item.unit || '')}</td>
+        <td style="text-align:right;">${currency(item.unitPrice)}</td>
         <td style="text-align:right;">${currency(lineTotal)}</td>
       </tr>
     `;
   }).join('');
 
+  const extraBox = customerCopy ? `
+    <div class="box">
+      <div class="section-title">PAYMENT TERMS</div>
+      <ul>
+        <li>Payment due at delivery unless prepaid.</li>
+        <li>Accepted payment methods: Cash, Check, or Prepaid Credit Card.</li>
+        <li>Prepayment by credit card over the phone may qualify for a discount, if offered.</li>
+        <li>Drum deposit applies where applicable.</li>
+        <li>${esc(s.defaultDisclaimer || '')}</li>
+      </ul>
+      ${order.notes ? `<div class="muted">${esc(order.notes)}</div>` : ''}
+    </div>
+  ` : `
+    <div class="box">
+      <div class="section-title">FULFILLMENT / INTERNAL NOTES</div>
+      <div class="muted">${esc(order.fulfillmentNotes || order.internalNotes || 'No special fulfillment notes entered.')}</div>
+      <div class="sub-grid">
+        <div><strong>Customer Contact:</strong> ${esc(order.contactName || '')}</div>
+        <div><strong>Phone:</strong> ${esc(order.phone || '')}</div>
+        <div><strong>Email:</strong> ${esc(order.email || '')}</div>
+        <div><strong>Expected Delivery:</strong> ${esc(order.expectedDeliveryDate || '')}</div>
+        <div><strong>Recorded Delivery Date:</strong> ${esc(order.deliveryDate || '')}</div>
+        <div><strong>Reorder Follow-Up:</strong> ${esc(order.reorderFollowUpDate || '')}</div>
+        <div><strong>Commission Base:</strong> ${currency(totals.commissionBase)}</div>
+        <div><strong>Estimated Commission:</strong> ${currency(totals.commission)}</div>
+      </div>
+      ${order.internalNotes ? `<div class="muted" style="margin-top:12px;"><strong>Internal Notes:</strong><br>${esc(order.internalNotes)}</div>` : ''}
+    </div>
+  `;
+
   return `
-    <!DOCTYPE html>
-    <html>
+  <!DOCTYPE html>
+  <html>
     <head>
       <meta charset="UTF-8" />
-      <title>${escapeHtml(invoiceNumber)}</title>
+      <title>${esc(order.invoiceNumber)} - ${title}</title>
       <style>
-        body {
-          font-family: Arial, sans-serif;
-          color: #111;
-          margin: 0;
-          padding: 32px;
-          background: #fff;
-        }
-        .wrap {
-          max-width: 900px;
-          margin: 0 auto;
-        }
-        .top {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          gap: 24px;
-          margin-bottom: 28px;
-        }
-        .logo {
-          max-width: 180px;
-          max-height: 90px;
-          margin-bottom: 10px;
-        }
-        h1 {
-          margin: 0 0 8px;
-          font-size: 30px;
-        }
-        h2 {
-          margin: 0 0 10px;
-          font-size: 18px;
-        }
-        .muted {
-          color: #555;
-          line-height: 1.5;
-          white-space: pre-wrap;
-        }
-        .meta {
-          text-align: right;
-        }
-        .box {
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          padding: 14px;
-          margin-bottom: 20px;
-        }
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 10px;
-        }
-        th, td {
-          border-bottom: 1px solid #ddd;
-          padding: 10px 8px;
-          vertical-align: top;
-        }
-        th {
-          background: #f5f5f5;
-          text-align: left;
-        }
-        .totals {
-          margin-top: 24px;
-          margin-left: auto;
-          width: 340px;
-        }
-        .totals-row {
-          display: flex;
-          justify-content: space-between;
-          padding: 8px 0;
-          border-bottom: 1px solid #ddd;
-        }
-        .grand {
-          font-size: 22px;
-          font-weight: 700;
-        }
-        .notes, .disclaimer {
-          margin-top: 24px;
-          white-space: pre-wrap;
-          line-height: 1.5;
-        }
-        .disclaimer {
-          font-size: 12px;
-          color: #666;
-        }
-        @media print {
-          body { padding: 0; }
-          .wrap { max-width: 100%; }
+        body{font-family:Arial,sans-serif;color:#111;margin:0;padding:32px;background:#fff}
+        .wrap{max-width:960px;margin:0 auto}
+        .top{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:24px}
+        .brand{max-width:62%}
+        .meta{text-align:right;min-width:240px}
+        .logo{max-height:72px;max-width:200px;margin-bottom:8px}
+        h1{margin:0 0 6px;font-size:30px;letter-spacing:.04em}
+        .company{line-height:1.55;color:#333;white-space:pre-wrap}
+        .box{border:1px solid #cfd6df;border-radius:10px;padding:14px;margin-bottom:18px}
+        .section-title{font-weight:700;font-size:13px;letter-spacing:.06em;margin-bottom:10px;color:#334155}
+        .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+        .sub-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+        table{width:100%;border-collapse:collapse;margin-top:10px}
+        th,td{border-bottom:1px solid #dbe2ea;padding:10px 8px;font-size:14px;vertical-align:top}
+        th{background:#f5f7fa;text-align:left}
+        .totals{margin-left:auto;max-width:360px;margin-top:18px}
+        .total-row{display:flex;justify-content:space-between;border-bottom:1px solid #dbe2ea;padding:8px 0;gap:16px}
+        .grand{font-size:24px;font-weight:700}
+        .muted{color:#4b5563;line-height:1.55;white-space:pre-wrap}
+        ul{margin:8px 0 0 18px;padding:0}
+        li{margin:6px 0}
+        @media print{
+          body{padding:18px}
+          .box{break-inside:avoid}
+          table{break-inside:auto}
+          tr{break-inside:avoid}
         }
       </style>
     </head>
     <body>
       <div class="wrap">
         <div class="top">
-          <div>
-            ${logoUrl ? `<img src="${escapeAttr(logoUrl)}" class="logo" />` : ''}
-            <h1>${escapeHtml(companyName)}</h1>
-            <div class="muted">${escapeHtml(companyPhone)}</div>
-            <div class="muted">${escapeHtml(companyEmail)}</div>
-            <div class="muted">${escapeHtml(companyAddress)}</div>
+          <div class="brand">
+            ${s.logoUrl ? `<img class="logo" src="${esc(s.logoUrl)}" alt="Logo" />` : ''}
+            <div style="font-size:24px;font-weight:800;margin-bottom:8px;">${esc(s.companyName || '')}</div>
+            <div class="company">${esc(s.companyAddress || '')}
+Phone: ${esc(s.companyPhone || '')}
+Office Email: ${esc(s.companyEmail || '')}
+Sales Contact: ${esc(s.salesContact || '')}
+Sales Email: ${esc(s.salesEmail || '')}</div>
           </div>
           <div class="meta">
-            <h1>INVOICE</h1>
-            <div><strong>${escapeHtml(invoiceNumber)}</strong></div>
-            <div class="muted">Date: ${escapeHtml(inv.date || '')}</div>
-            ${inv.dueDate ? `<div class="muted">Due: ${escapeHtml(inv.dueDate)}</div>` : ''}
+            <h1>${title}</h1>
+            <div><strong>Invoice #:</strong> ${esc(order.invoiceNumber || '')}</div>
+            <div><strong>Invoice Date:</strong> ${esc(order.orderDate || '')}</div>
+            <div><strong>Delivery Date:</strong> ${esc(order.deliveryDate || order.expectedDeliveryDate || '')}</div>
+            <div><strong>Terms:</strong> ${esc(order.paymentTerms || '')}</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="box">
+            <div class="section-title">BILL TO</div>
+            <div><strong>Company:</strong> ${esc(order.customerName || '')}</div>
+            <div><strong>Contact:</strong> ${esc(order.contactName || '')}</div>
+            <div><strong>Address:</strong> ${esc(order.address || '')}</div>
+            <div><strong>Phone:</strong> ${esc(order.phone || '')}</div>
+            <div><strong>Email:</strong> ${esc(order.email || '')}</div>
+          </div>
+          <div class="box">
+            <div class="section-title">${customerCopy ? 'ORDER DETAILS' : 'FULFILLMENT DETAILS'}</div>
+            <div><strong>Order Date:</strong> ${esc(order.orderDate || '')}</div>
+            <div><strong>Expected Delivery:</strong> ${esc(order.expectedDeliveryDate || '')}</div>
+            <div><strong>Delivered:</strong> ${esc(order.deliveryDate || '')}</div>
+            <div><strong>Reorder Follow-Up:</strong> ${esc(order.reorderFollowUpDate || '')}</div>
+            ${customerCopy ? '' : `<div><strong>Send to:</strong> ${esc(s.phoebeName || 'Phoebe')} ${s.phoebeEmail ? '(' + esc(s.phoebeEmail) + ')' : ''}</div>`}
           </div>
         </div>
 
         <div class="box">
-          <h2>Bill To</h2>
-          <div>${escapeHtml(inv.customerName || '')}</div>
-          ${inv.contactName ? `<div>${escapeHtml(inv.contactName)}</div>` : ''}
-          ${inv.phone ? `<div>${escapeHtml(inv.phone)}</div>` : ''}
-          ${inv.email ? `<div>${escapeHtml(inv.email)}</div>` : ''}
-          ${inv.address ? `<div>${escapeHtml(inv.address)}</div>` : ''}
+          <div class="section-title">PRODUCTS AND PRICING</div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th style="text-align:right;">Qty</th>
+                <th>Unit</th>
+                <th style="text-align:right;">Unit Price</th>
+                <th style="text-align:right;">Line Total</th>
+              </tr>
+            </thead>
+            <tbody>${itemRows}</tbody>
+          </table>
+
+          <div class="totals">
+            <div class="total-row"><span>Subtotal</span><strong>${currency(totals.subtotal)}</strong></div>
+            <div class="total-row"><span>Delivery</span><strong>${currency(totals.delivery)}</strong></div>
+            <div class="total-row"><span>Drum Deposits</span><strong>${currency(totals.deposit)}</strong></div>
+            <div class="total-row"><span>Tax</span><strong>${currency(totals.tax)}</strong></div>
+            <div class="total-row grand"><span>TOTAL DUE</span><strong>${currency(totals.total)}</strong></div>
+          </div>
         </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Unit</th>
-              <th style="text-align:right;">Qty</th>
-              <th style="text-align:right;">Unit Price</th>
-              <th style="text-align:right;">Line Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${itemRows}
-          </tbody>
-        </table>
-
-        <div class="totals">
-          <div class="totals-row"><span>Subtotal</span><strong>${currency(totals.subtotal)}</strong></div>
-          <div class="totals-row"><span>Delivery</span><strong>${currency(totals.delivery)}</strong></div>
-          <div class="totals-row"><span>Drum Deposit</span><strong>${currency(totals.deposit)}</strong></div>
-          <div class="totals-row"><span>Tax</span><strong>${currency(totals.tax)}</strong></div>
-          <div class="totals-row grand"><span>Total</span><strong>${currency(totals.total)}</strong></div>
-        </div>
-
-        ${paymentTerms ? `<div class="notes"><strong>Payment Terms:</strong> ${escapeHtml(paymentTerms)}</div>` : ''}
-        ${inv.notes ? `<div class="notes"><strong>Message:</strong>\n${escapeHtml(inv.notes)}</div>` : ''}
-        ${inv.disclaimer ? `<div class="disclaimer">${escapeHtml(inv.disclaimer)}</div>` : ''}
+        ${extraBox}
       </div>
     </body>
-    </html>
-  `;
+  </html>`;
 }
 
-function openInvoicePdfWindow(html){
+function openPrintableWindow(html){
   const win = window.open('', '_blank');
-  if(!win){
-    alert('Pop-up blocked. Please allow pop-ups for this site.');
-    return;
+  if(!win){ alert('Pop-up blocked. Please allow pop-ups for this site.'); return; }
+  win.document.open(); win.document.write(html); win.document.close();
+  setTimeout(() => { win.focus(); win.print(); }, 500);
+}
+function getDraftWithComputedInvoice(){
+  const o = clone(ui.orderDraft);
+  if(!o.invoiceNumber){
+    o.invoiceNumber = (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber;
   }
-  win.document.open();
-  win.document.write(html);
-  win.document.close();
-  setTimeout(() => {
-    win.focus();
-    win.print();
-  }, 500);
+  return o;
+}
+function printCustomerPdf(){
+  openPrintableWindow(buildInvoiceHtml(getDraftWithComputedInvoice(), 'customer'));
+}
+function printFulfillmentPdf(){
+  openPrintableWindow(buildInvoiceHtml(getDraftWithComputedInvoice(), 'fulfillment'));
+}
+function printCustomerPdfById(id){
+  const o = getOrder(id); if(!o) return;
+  openPrintableWindow(buildInvoiceHtml(o, 'customer'));
+}
+function printFulfillmentPdfById(id){
+  const o = getOrder(id); if(!o) return;
+  openPrintableWindow(buildInvoiceHtml(o, 'fulfillment'));
+}
+function openMailto(to, subject, body){
+  window.location.href = 'mailto:' + encodeURIComponent(to || '') + '?subject=' + encodeURIComponent(subject || '') + '&body=' + encodeURIComponent(body || '');
+}
+function emailCustomer(){
+  const o = getDraftWithComputedInvoice();
+  printCustomerPdf();
+  openMailto(o.email || '', 'Invoice ' + o.invoiceNumber + ' - ' + (o.customerName || state.settings.companyName || ''), state.settings.customerEmailMessage || '');
+}
+function emailPhoebe(){
+  const o = getDraftWithComputedInvoice();
+  printFulfillmentPdf();
+  const to = state.settings.phoebeEmail || '';
+  openMailto(to, 'Fulfillment Copy ' + o.invoiceNumber + ' - ' + (o.customerName || ''), state.settings.fulfillmentEmailMessage || '');
+}
+function emailCustomerById(id){
+  const o = getOrder(id); if(!o) return;
+  printCustomerPdfById(id);
+  openMailto(o.email || '', 'Invoice ' + o.invoiceNumber + ' - ' + (o.customerName || state.settings.companyName || ''), state.settings.customerEmailMessage || '');
+}
+function emailPhoebeById(id){
+  const o = getOrder(id); if(!o) return;
+  printFulfillmentPdfById(id);
+  openMailto(state.settings.phoebeEmail || '', 'Fulfillment Copy ' + o.invoiceNumber + ' - ' + (o.customerName || ''), state.settings.fulfillmentEmailMessage || '');
 }
 
-function downloadDraftInvoicePdf(){
-  const totals = invoiceTotals(ui.invoiceDraft);
-  const invoiceNumber = (state.settings.invoicePrefix || '') + state.settings.nextInvoiceNumber;
-  const html = buildInvoiceHtmlForPdf(ui.invoiceDraft, totals, invoiceNumber);
-  openInvoicePdfWindow(html);
-}
-
-function downloadSavedInvoicePdf(id){
-  const inv = state.invoices.find(x => x.id === id);
-  if(!inv) return;
-  const totals = {
-    subtotal: numberOrZero(inv.subtotal),
-    delivery: numberOrZero(inv.deliveryCharge),
-    deposit: numberOrZero(inv.drumDeposit),
-    tax: numberOrZero(inv.tax),
-    total: numberOrZero(inv.total)
-  };
-  const html = buildInvoiceHtmlForPdf(inv, totals, inv.invoiceNumber);
-  openInvoicePdfWindow(html);
-}
-
-/* SETTINGS */
+/* Settings */
 function saveSettings(){
-  state.settings.companyName = document.getElementById('set_companyName').value.trim();
-  state.settings.companyPhone = document.getElementById('set_companyPhone').value.trim();
-  state.settings.companyEmail = document.getElementById('set_companyEmail').value.trim();
-  state.settings.companyAddress = document.getElementById('set_companyAddress').value.trim();
-  state.settings.logoUrl = document.getElementById('set_logoUrl').value.trim();
-  state.settings.invoicePrefix = document.getElementById('set_invoicePrefix').value.trim();
-  state.settings.nextInvoiceNumber = numberOrZero(document.getElementById('set_nextInvoiceNumber').value);
-  state.settings.paymentTerms = document.getElementById('set_paymentTerms').value.trim();
-  state.settings.defaultDeliveryCharge = numberOrZero(document.getElementById('set_defaultDeliveryCharge').value);
-  state.settings.defaultTaxRate = numberOrZero(document.getElementById('set_defaultTaxRate').value);
-  state.settings.defaultDrumDeposit = numberOrZero(document.getElementById('set_defaultDrumDeposit').value);
-  state.settings.defaultDisclaimer = document.getElementById('set_defaultDisclaimer').value.trim();
-  state.settings.quoteMessage = document.getElementById('set_quoteMessage').value.trim();
-  state.settings.invoiceMessage = document.getElementById('set_invoiceMessage').value.trim();
-  state.settings.customerOrderFormUrl = document.getElementById('set_customerOrderFormUrl').value.trim();
+  const ids = [
+    'companyName','companyPhone','companyEmail','companyAddress','salesContact','salesEmail','logoUrl',
+    'invoicePrefix','nextInvoiceNumber','paymentTerms','defaultDeliveryCharge','defaultDrumDeposit',
+    'defaultTaxRate','reorderDaysDefault','commissionRate','phoebeEmail','phoebeName',
+    'defaultDisclaimer','customerEmailMessage','fulfillmentEmailMessage'
+  ];
+  ids.forEach(k => {
+    const el = document.getElementById('set_' + k);
+    if(!el) return;
+    state.settings[k] = ['nextInvoiceNumber','defaultDeliveryCharge','defaultDrumDeposit','defaultTaxRate','reorderDaysDefault','commissionRate'].includes(k) ? n(el.value) : el.value.trim();
+  });
   saveState();
+  render();
   alert('Settings saved.');
-  render();
 }
 
-function resetSettingsOnly(){
-  if(!confirm('Reset settings only? Products, customers, and invoices will stay.')) return;
-  state.settings = structuredCloneSafe(defaults.settings);
-  saveState();
-  render();
+/* Backup */
+function exportBackup(){
+  document.getElementById('backup_out').value = JSON.stringify(state, null, 2);
 }
-
-/* BACKUP */
-function exportData(){
-  document.getElementById('backup_output').value = JSON.stringify(state, null, 2);
-}
-
-function importData(){
+function importBackup(){
+  const raw = document.getElementById('backup_in').value.trim();
+  if(!raw) return alert('Paste backup JSON first.');
   try{
-    const raw = document.getElementById('backup_input').value.trim();
-    if(!raw) return alert('Paste backup JSON first.');
     const parsed = JSON.parse(raw);
     state = {
+      accounts: Array.isArray(parsed.accounts) ? parsed.accounts : [],
       products: Array.isArray(parsed.products) ? parsed.products : [],
-      customerFields: Array.isArray(parsed.customerFields) ? parsed.customerFields : structuredCloneSafe(defaults.customerFields),
-      customers: Array.isArray(parsed.customers) ? parsed.customers : [],
-      invoices: Array.isArray(parsed.invoices) ? parsed.invoices : [],
-      settings: {...structuredCloneSafe(defaults.settings), ...(parsed.settings || {})}
+      orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+      settings: {...clone(defaults.settings), ...(parsed.settings || {})}
     };
     saveState();
-    ui.invoiceDraft = newInvoiceDraft();
-    alert('Backup imported.');
+    ui.accountDraft = newAccountDraft();
+    ui.productDraft = newProductDraft();
+    ui.orderDraft = newOrderDraft();
     render();
+    alert('Backup imported.');
   }catch(e){
     alert('Invalid JSON.');
   }
 }
-
-function wipeEverything(){
-  if(!confirm('This will erase all products, customers, invoices, fields, and settings on this browser. Continue?')) return;
-  state = structuredCloneSafe(defaults);
-  ui.invoiceDraft = newInvoiceDraft();
-  saveState();
+function wipeAll(){
+  if(!confirm('Wipe all app data?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = clone(defaults);
+  ui.accountDraft = newAccountDraft();
+  ui.productDraft = newProductDraft();
+  ui.orderDraft = newOrderDraft();
   render();
 }
 
-/* INIT */
-document.querySelectorAll('.tab').forEach(btn => {
-  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-});
-
 render();
+switchTab('dashboard');
 </script>
 </body>
 </html>
