@@ -220,6 +220,8 @@ tr:hover td{background:rgba(255,255,255,.02)}
 // ══════════════════════════════════════════════════════════════════════════════
 const SK = 'encore_unified_v2';
 const WEEK_KEY = 'encore_week_earned';
+const BEST_WEEK_KEY = 'encore_best_week';
+const TOTAL_EARNED_KEY = 'encore_total_earned';
 
 function uid(){ return Math.random().toString(36).slice(2,10); }
 function today(){ return new Date().toISOString().slice(0,10); }
@@ -262,38 +264,7 @@ const DEFAULTS = {
   }
 };
 
-const DEFAULT_TASKS = [
-  {id:1,name:"Oleg — Onyx Express",action:"Test order delivered. Follow up — convert to $5K recurring",phone:"",priority:"fire",tag:"call",done:false,created:Date.now()},
-  {id:2,name:"Chris Hunter's Auto Repair",action:"So close — call NOW to close",phone:"",priority:"fire",tag:"call",done:false,created:Date.now()},
-  {id:3,name:"Neary Automotive — Tom",action:"Callback after 1pm",phone:"",priority:"fire",tag:"call",done:false,created:Date.now()},
-  {id:4,name:"Gibbons Automotive",action:"Boss lady callback",phone:"",priority:"fire",tag:"call",done:false,created:Date.now()},
-  {id:5,name:"Haverford Auto Center",action:"Re-engage — price check",phone:"",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:6,name:"Universal Tire",action:"Just filled — call when low",phone:"215-943-3600",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:7,name:"Easy Peasy Truck and Tire",action:"Reorder follow-up — push beyond single pail",phone:"",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:8,name:"MTH Route Services",action:"Active account — schedule next delivery",phone:"",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:9,name:"Fix My Trucks LLC",action:"Active account — reorder",phone:"",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:10,name:"Mr. Auto Inc",action:"Active account — follow up",phone:"",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:11,name:"Sabos",action:"Reorder check-in",phone:"",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:12,name:"Larry's",action:"Reorder check-in",phone:"",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:13,name:"M&W Auto",action:"Reorder check-in",phone:"",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:14,name:"Black Stone — Dino",action:"Tank has roof leak — pitch scheduled delivery",phone:"215-949-0181",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:15,name:"2300 State Rd Truck & Trailer",action:"Convert from Shell Rotella — bring spec sheet",phone:"",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:16,name:"Vertex Fleet — 7800 Bristol Pike",action:"Walk in — high value fleet shop",phone:"267-225-5977",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:17,name:"Speedy Semi Truck & Trailer",action:"24hr shop — high volume oil burner",phone:"609-456-5621",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:18,name:"Harris Fleet Services",action:"4.8 rated 24hr shop",phone:"267-981-0345",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:19,name:"Crawford Fleet Services",action:"4.7 rated — strong candidate",phone:"215-788-1989",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:20,name:"George and Sam's",action:"Good lead — follow up",phone:"215-675-9462",priority:"soon",tag:"call",done:false,created:Date.now()},
-  {id:21,name:"Amerit Fleet",action:"Email sent — call to follow up",phone:"",priority:"pipeline",tag:"followup",done:false,created:Date.now()},
-  {id:22,name:"One Stop Truck & Trailer",action:"8800 State Rd Philly — walk in",phone:"267-261-2287",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:23,name:"E&S Truck Repair",action:"800 Bristol Pike Morrisville — walk in",phone:"267-981-2857",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:24,name:"Truck House",action:"9300 Blue Grass Rd Philly — walk in",phone:"267-255-5723",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:25,name:"ASM Truck Repair",action:"Marcus Hook PA — high volume shop",phone:"914-355-1199",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:26,name:"River Road Truckin LLC",action:"Trucking company — bulk oil buyer",phone:"856-757-4351",priority:"pipeline",tag:"call",done:false,created:Date.now()},
-  {id:27,name:"A1 Auto & Truck Repair",action:"Send price list",phone:"609-298-4555",priority:"pipeline",tag:"email",done:false,created:Date.now()},
-  {id:28,name:"Fat Kid Motorsports — Drew",action:"drew@fatkidmotorsports.net",phone:"215-420-7165",priority:"cold",tag:"email",done:false,created:Date.now()},
-  {id:29,name:"FleetOne Truck & Trailer",action:"230 Bristol Pike — walk in",phone:"267-852-8595",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-  {id:30,name:"Gomes Fleet Services",action:"24hr shop 2950 Tyson Ave Philly",phone:"267-726-1712",priority:"pipeline",tag:"visit",done:false,created:Date.now()},
-];
+const DEFAULT_TASKS = [{"id": 1, "name": "Vertex Fleet Services", "action": "Walk in — 7800 Bristol Pike, same lot as MTH", "phone": "267-225-5977", "priority": "fire", "tag": "visit", "done": false, "created": 1700000001}, {"id": 2, "name": "Chris Hunter's Auto Repair", "action": "SO CLOSE — call and close this week", "phone": "610-543-9030", "priority": "fire", "tag": "call", "done": false, "created": 1700000002}, {"id": 3, "name": "Neary Automotive — Tom", "action": "Call back after 1pm — spoke already", "phone": "215-494-9128", "priority": "fire", "tag": "call", "done": false, "created": 1700000003}, {"id": 4, "name": "Gibbons Automotive", "action": "Call back for boss lady", "phone": "610-566-6999", "priority": "fire", "tag": "call", "done": false, "created": 1700000004}, {"id": 5, "name": "Kays Auto — Rob", "action": "Reorder check — also owns M&W and Larry's", "phone": "215-946-5766", "priority": "soon", "tag": "call", "done": false, "created": 1700000005}, {"id": 6, "name": "Sabos — Mark", "action": "Reorder follow up — was $990 last", "phone": "610-849-2195", "priority": "soon", "tag": "call", "done": false, "created": 1700000006}, {"id": 7, "name": "M&W Exhaust & Auto", "action": "Reorder check", "phone": "610-798-1045", "priority": "soon", "tag": "call", "done": false, "created": 1700000007}, {"id": 8, "name": "Larry's Automotive", "action": "Reorder check", "phone": "610-831-3246", "priority": "soon", "tag": "call", "done": false, "created": 1700000008}, {"id": 9, "name": "First Line Auto", "action": "Follow up — time for a reorder?", "phone": "", "priority": "soon", "tag": "call", "done": false, "created": 1700000009}, {"id": 10, "name": "Tri-State Truck & Equipment", "action": "Upsell — coolant reorder + grease", "phone": "215-876-6999", "priority": "soon", "tag": "call", "done": false, "created": 1700000010}, {"id": 11, "name": "Speedy Semi Truck & Trailer", "action": "4.9 stars, 24hr shop — walk in this week", "phone": "609-456-5621", "priority": "soon", "tag": "visit", "done": false, "created": 1700000011}, {"id": 12, "name": "Harris Fleet Services", "action": "4.8 stars, 24hr — walk in this week", "phone": "267-981-0345", "priority": "soon", "tag": "visit", "done": false, "created": 1700000012}, {"id": 13, "name": "Crawford Fleet Services", "action": "4.7 stars — priority walk in", "phone": "215-788-1989", "priority": "soon", "tag": "visit", "done": false, "created": 1700000013}, {"id": 14, "name": "AAS — 7800 Bristol Pike", "action": "Cold walk-in after Vertex", "phone": "", "priority": "soon", "tag": "visit", "done": false, "created": 1700000014}, {"id": 15, "name": "Haverford Auto Center", "action": "Call the owner directly", "phone": "610-645-0900", "priority": "soon", "tag": "call", "done": false, "created": 1700000015}, {"id": 16, "name": "Dougs Auto", "action": "Good lead — follow up", "phone": "302-653-7065", "priority": "soon", "tag": "call", "done": false, "created": 1700000016}, {"id": 17, "name": "George and Sam's", "action": "Good lead — follow up", "phone": "215-675-9462", "priority": "soon", "tag": "call", "done": false, "created": 1700000017}, {"id": 18, "name": "Amerit Fleet", "action": "Email sent — call to follow up", "phone": "", "priority": "pipeline", "tag": "followup", "done": false, "created": 1700000018}, {"id": 19, "name": "One Stop Truck & Trailer", "action": "8800 State Rd Philly — walk in", "phone": "267-261-2287", "priority": "pipeline", "tag": "visit", "done": false, "created": 1700000019}, {"id": 20, "name": "E&S Truck Repair", "action": "800 Bristol Pike Morrisville — walk in", "phone": "267-981-2857", "priority": "pipeline", "tag": "visit", "done": false, "created": 1700000020}, {"id": 21, "name": "Truck House", "action": "9300 Blue Grass Rd Philly — walk in", "phone": "267-255-5723", "priority": "pipeline", "tag": "visit", "done": false, "created": 1700000021}, {"id": 22, "name": "ASM Truck Repair", "action": "Marcus Hook PA — truck shop, high volume", "phone": "914-355-1199", "priority": "pipeline", "tag": "visit", "done": false, "created": 1700000022}, {"id": 23, "name": "River Road Truckin LLC", "action": "Trucking company — bulk oil buyer", "phone": "856-757-4351", "priority": "pipeline", "tag": "call", "done": false, "created": 1700000023}, {"id": 24, "name": "A1 Auto & Truck Repair", "action": "Email: a1auto65@gmail.com — send price list", "phone": "609-298-4555", "priority": "pipeline", "tag": "email", "done": false, "created": 1700000024}, {"id": 25, "name": "Universal Tire and Auto", "action": "Just filled — call when they need oil", "phone": "215-943-3600", "priority": "pipeline", "tag": "followup", "done": false, "created": 1700000025}, {"id": 26, "name": "Black Stone — Dino", "action": "Tank has roof leak — check tank, pitch scheduled delivery", "phone": "215-949-0181", "priority": "pipeline", "tag": "visit", "done": false, "created": 1700000026}, {"id": 27, "name": "2300 State Rd Truck & Trailer", "action": "Convert from Shell Rotella — bring spec sheet", "phone": "", "priority": "pipeline", "tag": "visit", "done": false, "created": 1700000027}, {"id": 28, "name": "Fat Kid Motorsports — Drew", "action": "Email: drew@fatkidmotorsports.net", "phone": "215-420-7165", "priority": "cold", "tag": "email", "done": false, "created": 1700000028}];
 
 const DEFAULT_PRODUCTS = [
   {id:uid(),name:'Full Synthetic 0W-20',unit:'Drum',price:494,category:'Engine Oil',sku:'FS-0W20',active:true,notes:'$8.97/gal · dexos/API'},
@@ -430,6 +401,8 @@ function renderDashboard(){
   const fireTasks=openTasks.filter(t=>t.priority==='fire').length;
 
   const weekEarned=parseFloat(localStorage.getItem(WEEK_KEY)||'0');
+  const bestWeek=parseFloat(localStorage.getItem(BEST_WEEK_KEY)||'792');
+  const totalEarned=parseFloat(localStorage.getItem(TOTAL_EARNED_KEY)||'1267');
   const pct=Math.min(100,(weekEarned/3500)*100);
   const gap=3500-weekEarned;
 
@@ -441,6 +414,8 @@ function renderDashboard(){
   document.getElementById('dashboard').innerHTML=`
     <div class="kpi">
       <div class="metric-card"><div class="metric-label">🔥 On Fire Tasks</div><div class="metric-val red">${fireTasks}</div><div class="metric-sub">do today</div></div>
+      <div class="metric-card" onclick="updateTotalEarned()" style="cursor:pointer"><div class="metric-label">Total Earned ✎</div><div class="metric-val green">$${totalEarned.toFixed(0)}</div><div class="metric-sub">all time</div></div>
+      <div class="metric-card" onclick="updateBestWeek()" style="cursor:pointer"><div class="metric-label">Best Week ✎</div><div class="metric-val">\${currency(bestWeek)}</div><div class="metric-sub">personal best</div></div>
       <div class="metric-card"><div class="metric-label">Open Leads</div><div class="metric-val blue">${leads}</div></div>
       <div class="metric-card"><div class="metric-label">Active Customers</div><div class="metric-val green">${customers}</div></div>
       <div class="metric-card"><div class="metric-label">Follow Ups Due</div><div class="metric-val ${followsDue?'red':'green'}">${followsDue}</div></div>
@@ -505,6 +480,14 @@ function renderDashboard(){
   `;
 }
 
+function updateBestWeek(){
+  const v=prompt('Enter your best week commission ($):');
+  if(v!==null&&!isNaN(parseFloat(v))){ localStorage.setItem(BEST_WEEK_KEY,parseFloat(v)); renderDashboard(); }
+}
+function updateTotalEarned(){
+  const v=prompt('Enter total commission earned to date ($):');
+  if(v!==null&&!isNaN(parseFloat(v))){ localStorage.setItem(TOTAL_EARNED_KEY,parseFloat(v)); renderDashboard(); }
+}
 function updateWeekEarnings(){
   const v=prompt('Enter total commission earned so far this week ($):');
   if(v!==null&&!isNaN(parseFloat(v))){ localStorage.setItem(WEEK_KEY,parseFloat(v)); renderDashboard(); }
@@ -575,22 +558,53 @@ function renderTasks(){
     <div class="g2">
       <div class="card">
         <div class="card-title">Add Task</div>
-        <input id="tName" placeholder="Account / shop name" />
-        <input id="tAction" placeholder="Action — what to do" />
-        <input id="tPhone" placeholder="Phone (optional)" />
-        <div class="g2">
-          <select id="tPriority">
-            <option value="fire">🔥 On Fire</option>
-            <option value="soon">⚡ This Week</option>
-            <option value="pipeline" selected>📈 Pipeline</option>
-            <option value="cold">❄️ Cold</option>
-          </select>
-          <select id="tTag">
-            <option value="call">📞 Call</option>
-            <option value="visit">🚗 Walk In</option>
-            <option value="email">✉️ Email</option>
-            <option value="followup">🔁 Follow Up</option>
-          </select>
+        <div class="field-label">Account (pick existing or type new)</div>
+        <select id="tAcctSelect" onchange="taskAcctSelected(this.value)" style="margin-bottom:6px">
+          <option value="">— New / Custom —</option>
+          ${[...S.accounts].sort((a,b)=>a.shopName.localeCompare(b.shopName)).map(a=>`<option value="${a.id}">${esc(a.shopName)}${a.contactName?' — '+esc(a.contactName):''}${a.phone?' · '+esc(a.phone):''}</option>`).join('')}
+        </select>
+        <div class="field-label">Shop / Account Name</div>
+        <input id="tName" placeholder="Account / shop name" style="margin-bottom:6px"/>
+        <div class="field-label">Action</div>
+        <select id="tAction" style="margin-bottom:6px">
+          <option value="Follow up call">📞 Follow Up Call</option>
+          <option value="Walk-in visit">🚗 Walk-In Visit</option>
+          <option value="Reorder check — time for another order?">🔁 Reorder Check</option>
+          <option value="Email price list">✉️ Email Price List</option>
+          <option value="Close the sale">🤝 Close The Sale</option>
+          <option value="Deliver quote / price sheet">📋 Deliver Quote</option>
+          <option value="Check in — how is the oil holding up?">💬 Check In</option>
+          <option value="Schedule delivery">🚚 Schedule Delivery</option>
+          <option value="Cold walk-in">🚶 Cold Walk-In</option>
+          <option value="Call back — left message">📲 Call Back (Left Message)</option>
+          <option value="Convert from current supplier">🔄 Convert From Supplier</option>
+          <option value="Upsell — pitch additional products">⬆️ Upsell</option>
+          <option value="custom">✏️ Custom…</option>
+        </select>
+        <input id="tActionCustom" placeholder="Type custom action…" style="display:none;margin-bottom:6px" />
+        <div class="field-label">Notes</div>
+        <textarea id="tNotes" placeholder="Any notes, objections, details…" style="min-height:60px;margin-bottom:6px"></textarea>
+        <div class="field-label">Phone</div>
+        <input id="tPhone" placeholder="Phone (auto-fills from account)" style="margin-bottom:6px"/>
+        <div class="g2" style="margin-bottom:8px">
+          <div>
+            <div class="field-label">Priority</div>
+            <select id="tPriority">
+              <option value="fire">🔥 On Fire</option>
+              <option value="soon">⚡ This Week</option>
+              <option value="pipeline" selected>📈 Pipeline</option>
+              <option value="cold">❄️ Cold</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Type</div>
+            <select id="tTag">
+              <option value="call">📞 Call</option>
+              <option value="visit">🚗 Walk In</option>
+              <option value="email">✉️ Email</option>
+              <option value="followup">🔁 Follow Up</option>
+            </select>
+          </div>
         </div>
         <button class="btn-gold" onclick="addTask()" style="width:100%">+ Add Task</button>
       </div>
@@ -598,7 +612,7 @@ function renderTasks(){
         <div class="card-title">Weekly Goal</div>
         <div class="goal-track"><div class="goal-fill" id="tGoalFill" style="width:${Math.min(100,(parseFloat(localStorage.getItem(WEEK_KEY)||0)/3500)*100)}%"></div></div>
         <div class="goal-nums">
-          <span class="goal-earned" onclick="updateWeekEarnings()" style="cursor:pointer">$${parseFloat(localStorage.getItem(WEEK_KEY)||0).toFixed(0)} earned ✎</span>
+          <span class="goal-earned" onclick="updateWeekEarnings()" style="cursor:pointer">$${parseFloat(localStorage.getItem(WEEK_KEY)||0).toFixed(0)} earned this week ✎</span>
           <span class="goal-target">$3,500</span>
         </div>
         <div class="goal-gap" style="margin-top:6px">${(3500-parseFloat(localStorage.getItem(WEEK_KEY)||0))>0?'$'+(3500-parseFloat(localStorage.getItem(WEEK_KEY)||0)).toFixed(0)+' to go':'✅ GOAL HIT!'}</div>
@@ -612,21 +626,60 @@ function renderTasks(){
 }
 
 function setTaskFilter(f){ ui.taskFilter=f; renderTasks(); }
+// Show custom action input when "custom" is selected — runs after render
+function bindTaskFormEvents(){
+  const sel=document.getElementById('tAction');
+  if(!sel) return;
+  sel.addEventListener('change',function(){
+    const c=document.getElementById('tActionCustom');
+    if(c) c.style.display=this.value==='custom'?'block':'none';
+  });
+  // sync tag dropdown with action selection
+  const tagMap={
+    'Follow up call':'call','Walk-in visit':'visit','Reorder check — time for another order?':'followup',
+    'Email price list':'email','Close the sale':'call','Deliver quote / price sheet':'visit',
+    'Check in — how is the oil holding up?':'call','Schedule delivery':'followup',
+    'Cold walk-in':'visit','Call back — left message':'call',
+    'Convert from current supplier':'visit','Upsell — pitch additional products':'call','custom':'call'
+  };
+  sel.addEventListener('change',function(){
+    const tag=tagMap[this.value];
+    const t=document.getElementById('tTag');
+    if(t&&tag) t.value=tag;
+  });
+}
 function toggleTask(id){ const t=S.tasks.find(x=>x.id===id); if(t){t.done=!t.done;t.doneAt=t.done?Date.now():null;} saveState();renderTasks(); }
 function deleteTask(id){ if(!confirm('Delete this task?'))return; S.tasks=S.tasks.filter(t=>t.id!==id); saveState();renderTasks(); }
+function taskAcctSelected(id){
+  if(!id){ return; }
+  const a=S.accounts.find(x=>x.id===id);
+  if(!a) return;
+  document.getElementById('tName').value=a.shopName;
+  document.getElementById('tPhone').value=a.phone||'';
+  if(a.notes) document.getElementById('tNotes').value=a.notes;
+}
 function addTask(){
   const name=document.getElementById('tName').value.trim();
   if(!name){document.getElementById('tName').focus();return;}
+  const actionSel=document.getElementById('tAction').value;
+  const actionCustom=document.getElementById('tActionCustom').value.trim();
+  const action=actionSel==='custom'?(actionCustom||'Follow up'):actionSel;
+  const notes=document.getElementById('tNotes').value.trim();
+  const displayAction=notes?action+' · '+notes:action;
   S.tasks.unshift({
-    id:ui.taskNextId++, name, action:document.getElementById('tAction').value.trim()||'Follow up',
+    id:ui.taskNextId++, name,
+    action:displayAction,
     phone:document.getElementById('tPhone').value.trim(),
     priority:document.getElementById('tPriority').value,
     tag:document.getElementById('tTag').value,
     done:false,created:Date.now()
   });
+  // Reset form
   document.getElementById('tName').value='';
-  document.getElementById('tAction').value='';
+  document.getElementById('tNotes').value='';
   document.getElementById('tPhone').value='';
+  document.getElementById('tAcctSelect').value='';
+  document.getElementById('tActionCustom').style.display='none';
   saveState();renderTasks();
 }
 
@@ -1307,7 +1360,7 @@ render();
 
 // Enter to add task
 document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&document.activeElement&&['tName','tAction','tPhone'].includes(document.activeElement.id)) addTask();
+  if(e.key==='Enter'&&document.activeElement&&['tName','tPhone'].includes(document.activeElement.id)) addTask();
 });
 </script>
 </body>
