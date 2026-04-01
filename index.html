@@ -1120,7 +1120,7 @@ const raw=document.getElementById(‘importIn’).value.trim();
 if(!raw) return alert(‘Paste backup JSON first.’);
 try{
 const p=JSON.parse(raw);
-S={accounts:p.accounts||[],products:p.products||clone(DEFAULT_PRODUCTS),orders:p.orders||[],tasks:p.tasks||clone(DEFAULT_TASKS),settings:{…clone(DEFAULTS.settings),…(p.settings||{})}};
+S={accounts:p.accounts||[],products:p.products||clone(DEFAULT_PRODUCTS),orders:p.orders||[],tasks:p.tasks||clone(DEFAULT_TASKS),settings:{...clone(DEFAULTS.settings),...(p.settings||{})}};
 saveState();ui.accountDraft=newAccountDraft();ui.productDraft=newProductDraft();ui.orderDraft=newOrderDraft();
 render();alert(‘Backup imported successfully.’);
 }catch(e){alert(‘Invalid JSON — check your backup.’);}
