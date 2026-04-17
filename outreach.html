@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Outreach · Encore Petroleum</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0f12;--surface:#141720;--surface2:#1c2030;--border:#252a3a;--accent:#e8c84a;--accent2:#4af0a0;--red:#ff4d4d;--orange:#ff9a3c;--blue:#4ab8ff;--purple:#a78bfa;--text:#e8eaf0;--muted:#5a6080;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.logo{font-family:var(--display);font-size:24px;letter-spacing:2px;color:var(--accent)}
+.logo span{color:var(--muted);font-size:16px}
+.back-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:6px;font-family:var(--sans);font-size:12px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
+.back-btn:hover{color:var(--text);border-color:var(--muted)}
+.header-stats{display:flex;gap:20px;align-items:center}
+.hstat{text-align:center}
+.hstat-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;display:block}
+.hstat-value{font-family:var(--mono);font-size:16px}
+.hstat-value.gold{color:var(--accent)}.hstat-value.green{color:var(--accent2)}.hstat-value.blue{color:var(--blue)}.hstat-value.orange{color:var(--orange)}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--surface)}
+.search-box{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:8px;font-family:var(--sans);font-size:13px;width:220px;outline:none;transition:border-color .15s}
+.search-box:focus{border-color:var(--accent)}
+.filter-tabs{display:flex;gap:4px}
+.ftab{padding:6px 14px;border-radius:6px;font-size:12px;font-family:var(--sans);cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .15s;white-space:nowrap}
+.ftab.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:500}
+.ftab:hover:not(.active){color:var(--text);border-color:var(--muted)}
+.spacer{flex:1}
+.btn{padding:8px 16px;border-radius:8px;font-family:var(--sans);font-size:13px;cursor:pointer;border:none;font-weight:500;transition:all .15s;white-space:nowrap}
+.btn-gold{background:var(--accent);color:#000}.btn-gold:hover{background:#f5d45a}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-green{background:var(--accent2);color:#000}.btn-green:hover{filter:brightness(1.1)}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{filter:brightness(1.15)}
+.btn-blue{background:var(--blue);color:#000}
+.btn-sm{padding:5px 11px;font-size:11px;border-radius:6px}
+.content{padding:20px 24px}
+.prospect-table-wrap{overflow-x:auto}
+.prospect-table{width:100%;border-collapse:collapse;font-size:13px}
+.prospect-table thead tr{background:var(--surface);border-bottom:2px solid var(--accent)}
+.prospect-table th{padding:10px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500;cursor:pointer;white-space:nowrap;user-select:none}
+.prospect-table th:hover{color:var(--accent)}
+.prospect-table tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+.prospect-table tbody tr:hover{background:var(--surface2)}
+.prospect-table td{padding:10px 12px;vertical-align:middle}
+tr.ph td:first-child{border-left:3px solid var(--red)}
+tr.pw td:first-child{border-left:3px solid var(--orange)}
+tr.pc td:first-child{border-left:3px solid var(--blue)}
+.shop-name{font-weight:500}
+.shop-phone{font-family:var(--mono);font-size:12px;color:var(--blue);cursor:pointer}.shop-phone:hover{color:var(--accent);text-decoration:underline}
+.shop-email{font-size:11px;color:var(--purple)}
+.call-badge{display:inline-block;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:2px 9px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.call-badge.has{border-color:var(--orange);color:var(--orange)}
+.last-called{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.spill{display:inline-block;padding:2px 10px;border-radius:12px;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.pill-new{background:rgba(74,176,255,.12);color:var(--blue);border:1px solid rgba(74,176,255,.3)}
+.pill-called{background:rgba(255,154,60,.12);color:var(--orange);border:1px solid rgba(255,154,60,.3)}
+.pill-followup{background:rgba(232,200,74,.12);color:var(--accent);border:1px solid rgba(232,200,74,.3)}
+.pill-converted{background:rgba(74,240,160,.12);color:var(--accent2);border:1px solid rgba(74,240,160,.3)}
+.pill-dead{background:rgba(255,77,77,.08);color:var(--red);border:1px solid rgba(255,77,77,.2)}
+.row-actions{display:flex;gap:5px}
+.notes-preview{font-size:11px;color:var(--muted);max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-state .big{font-family:var(--display);font-size:36px;color:var(--border);margin-bottom:10px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.overlay.hidden{display:none}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;padding:24px}
+.modal-title{font-family:var(--display);font-size:22px;letter-spacing:1px;color:var(--accent);margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+.modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1;padding:0 4px}.modal-close:hover{color:var(--red)}
+.fg{margin-bottom:14px}
+.fl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px;display:block}
+.fi,.fs,.ft{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:8px;font-family:var(--sans);font-size:13px;outline:none;transition:border-color .15s}
+.fi:focus,.fs:focus,.ft:focus{border-color:var(--accent)}
+.fs option{background:var(--surface2)}
+.ft{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;border-top:1px solid var(--border);padding-top:16px}
+.call-log-panel{background:var(--surface2);border:1px solid var(--border);border-radius:8px;margin-top:14px;padding:14px}
+.clt{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.ce{border-bottom:1px solid var(--border);padding:8px 0;font-size:12px}.ce:last-child{border-bottom:none}
+.ce-date{font-family:var(--mono);color:var(--accent);font-size:11px}
+.ce-notes{color:var(--text);margin-top:3px}
+.ce-meta{color:var(--muted);font-size:11px;margin-top:2px}
+.import-hint{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5}
+.import-hint code{background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--blue)}
+@media(max-width:768px){
+  header{padding:12px 14px}
+  .logo{font-size:18px}
+  .header-stats{gap:12px}
+  .hstat-value{font-size:14px}
+  .toolbar{padding:10px 14px;gap:8px}
+  .search-box{width:100%}
+  .content{padding:12px 14px}
+  .prospect-table{font-size:12px}
+  .prospect-table td,.prospect-table th{padding:8px 8px}
+  .form-row{grid-template-columns:1fr}
+  .row-actions{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<header>
+  <div style="display:flex;align-items:center;gap:16px">
+    <a href="index.html" class="back-btn">← Command Center</a>
+    <div class="logo">📞 OUTREACH <span>· Encore Petroleum</span></div>
+  </div>
+  <div class="header-stats">
+    <div class="hstat"><span class="hstat-label">Queue</span><span class="hstat-value gold" id="statQueue">0</span></div>
+    <div class="hstat"><span class="hstat-label">Called Today</span><span class="hstat-value blue" id="statToday">0</span></div>
+    <div class="hstat"><span class="hstat-label">Follow Up</span><span class="hstat-value orange" id="statFollowup">0</span></div>
+    <div class="hstat"><span class="hstat-label">Converted</span><span class="hstat-value green" id="statConverted">0</span></div>
+  </div>
+</header>
+<div class="toolbar">
+  <input class="search-box" id="searchInput" placeholder="🔍  Search company, phone, contact..." oninput="renderTable()">
+  <div class="filter-tabs">
+    <button class="ftab active" onclick="setFilter('all',this)">All</button>
+    <button class="ftab" onclick="setFilter('new',this)">Never Called</button>
+    <button class="ftab" onclick="setFilter('called',this)">Called</button>
+    <button class="ftab" onclick="setFilter('followup',this)">Follow Up</button>
+    <button class="ftab" onclick="setFilter('converted',this)">Converted</button>
+  </div>
+  <div class="spacer"></div>
+  <button class="btn btn-ghost btn-sm" onclick="openImport()">📋 Import</button>
+  <button class="btn btn-gold" onclick="openAdd()">+ Add</button>
+</div>
+<div class="content">
+  <div class="prospect-table-wrap">
+    <table class="prospect-table" id="prospectTable">
+      <thead><tr>
+        <th onclick="sortBy('shopName')">Company</th>
+        <th onclick="sortBy('phone')">Phone</th>
+        <th onclick="sortBy('contactName')">Contact</th>
+        <th onclick="sortBy('callCount')">Calls</th>
+        <th onclick="sortBy('lastCalledDate')">Last Called</th>
+        <th onclick="sortBy('status')">Status</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty-state hidden" id="emptyState">
+      <div class="big">📞</div>
+      <p>No prospects here.</p>
+      <button class="btn btn-gold" onclick="openAdd()">+ Add Prospect</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="overlay hidden" id="addModal">
+  <div class="modal">
+    <div class="modal-title"><span id="addModalTitle">ADD PROSPECT</span><button class="modal-close" onclick="closeModal('addModal')">✕</button></div>
+    <input type="hidden" id="editId">
+    <div class="form-row">
+      <div class="fg"><label class="fl">Company Name *</label><input class="fi" id="fShopName" placeholder="Mike's Truck Shop"></div>
+      <div class="fg"><label class="fl">Phone</label><input class="fi" id="fPhone" placeholder="(215) 555-1234"></div>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label class="fl">Contact Name</label><input class="fi" id="fContact" placeholder="Owner / Manager"></div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="fEmail" type="email" placeholder="contact@shop.com"></div>
+    </div>
+    <div class="fg"><label class="fl">Address</label><input class="fi" id="fAddress" placeholder="123 Main St, City, ST 12345"></div>
+    <div class="form-row">
+      <div class="fg"><label class="fl">Priority</label>
+        <select class="fs" id="fPriority"><option value="cold">❄️ Cold</option><option value="warm">🔥 Warm</option><option value="hot">🚨 Hot</option></select>
+      </div>
+      <div class="fg"><label class="fl">Status</label>
+        <select class="fs" id="fStatus"><option value="new">New</option><option value="called">Called</option><option value="followup">Follow Up</option><option value="dead">Dead Lead</option></select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Notes</label><textarea class="ft" id="fNotes" placeholder="Volume? Products they use? Anything useful..."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('addModal')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveProspect()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOG CALL MODAL -->
+<div class="overlay hidden" id="callModal">
+  <div class="modal">
+    <div class="modal-title"><span id="callModalTitle">LOG CALL</span><button class="modal-close" onclick="closeModal('callModal')">✕</button></div>
+    <input type="hidden" id="callProspectId">
+    <div class="form-row">
+      <div class="fg"><label class="fl">Contact Name (if learned)</label><input class="fi" id="cContact" placeholder="Who answered?"></div>
+      <div class="fg"><label class="fl">Email (if given)</label><input class="fi" id="cEmail" placeholder="email@shop.com"></div>
+    </div>
+    <div class="fg"><label class="fl">Outcome</label>
+      <select class="fs" id="cOutcome">
+        <option value="no-answer">No Answer</option>
+        <option value="voicemail">Left Voicemail</option>
+        <option value="not-interested">Spoke — Not Interested</option>
+        <option value="call-back">Spoke — Call Back Later</option>
+        <option value="interested">Spoke — Interested ✅</option>
+        <option value="meeting">Meeting / Visit Set 🔥</option>
+        <option value="sent-info">Sent Info / Email</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Mark as</label>
+      <select class="fs" id="cStatus">
+        <option value="called">Called (send to bottom)</option>
+        <option value="followup">Follow Up (keep near top)</option>
+        <option value="dead">Dead Lead</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Notes from Call</label><textarea class="ft" id="cNotes" placeholder="What did they say? Volume? Good time to call back?"></textarea></div>
+    <div class="call-log-panel" id="existingCallLog" style="display:none">
+      <div class="clt">Previous Calls</div>
+      <div id="callLogEntries"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('callModal')">Cancel</button>
+      <button class="btn btn-green" onclick="logCall()">✓ Log &amp; Move to Bottom</button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="overlay hidden" id="detailModal">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-title"><span id="detailName">DETAIL</span><button class="modal-close" onclick="closeModal('detailModal')">✕</button></div>
+    <div id="detailContent"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('detailModal')">Close</button>
+      <button class="btn btn-ghost btn-sm" id="detailEditBtn">Edit</button>
+      <button class="btn btn-blue btn-sm" id="detailCallBtn">📞 Log Call</button>
+      <button class="btn btn-gold btn-sm" id="detailConvertBtn">✅ Convert</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONVERT MODAL -->
+<div class="overlay hidden" id="convertModal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-title">CONVERT ✅<button class="modal-close" onclick="closeModal('convertModal')">✕</button></div>
+    <input type="hidden" id="convertId">
+    <p style="color:var(--muted);font-size:13px;margin-bottom:16px">Converting <strong id="convertName" style="color:var(--text)"></strong> to customer.</p>
+    <div class="fg"><label class="fl">Conversion Notes</label><textarea class="ft" id="convertNotes" placeholder="First order, products, contact info..."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('convertModal')">Cancel</button>
+      <button class="btn btn-green" onclick="confirmConvert()">✅ Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="overlay hidden" id="importModal">
+  <div class="modal">
+    <div class="modal-title">BULK IMPORT<button class="modal-close" onclick="closeModal('importModal')">✕</button></div>
+    <div class="fg">
+      <label class="fl">Paste rows (one per line)</label>
+      <textarea class="ft" id="importText" style="min-height:160px" placeholder="Company Name, Phone, Contact, Email&#10;Mike's Truck Repair, 215-555-1234, Mike, mike@shop.com&#10;ABC Auto, 267-555-9876,,"></textarea>
+      <div class="import-hint">Format: <code>Company, Phone, Contact, Email</code> — one shop per line.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('importModal')">Cancel</button>
+      <button class="btn btn-gold" onclick="runImport()">Import</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// ALL 96 CONTACTS — SEEDED DATA
+// ══════════════════════════════════════
+const SEEDED = [
+  {id:"pdf001",shopName:"Sangillo Tire Center",contactName:"",phone:"610-586-3340",email:"",address:"1114 MacDade Blvd, Folsom PA 19033",notes:"",priority:"cold"},
+  {id:"pdf002",shopName:"Edgewater Park Service Center",contactName:"",phone:"609-555-1212",email:"",address:"1139 Cooper St, Beverly NJ 08010",notes:"",priority:"cold"},
+  {id:"pdf003",shopName:"Bear's Auto Service",contactName:"",phone:"215-295-5378",email:"",address:"115 E Bridge St, Morrisville PA 19067",notes:"",priority:"cold"},
+  {id:"pdf004",shopName:"Barela Auto",contactName:"",phone:"215-888-4710",email:"",address:"11500 Roosevelt Blvd, Philadelphia PA 19116",notes:"",priority:"cold"},
+  {id:"pdf005",shopName:"Barela Auto (Hatboro)",contactName:"",phone:"267-442-8376",email:"",address:"230 Tanner Ave, Hatboro PA 19040",notes:"",priority:"cold"},
+  {id:"pdf006",shopName:"Al's Service Center",contactName:"",phone:"609-392-8328",email:"",address:"119 Winterwood Ave, Ewing NJ 08638",notes:"",priority:"cold"},
+  {id:"pdf007",shopName:"Brightsmith Coaters",contactName:"",phone:"215-295-4158",email:"",address:"120 Enterprise Ave, Morrisville PA 19067",notes:"Industrial — hydraulic potential",priority:"warm"},
+  {id:"pdf008",shopName:"Raj Auto Center",contactName:"",phone:"732-249-2888",email:"",address:"1213 NJ-27, Somerset NJ 08873",notes:"",priority:"cold"},
+  {id:"pdf009",shopName:"D&A Auto Center",contactName:"",phone:"267-241-9802",email:"",address:"12301 McNulty Rd, Philadelphia PA 19154",notes:"",priority:"cold"},
+  {id:"pdf010",shopName:"SK Automotive",contactName:"",phone:"215-393-7888",email:"",address:"1238 N Broad St, Lansdale PA 19446",notes:"",priority:"cold"},
+  {id:"pdf011",shopName:"Chris Hunter & Sons Auto Repair",contactName:"",phone:"610-543-9677",email:"",address:"1278 Providence Rd, Secane PA 19018",notes:"",priority:"cold"},
+  {id:"pdf012",shopName:"Hurst Automotive Center",contactName:"",phone:"215-826-9002",email:"",address:"132 Otter St, Bristol PA 19007",notes:"",priority:"cold"},
+  {id:"pdf013",shopName:"Secane Station Auto Repair",contactName:"",phone:"610-284-2950",email:"",address:"137 E Baltimore Ave, Clifton Heights PA 19018",notes:"",priority:"cold"},
+  {id:"pdf014",shopName:"Valley Auto Craft",contactName:"",phone:"215-938-7470",email:"",address:"140 Tomlinson Rd, Huntingdon Valley PA 19006",notes:"",priority:"cold"},
+  {id:"pdf015",shopName:"Raj Auto Center (N Brunswick)",contactName:"",phone:"732-249-5535",email:"",address:"1400 Jersey Ave, North Brunswick NJ 08902",notes:"",priority:"cold"},
+  {id:"pdf016",shopName:"Rob's Garage",contactName:"",phone:"856-939-8591",email:"",address:"150 Carriage Ln, Delran NJ 08075",notes:"",priority:"cold"},
+  {id:"pdf017",shopName:"Meineke (Bethlehem)",contactName:"",phone:"484-892-6128",email:"",address:"1517 Stefko Blvd, Bethlehem PA 18017",notes:"",priority:"cold"},
+  {id:"pdf018",shopName:"Cottman Transmission",contactName:"",phone:"302-414-0652",email:"",address:"1600 N Dupont Hwy, New Castle DE 19720",notes:"",priority:"cold"},
+  {id:"pdf019",shopName:"Ivan's Auto Repair",contactName:"",phone:"856-314-8861",email:"",address:"1601 Cinnaminson Ave, Cinnaminson NJ 08077",notes:"",priority:"cold"},
+  {id:"pdf020",shopName:"Lucky Automotive",contactName:"",phone:"215-635-5252",email:"",address:"1617 W Cheltenham Ave, Elkins Park PA 19027",notes:"",priority:"cold"},
+  {id:"pdf021",shopName:"River Road Truckin LLC",contactName:"",phone:"856-757-4351",email:"",address:"1720 River Rd, Camden NJ 08105",notes:"Trucking — bulk buyer",priority:"warm"},
+  {id:"pdf022",shopName:"City Auto Center",contactName:"",phone:"609-448-9800",email:"",address:"180 Mercer St, Hightstown NJ 08520",notes:"",priority:"cold"},
+  {id:"pdf023",shopName:"Mongo's Repair",contactName:"",phone:"856-786-5101",email:"",address:"1808 Taylor's Ln, Cinnaminson NJ 08077",notes:"",priority:"cold"},
+  {id:"pdf024",shopName:"Ray's Automotive",contactName:"",phone:"484-494-5110",email:"",address:"1899 Delmar Dr, Folcroft PA 19032",notes:"",priority:"cold"},
+  {id:"pdf025",shopName:"Michaels Auto Service",contactName:"",phone:"724-327-0037",email:"",address:"1905 Newport Gap Pike, Wilmington DE 19808",notes:"",priority:"cold"},
+  {id:"pdf026",shopName:"Mickey's Auto Repair",contactName:"",phone:"215-339-9555",email:"",address:"1937 S Chadwick St, Philadelphia PA 19145",notes:"",priority:"cold"},
+  {id:"pdf027",shopName:"Meineke (Darby)",contactName:"",phone:"610-228-0327",email:"",address:"195 MacDade Blvd, Darby PA 19023",notes:"",priority:"cold"},
+  {id:"pdf028",shopName:"Magic Auto Service and Repair",contactName:"",phone:"856-547-0373",email:"",address:"200 White Horse Pike, Audubon NJ 08106",notes:"",priority:"cold"},
+  {id:"pdf029",shopName:"Kellers Auto Repair",contactName:"",phone:"856-768-0025",email:"",address:"210 Haddon Ave, West Berlin NJ 08091",notes:"",priority:"cold"},
+  {id:"pdf030",shopName:"Dougs Auto",contactName:"",phone:"302-653-7065",email:"",address:"222 E Mill St, Smyrna DE 19977",notes:"Good lead",priority:"warm"},
+  {id:"pdf031",shopName:"George and Sam's",contactName:"",phone:"215-675-9462",email:"",address:"228 E Street Rd, Warminster PA 18974",notes:"Good lead",priority:"warm"},
+  {id:"pdf032",shopName:"Garrisons Garage and Tire",contactName:"",phone:"215-426-2714",email:"",address:"2335 E Gordon St, Philadelphia PA 19125",notes:"",priority:"cold"},
+  {id:"pdf033",shopName:"Brad Smith Service",contactName:"",phone:"610-532-2156",email:"",address:"247 E Chester Pike, Ridley Park PA 19078",notes:"",priority:"cold"},
+  {id:"pdf034",shopName:"Car Care Center",contactName:"",phone:"610-539-0405",email:"",address:"2491 W Main St, Norristown PA 19403",notes:"",priority:"cold"},
+  {id:"pdf035",shopName:"H&B Auto",contactName:"",phone:"610-497-0311",email:"",address:"2524 W 3rd St, Chester PA 19013",notes:"",priority:"cold"},
+  {id:"pdf036",shopName:"Wizard Auto Repair",contactName:"",phone:"215-750-5514",email:"",address:"2525 Bridgetown Pike, Feasterville Trevose PA 19053",notes:"",priority:"cold"},
+  {id:"pdf037",shopName:"Meineke (Whitehall)",contactName:"",phone:"484-268-1325",email:"",address:"2717 MacArthur Rd, Whitehall PA 18052",notes:"",priority:"cold"},
+  {id:"pdf038",shopName:"Karrigan Automotive",contactName:"",phone:"215-698-7244",email:"",address:"2899 Holme Ave, Philadelphia PA 19136",notes:"",priority:"cold"},
+  {id:"pdf039",shopName:"Chuck's Garage",contactName:"",phone:"215-842-2200",email:"",address:"296 N Spring Garden St, Ambler PA 19002",notes:"",priority:"cold"},
+  {id:"pdf040",shopName:"A1 Auto & Truck Repair",contactName:"",phone:"609-298-4555",email:"a1auto65@gmail.com",address:"3023 US-206, Columbus NJ 08022",notes:"Email price list to a1auto65@gmail.com",priority:"warm"},
+  {id:"pdf041",shopName:"Diamond Auto",contactName:"",phone:"215-781-1920",email:"",address:"3100 Bath Rd, Bristol PA 19007",notes:"",priority:"cold"},
+  {id:"pdf042",shopName:"K&K Auto Repair",contactName:"",phone:"610-277-4777",email:"",address:"320 W Lafayette St, Norristown PA 19401",notes:"",priority:"cold"},
+  {id:"pdf043",shopName:"Lykon",contactName:"",phone:"215-788-6018",email:"",address:"3213 Bath Rd, Bristol PA 19007",notes:"",priority:"cold"},
+  {id:"pdf044",shopName:"Fries Mill Auto Repair",contactName:"",phone:"856-278-6605",email:"",address:"3251 NJ-42 S, Sicklerville NJ 08081",notes:"",priority:"cold"},
+  {id:"pdf045",shopName:"ASM Truck Repair",contactName:"",phone:"914-355-1199",email:"",address:"3300 W 4th St, Marcus Hook PA 19061",notes:"Truck shop — high volume",priority:"warm"},
+  {id:"pdf046",shopName:"Richmond Brake",contactName:"",phone:"215-425-7514",email:"",address:"3306 Almond St, Philadelphia PA 19134",notes:"",priority:"cold"},
+  {id:"pdf047",shopName:"Gear One Automotive",contactName:"",phone:"484-494-6742",email:"",address:"333 S Governor Printz Blvd, Essington PA 19029",notes:"",priority:"cold"},
+  {id:"pdf048",shopName:"Mr. Auto",contactName:"",phone:"215-245-1333",email:"",address:"3560 Bristol Pike, Bensalem PA 19020",notes:"130gal tank — uses 0w20",priority:"warm"},
+  {id:"pdf049",shopName:"Central Auto Service",contactName:"",phone:"215-386-4205",email:"",address:"3917 Lancaster Ave, Philadelphia PA 19104",notes:"",priority:"cold"},
+  {id:"pdf050",shopName:"Joe Raymonds Auto Service",contactName:"",phone:"215-945-7422",email:"",address:"3950 New Falls Rd, Bristol PA 19007",notes:"",priority:"cold"},
+  {id:"pdf051",shopName:"Mike's Auto Works",contactName:"",phone:"856-482-9700",email:"",address:"401 S Fellowship Rd, Maple Shade NJ 08052",notes:"",priority:"cold"},
+  {id:"pdf052",shopName:"Willow Grove Automotive",contactName:"",phone:"215-659-9827",email:"",address:"401 W Moreland Rd, Willow Grove PA 19090",notes:"",priority:"cold"},
+  {id:"pdf053",shopName:"Loringer's Automotive",contactName:"",phone:"610-987-1556",email:"",address:"411 Van Sciver Pkwy, Willingboro NJ 08046",notes:"",priority:"cold"},
+  {id:"pdf054",shopName:"Al's Collision Inc",contactName:"",phone:"215-364-1290",email:"",address:"4122 Old Lincoln Hwy, Feasterville Trevose PA 19053",notes:"",priority:"cold"},
+  {id:"pdf055",shopName:"MG Tire Center & Auto Sales",contactName:"",phone:"856-963-4555",email:"",address:"423 N 27th St, Camden NJ 08105",notes:"4 barrels — 0w20, 5w30, 5w20",priority:"warm"},
+  {id:"pdf056",shopName:"Fat Kid Motorsports",contactName:"Drew",phone:"215-420-7165",email:"drew@fatkidmotorsports.net",address:"435 Jacksonville Rd, Hatboro PA 19040",notes:"Email: drew@fatkidmotorsports.net",priority:"warm"},
+  {id:"pdf057",shopName:"Germosen Truck and Auto Service",contactName:"",phone:"215-456-0880",email:"",address:"4425 Rising Sun Ave, Philadelphia PA 19140",notes:"Truck shop",priority:"warm"},
+  {id:"pdf058",shopName:"Brake Shop",contactName:"",phone:"610-284-3388",email:"",address:"448 Long Ln, Upper Darby PA 19082",notes:"",priority:"cold"},
+  {id:"pdf059",shopName:"Meineke (Reading)",contactName:"",phone:"610-314-7222",email:"",address:"4497 Penn Ave, Reading PA 19608",notes:"",priority:"cold"},
+  {id:"pdf060",shopName:"Naz Auto",contactName:"",phone:"856-235-1515",email:"",address:"4 Collins Rd, Maple Shade NJ 08052",notes:"",priority:"cold"},
+  {id:"pdf061",shopName:"Indian Mills Auto Repair",contactName:"",phone:"609-268-6580",email:"",address:"4 Park Dr, Shamong NJ 08088",notes:"",priority:"cold"},
+  {id:"pdf062",shopName:"Kelley's Auto Repair",contactName:"",phone:"215-677-9322",email:"",address:"500 Red Lion Rd, Philadelphia PA 19115",notes:"",priority:"cold"},
+  {id:"pdf063",shopName:"Gibbons Automotive",contactName:"",phone:"610-566-6999",email:"",address:"502 W Baltimore Ave, Media PA 19063",notes:"Call back for boss lady",priority:"warm"},
+  {id:"pdf064",shopName:"Universal Tire and Auto",contactName:"",phone:"215-943-3600",email:"",address:"551 S Oxford Valley Rd, Fairless Hills PA 19030",notes:"Just filled — call when they need oil",priority:"warm"},
+  {id:"pdf065",shopName:"M&W Exhaust & Auto Repair",contactName:"",phone:"610-798-1045",email:"",address:"556 Pembroke Rd, Bethlehem PA 18018",notes:"",priority:"cold"},
+  {id:"pdf066",shopName:"Neary Automotive LLC",contactName:"Tom",phone:"215-494-9128",email:"",address:"585 Street Rd, Southampton PA 18966",notes:"Spoke to Tom — call back after 1pm",priority:"hot"},
+  {id:"pdf067",shopName:"Haverford Auto Center",contactName:"",phone:"610-645-0900",email:"",address:"610 Haverford Rd, Haverford PA 19041",notes:"Call the owner",priority:"warm"},
+  {id:"pdf068",shopName:"Chris Hunter's Auto Repair",contactName:"",phone:"610-543-9030",email:"",address:"612 South Ave, Secane PA 19018",notes:"SO CLOSE — close this week",priority:"hot"},
+  {id:"pdf069",shopName:"Coyle Brothers Auto Body",contactName:"",phone:"215-472-7723",email:"",address:"6147 W Girard Ave, Philadelphia PA 19151",notes:"",priority:"cold"},
+  {id:"pdf070",shopName:"Andrew's Car Care",contactName:"",phone:"609-953-8264",email:"",address:"629 Stokes Rd, Medford NJ 08055",notes:"",priority:"cold"},
+  {id:"pdf071",shopName:"U-Haul (Pennsauken)",contactName:"",phone:"856-324-3010",email:"",address:"6302 S Crescent Blvd, Pennsauken NJ 08109",notes:"Fleet service potential",priority:"warm"},
+  {id:"pdf072",shopName:"Flickers Auto Repair",contactName:"",phone:"215-332-4811",email:"",address:"6410 Hegerman St, Philadelphia PA 19135",notes:"",priority:"cold"},
+  {id:"pdf073",shopName:"Tony's Auto Repair",contactName:"",phone:"215-493-2017",email:"",address:"64 Ferry St, Yardley PA 19067",notes:"",priority:"cold"},
+  {id:"pdf074",shopName:"John Carney Auto Repair",contactName:"",phone:"610-532-2955",email:"",address:"666 Chester Pike, Norwood PA 19074",notes:"",priority:"cold"},
+  {id:"pdf075",shopName:"L & L Automotive Service",contactName:"",phone:"215-742-5600",email:"",address:"6701 Rising Sun Ave, Philadelphia PA 19111",notes:"",priority:"cold"},
+  {id:"pdf076",shopName:"Sippel Brothers",contactName:"",phone:"215-332-1180",email:"",address:"6912 Edmund St, Philadelphia PA 19135",notes:"",priority:"cold"},
+  {id:"pdf077",shopName:"Competition Auto",contactName:"",phone:"484-494-5861",email:"",address:"700 Morton Ave, Folsom PA 19033",notes:"",priority:"cold"},
+  {id:"pdf078",shopName:"Dave's Automotive Center",contactName:"",phone:"215-624-8151",email:"",address:"7000 Torresdale Ave, Philadelphia PA 19135",notes:"",priority:"cold"},
+  {id:"pdf079",shopName:"World Auto Body Repair",contactName:"",phone:"610-352-4474",email:"",address:"7108 W Chester Pike, Upper Darby PA 19082",notes:"",priority:"cold"},
+  {id:"pdf080",shopName:"American Auto Repair",contactName:"",phone:"610-397-0264",email:"",address:"725 Fayette St, Conshohocken PA 19428",notes:"",priority:"cold"},
+  {id:"pdf081",shopName:"Kevin's Auto Richboro",contactName:"",phone:"215-364-3201",email:"",address:"762 N Second Street Pike, Richboro PA 18954",notes:"",priority:"cold"},
+  {id:"pdf082",shopName:"Full Circle Automotive",contactName:"",phone:"856-335-4992",email:"",address:"770 NJ-73 S, West Berlin NJ 08091",notes:"",priority:"cold"},
+  {id:"pdf083",shopName:"E&S Truck Repair",contactName:"",phone:"267-981-2857",email:"",address:"800 Bristol Pike, Morrisville PA 19067",notes:"Truck shop",priority:"warm"},
+  {id:"pdf084",shopName:"Aaron's Automotive",contactName:"",phone:"215-493-3655",email:"",address:"81 E Afton Ave, Yardley PA 19067",notes:"",priority:"cold"},
+  {id:"pdf085",shopName:"Sid's Auto Service",contactName:"",phone:"610-534-3004",email:"",address:"820 Woodlawn Ave, Collingdale PA 19023",notes:"",priority:"cold"},
+  {id:"pdf086",shopName:"MAT Auto Repair Center",contactName:"",phone:"856-716-6641",email:"",address:"821 N Tuckahoe Rd, Williamstown NJ 08094",notes:"",priority:"cold"},
+  {id:"pdf087",shopName:"One Stop Truck and Trailer",contactName:"",phone:"267-261-2287",email:"",address:"8800 State Rd, Philadelphia PA 19136",notes:"Truck shop",priority:"warm"},
+  {id:"pdf088",shopName:"H & R Auto Repair",contactName:"",phone:"215-946-4000",email:"",address:"909 Trenton Rd, Fairless Hills PA 19030",notes:"",priority:"cold"},
+  {id:"pdf089",shopName:"Aluminodi Customs",contactName:"",phone:"610-435-7895",email:"",address:"912 E Highland St, Allentown PA 18109",notes:"",priority:"cold"},
+  {id:"pdf090",shopName:"Truck House",contactName:"",phone:"267-255-5723",email:"",address:"9300 Blue Grass Rd, Philadelphia PA 19114",notes:"Truck shop",priority:"warm"},
+  {id:"pdf091",shopName:"Kehan's Auto Service",contactName:"",phone:"215-624-3935",email:"",address:"9337 Torresdale Ave, Philadelphia PA 19114",notes:"",priority:"cold"},
+  {id:"pdf092",shopName:"Bridge Auto Group",contactName:"",phone:"856-767-0196",email:"",address:"94 W White Horse Pike, Berlin NJ 08009",notes:"",priority:"cold"},
+  {id:"pdf093",shopName:"Z Brothers Services Center",contactName:"",phone:"215-969-7355",email:"",address:"9853 Bustleton Ave, Philadelphia PA 19115",notes:"",priority:"cold"},
+  {id:"pdf094",shopName:"Term Automotive",contactName:"",phone:"856-456-0012",email:"",address:"100 New Broadway, Brooklawn NJ 08030",notes:"",priority:"cold"},
+  {id:"pdf095",shopName:"Colomex",contactName:"",phone:"215-329-5395",email:"",address:"100 W Wingohocking St, Philadelphia PA 19140",notes:"",priority:"cold"},
+  {id:"pdf096",shopName:"New Panco Garage",contactName:"",phone:"267-721-9497",email:"",address:"7110 West Chester Pike, Upper Darby PA 19082",notes:"",priority:"cold"}
+];
+
+// ══════════════════════════════════════
+// STORAGE
+// ══════════════════════════════════════
+const KEY = 'epc_outreach_v1';
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||null}catch{return null}}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d))}
+
+function seedIfEmpty(){
+  const existing = load();
+  if(existing && existing.length > 0) return;
+  const data = SEEDED.map((p,i)=>({
+    ...p,
+    status:'new',
+    sortOrder:i,
+    callLog:[],
+    dateAdded:'2026-04-08'
+  }));
+  save(data);
+}
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let currentFilter='all';
+let sortKey='sortOrder';
+let sortDir='asc';
+let editingId=null;
+
+// ══════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════
+function uid(){return 'p_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)}
+function today(){return new Date().toISOString().slice(0,10)}
+function fmt(d){if(!d)return '—';const[y,m,day]=d.split('-');return`${m}/${day}/${y.slice(2)}`}
+function isToday(d){return d&&d.slice(0,10)===today()}
+function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function updateStats(){
+  const all=load()||[];
+  document.getElementById('statQueue').textContent=all.filter(p=>p.status!=='converted'&&p.status!=='dead').length;
+  document.getElementById('statToday').textContent=all.filter(p=>p.callLog&&p.callLog.some(c=>isToday(c.date))).length;
+  document.getElementById('statFollowup').textContent=all.filter(p=>p.status==='followup').length;
+  document.getElementById('statConverted').textContent=all.filter(p=>p.status==='converted').length;
+}
+
+function setFilter(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function sortBy(key){
+  if(sortKey===key){sortDir=sortDir==='asc'?'desc':'asc'}else{sortKey=key;sortDir='asc'}
+  renderTable();
+}
+
+function getFiltered(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  let data=load()||[];
+  if(currentFilter!=='all') data=data.filter(p=>p.status===currentFilter);
+  if(q) data=data.filter(p=>(p.shopName||'').toLowerCase().includes(q)||(p.phone||'').toLowerCase().includes(q)||(p.contactName||'').toLowerCase().includes(q)||(p.email||'').toLowerCase().includes(q)||(p.address||'').toLowerCase().includes(q));
+  data.sort((a,b)=>{
+    let av=a[sortKey],bv=b[sortKey];
+    if(sortKey==='callCount'){av=a.callLog?a.callLog.length:0;bv=b.callLog?b.callLog.length:0}
+    if(sortKey==='sortOrder'){av=a.sortOrder||0;bv=b.sortOrder||0}
+    if(av==null)av='';if(bv==null)bv='';
+    if(typeof av==='string')av=av.toLowerCase();if(typeof bv==='string')bv=bv.toLowerCase();
+    return av<bv?(sortDir==='asc'?-1:1):av>bv?(sortDir==='asc'?1:-1):0;
+  });
+  return data;
+}
+
+function pillCls(s){return{new:'pill-new',called:'pill-called',followup:'pill-followup',converted:'pill-converted',dead:'pill-dead'}[s]||'pill-new'}
+function pillLbl(s){return{new:'New',called:'Called',followup:'Follow Up',converted:'Converted ✅',dead:'Dead Lead'}[s]||s}
+function prCls(p){return{hot:'ph',warm:'pw',cold:'pc'}[p]||'pc'}
+
+function renderTable(){
+  const data=getFiltered();
+  const tbody=document.getElementById('tableBody');
+  const empty=document.getElementById('emptyState');
+  if(!data.length){tbody.innerHTML='';empty.classList.remove('hidden');updateStats();return}
+  empty.classList.add('hidden');
+  tbody.innerHTML=data.map(p=>{
+    const calls=p.callLog||[];
+    const cnt=calls.length;
+    const last=cnt?calls[cnt-1].date:null;
+    const todayCall=calls.some(c=>isToday(c.date));
+    const latestNote=cnt?calls[cnt-1].notes:(p.notes||'');
+    return`<tr class="${prCls(p.priority)}">
+      <td><div class="shop-name">${esc(p.shopName)}</div>${p.address?`<div style="font-size:10px;color:var(--muted)">${esc(p.address)}</div>`:''}</td>
+      <td>${p.phone?`<div class="shop-phone" onclick="callPhone('${esc(p.phone)}')">${esc(p.phone)}</div>`:'<span style="color:var(--muted)">—</span>'}</td>
+      <td><div style="font-size:12px;color:var(--muted)">${p.contactName?esc(p.contactName):'<span style="color:var(--border)">Unknown</span>'}</div>${p.email?`<div class="shop-email">${esc(p.email)}</div>`:''}</td>
+      <td><span class="call-badge ${cnt?'has':''}">${cnt}x</span>${todayCall?'<span style="color:var(--accent2);font-size:10px;margin-left:4px">today</span>':''}</td>
+      <td><span class="last-called">${fmt(last)}</span></td>
+      <td><span class="spill ${pillCls(p.status)}">${pillLbl(p.status)}</span></td>
+      <td><div class="notes-preview" title="${esc(latestNote)}">${esc(latestNote)||'<span style="color:var(--border)">—</span>'}</div></td>
+      <td><div class="row-actions">
+        <button class="btn btn-blue btn-sm" onclick="openCall('${p.id}')">📞</button>
+        <button class="btn btn-ghost btn-sm" onclick="openDetail('${p.id}')">👁</button>
+        <button class="btn btn-ghost btn-sm" onclick="openEdit('${p.id}')">✏️</button>
+        ${p.status!=='converted'?`<button class="btn btn-green btn-sm" onclick="openConvert('${p.id}')">✅</button>`:''}
+        <button class="btn btn-red btn-sm" onclick="removeProspect('${p.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+  updateStats();
+}
+
+function callPhone(phone){window.location.href='tel:'+phone.replace(/[^0-9+]/g,'')}
+
+// ADD/EDIT
+function openAdd(){
+  editingId=null;
+  document.getElementById('addModalTitle').textContent='ADD PROSPECT';
+  document.getElementById('editId').value='';
+  ['fShopName','fPhone','fContact','fEmail','fAddress','fNotes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fPriority').value='cold';
+  document.getElementById('fStatus').value='new';
+  document.getElementById('addModal').classList.remove('hidden');
+  setTimeout(()=>document.getElementById('fShopName').focus(),50);
+}
+
+function openEdit(id){
+  const all=load()||[];
+  const p=all.find(x=>x.id===id);if(!p)return;
+  editingId=id;
+  document.getElementById('addModalTitle').textContent='EDIT PROSPECT';
+  document.getElementById('editId').value=id;
+  document.getElementById('fShopName').value=p.shopName||'';
+  document.getElementById('fPhone').value=p.phone||'';
+  document.getElementById('fContact').value=p.contactName||'';
+  document.getElementById('fEmail').value=p.email||'';
+  document.getElementById('fAddress').value=p.address||'';
+  document.getElementById('fNotes').value=p.notes||'';
+  document.getElementById('fPriority').value=p.priority||'cold';
+  document.getElementById('fStatus').value=p.status||'new';
+  document.getElementById('addModal').classList.remove('hidden');
+}
+
+function saveProspect(){
+  const name=document.getElementById('fShopName').value.trim();
+  if(!name){alert('Company name required.');return}
+  const all=load()||[];
+  const id=editingId||document.getElementById('editId').value;
+  if(id){
+    const idx=all.findIndex(x=>x.id===id);
+    if(idx>-1){all[idx]={...all[idx],shopName:name,phone:document.getElementById('fPhone').value.trim(),contactName:document.getElementById('fContact').value.trim(),email:document.getElementById('fEmail').value.trim(),address:document.getElementById('fAddress').value.trim(),notes:document.getElementById('fNotes').value.trim(),priority:document.getElementById('fPriority').value,status:document.getElementById('fStatus').value}}
+  } else {
+    const maxO=all.length?Math.max(...all.map(p=>p.sortOrder||0)):0;
+    all.push({id:uid(),shopName:name,phone:document.getElementById('fPhone').value.trim(),contactName:document.getElementById('fContact').value.trim(),email:document.getElementById('fEmail').value.trim(),address:document.getElementById('fAddress').value.trim(),notes:document.getElementById('fNotes').value.trim(),priority:document.getElementById('fPriority').value,status:document.getElementById('fStatus').value,sortOrder:maxO+1,callLog:[],dateAdded:today()});
+  }
+  save(all);closeModal('addModal');renderTable();
+}
+
+// LOG CALL
+function openCall(id){
+  const all=load()||[];
+  const p=all.find(x=>x.id===id);if(!p)return;
+  document.getElementById('callProspectId').value=id;
+  document.getElementById('callModalTitle').textContent='LOG CALL · '+p.shopName;
+  document.getElementById('cContact').value=p.contactName||'';
+  document.getElementById('cEmail').value=p.email||'';
+  document.getElementById('cNotes').value='';
+  document.getElementById('cOutcome').value='no-answer';
+  document.getElementById('cStatus').value='called';
+  const calls=p.callLog||[];
+  const panel=document.getElementById('existingCallLog');
+  if(calls.length){
+    panel.style.display='block';
+    document.getElementById('callLogEntries').innerHTML=[...calls].reverse().slice(0,5).map(c=>`<div class="ce"><div class="ce-date">${fmt(c.date)} ${c.time||''}</div><div class="ce-meta">${c.outcome||''}</div>${c.notes?`<div class="ce-notes">${esc(c.notes)}</div>`:''}</div>`).join('');
+  } else panel.style.display='none';
+  document.getElementById('callModal').classList.remove('hidden');
+}
+
+function logCall(){
+  const id=document.getElementById('callProspectId').value;
+  const all=load()||[];
+  const idx=all.findIndex(x=>x.id===id);if(idx<0)return;
+  const p=all[idx];
+  const nc=document.getElementById('cContact').value.trim();
+  const ne=document.getElementById('cEmail').value.trim();
+  const outcome=document.getElementById('cOutcome').value;
+  const ns=document.getElementById('cStatus').value;
+  const notes=document.getElementById('cNotes').value.trim();
+  const now=new Date();
+  if(nc)p.contactName=nc;if(ne)p.email=ne;
+  p.status=ns;
+  if(!p.callLog)p.callLog=[];
+  p.callLog.push({date:today(),time:now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),outcome,notes,contactSeen:nc,emailGot:ne});
+  const maxO=Math.max(...all.map(x=>x.sortOrder||0));
+  if(ns==='called')p.sortOrder=maxO+1;
+  else if(ns==='followup'){const uO=all.filter(x=>x.status==='new'&&x.id!==id).map(x=>x.sortOrder||0);p.sortOrder=(uO.length?Math.max(...uO):0)+0.5}
+  else if(ns==='dead')p.sortOrder=maxO+999;
+  all[idx]=p;save(all);closeModal('callModal');renderTable();
+}
+
+// DETAIL
+function openDetail(id){
+  const all=load()||[];
+  const p=all.find(x=>x.id===id);if(!p)return;
+  document.getElementById('detailName').textContent=p.shopName;
+  document.getElementById('detailEditBtn').onclick=()=>{closeModal('detailModal');openEdit(id)};
+  document.getElementById('detailCallBtn').onclick=()=>{closeModal('detailModal');openCall(id)};
+  document.getElementById('detailConvertBtn').onclick=()=>{closeModal('detailModal');openConvert(id)};
+  const calls=p.callLog||[];
+  document.getElementById('detailContent').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <div><span style="font-size:10px;color:var(--muted);text-transform:uppercase">Phone</span><br>${p.phone?`<a href="tel:${p.phone.replace(/[^0-9+]/g,'')}" style="color:var(--blue);font-family:var(--mono)">${esc(p.phone)}</a>`:'<span style="color:var(--muted)">—</span>'}</div>
+      <div><span style="font-size:10px;color:var(--muted);text-transform:uppercase">Contact</span><br><span>${esc(p.contactName)||'<span style="color:var(--muted)">Unknown</span>'}</span></div>
+      <div><span style="font-size:10px;color:var(--muted);text-transform:uppercase">Email</span><br>${p.email?`<a href="mailto:${esc(p.email)}" style="color:var(--purple)">${esc(p.email)}</a>`:'<span style="color:var(--muted)">—</span>'}</div>
+      <div><span style="font-size:10px;color:var(--muted);text-transform:uppercase">Status</span><br><span class="spill ${pillCls(p.status)}">${pillLbl(p.status)}</span></div>
+    </div>
+    ${p.address?`<div style="margin-bottom:12px"><span style="font-size:10px;color:var(--muted);text-transform:uppercase">Address</span><br>${esc(p.address)}</div>`:''}
+    ${p.notes?`<div style="margin-bottom:16px"><span style="font-size:10px;color:var(--muted);text-transform:uppercase">Notes</span><br><div style="white-space:pre-wrap;font-size:13px;line-height:1.5">${esc(p.notes)}</div></div>`:''}
+    ${calls.length?`<div class="call-log-panel"><div class="clt">Call History (${calls.length})</div>${[...calls].reverse().map(c=>`<div class="ce"><div class="ce-date">${fmt(c.date)} · ${c.time||''}</div><div class="ce-meta" style="color:var(--orange)">${c.outcome||''}</div>${c.contactSeen?`<div class="ce-meta">Contact: ${esc(c.contactSeen)}</div>`:''}${c.emailGot?`<div class="ce-meta">Email: ${esc(c.emailGot)}</div>`:''}${c.notes?`<div class="ce-notes">${esc(c.notes)}</div>`:''}</div>`).join('')}</div>`:'<div style="color:var(--muted);font-size:13px">No calls logged yet.</div>'}`;
+  document.getElementById('detailModal').classList.remove('hidden');
+}
+
+// CONVERT
+function openConvert(id){
+  const all=load()||[];const p=all.find(x=>x.id===id);if(!p)return;
+  document.getElementById('convertId').value=id;
+  document.getElementById('convertName').textContent=p.shopName;
+  document.getElementById('convertNotes').value='';
+  document.getElementById('convertModal').classList.remove('hidden');
+}
+
+function confirmConvert(){
+  const id=document.getElementById('convertId').value;
+  const notes=document.getElementById('convertNotes').value.trim();
+  const all=load()||[];const idx=all.findIndex(x=>x.id===id);if(idx<0)return;
+  all[idx].status='converted';all[idx].convertedDate=today();
+  if(notes)all[idx].notes=(all[idx].notes?all[idx].notes+'\n\n[CONVERTED] ':'[CONVERTED] ')+notes;
+  save(all);closeModal('convertModal');renderTable();
+}
+
+// REMOVE
+function removeProspect(id){
+  const all=load()||[];const p=all.find(x=>x.id===id);if(!p)return;
+  if(!confirm(`Remove "${p.shopName}" permanently?`))return;
+  save(all.filter(x=>x.id!==id));renderTable();
+}
+
+// IMPORT
+function openImport(){document.getElementById('importText').value='';document.getElementById('importModal').classList.remove('hidden')}
+function runImport(){
+  const raw=document.getElementById('importText').value.trim();if(!raw)return;
+  const all=load()||[];let maxO=all.length?Math.max(...all.map(p=>p.sortOrder||0)):0;let added=0;
+  raw.split('\n').filter(l=>l.trim()).forEach(line=>{
+    const parts=line.split(',').map(s=>s.trim());
+    const name=parts[0];if(!name)return;
+    if(all.some(p=>p.shopName.toLowerCase()===name.toLowerCase()))return;
+    all.push({id:uid(),shopName:name,phone:parts[1]||'',contactName:parts[2]||'',email:parts[3]||'',address:parts[4]||'',notes:'',priority:'cold',status:'new',sortOrder:++maxO,callLog:[],dateAdded:today()});added++;
+  });
+  save(all);closeModal('importModal');renderTable();alert(`✅ Imported ${added} new prospects.`);
+}
+
+// MODALS
+function closeModal(id){document.getElementById(id).classList.add('hidden');editingId=null}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeModal(o.id)}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.overlay:not(.hidden)').forEach(o=>closeModal(o.id))});
+
+// INIT
+seedIfEmpty();
+renderTable();
+</script>
+</body>
+</html>
